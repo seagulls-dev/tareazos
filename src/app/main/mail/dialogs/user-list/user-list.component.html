@@ -1,0 +1,156 @@
+<div class="dialog-content-wrapper responsive-modal">
+    <mat-toolbar class="transparent m-0">
+        <mat-toolbar-row
+            fxFlex
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <span class="title dialog-title">User List</span>
+            <button
+                mat-icon-button
+                (click)="closeDialog()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-actions class="m-0 p-16 pt-0" fxLayout="row" fxLayoutAlign="">
+        <div class="sidebar" fxFlex="30">
+            <div
+                class="account"
+                fxLayout="column"
+                [@animate]="{ value: '*', params: { delay: '300ms' } }"
+            >
+                <mat-form-field appearance="fill">
+                    <mat-label>Price Type</mat-label>
+                    <mat-select
+                        class="account-selection"
+                        placeholder="Seleeciona el Price Type"
+                        [ngModel]="selectedPriceType"
+                        (ngModelChange)="ChangePriceType($event)"
+                    >
+                        <mat-option
+                            *ngFor="let priceType of priceTypes"
+                            [value]="priceType.key"
+                        >
+                            {{ priceType.key }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div
+                class="account"
+                fxLayout="column"
+                [@animate]="{ value: '*', params: { delay: '300ms' } }"
+            >
+                <ng5-slider
+                    [(value)]="minRate"
+                    [(highValue)]="maxRate"
+                    [options]="sliderOptions"
+                    (valueChange)="ChangeRate($event)"
+                    (highValueChange)="ChangeHighRate($event)"
+                ></ng5-slider>
+            </div>
+        </div>
+        <div class="content pl-16" fxFlex="70">
+            <ng-container>
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Buscar</mat-label>
+                        <input matInput [placeholder]="'MAIL.SEARCH_PLACEHOLDER' | translate" [formControl]="searchInput">
+                        <mat-icon matPrefix>search</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <div class="table-custom">
+                    <table mat-table [dataSource]="dataSource">
+                        <ng-container matColumnDef="Cellphone">
+                            <th mat-header-cell *matHeaderCellDef>Cellphone</th>
+                            <td mat-cell *matCellDef="let element">
+                                <img class="avatar" *ngIf="
+                                        element.pictures && element.pictures.length
+                                    " src="{{ element.pictures[0].downloadUrl }}" />
+                                <div mat-card-avatar class="avatar" [ngStyle]="{'background-color': element.color}" *ngIf="
+                                        !(
+                                            element.pictures &&
+                                            element.pictures.length
+                                        )
+                                    ">
+                                    {{ element.Generales.FirstName[0].toUpperCase() }}{{ element.Generales.LastName[0].toUpperCase() }}
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="FirstName">
+                            <th mat-header-cell *matHeaderCellDef>FirstName</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.Generales.FirstName }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="LastName">
+                            <th mat-header-cell *matHeaderCellDef>LastName</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.Generales.LastName }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Gender">
+                            <th mat-header-cell *matHeaderCellDef>Gender</th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.Generales.Gender }}
+                            </td>
+                        </ng-container>
+                        <ng-container matColumnDef="Contratar">
+                            <th mat-header-cell *matHeaderCellDef>Contratar</th>
+                            <td mat-cell *matCellDef="let element">
+                                <button
+                                    mat-button
+                                    color="primary"
+                                    (click)="getContact()"
+                                >
+                                    Contratar
+                                </button>
+                            </td>
+                        </ng-container>
+                        <tr
+                            mat-row
+                            (click)="getRecord(index)"
+                            *matRowDef="
+                                let row;
+                                columns: displayedColumns;
+                                let index = index
+                            "
+                        ></tr>
+                    </table>
+                </div>
+                <div
+                    style="
+                        display: flex;
+                        justify-content: flex-end;
+                        margin-right: 20px;
+                    "
+                >
+                    <button
+                        mat-icon-button
+                        color="primary"
+                        (click)="prevPage()"
+                        [disabled]="!prevKeys?.length"
+                    >
+                        <mat-icon>skip_previous</mat-icon>
+                    </button>
+                    <button
+                        mat-icon-button
+                        color="primary"
+                        (click)="nextPage()"
+                        [disabled]="!nextKey.docId"
+                    >
+                        <mat-icon>skip_next</mat-icon>
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

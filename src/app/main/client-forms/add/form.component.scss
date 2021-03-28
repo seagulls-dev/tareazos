@@ -1,0 +1,213 @@
+#client-forms {
+    .pt-30 {
+        padding-top: 30px;
+    }
+
+    cdk-virtual-scroll-viewport {
+        height: 190px;
+    }
+
+    .example-item {
+        background: transparent;
+    }
+
+    .example-item:hover {
+        background: rgba(0, 0, 0, 0.04);
+        transition: all 200ms ease;
+    }
+
+    .active {
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    .mat-card-image {
+        width: 96px;
+        margin: 0;
+    }
+
+    .mat-card-image:first-child {
+        margin-top: 0;
+    }
+
+    mat-toolbar {
+        height: 50px;
+        min-height: 50px;
+        border-bottom-color: transparent !important;
+        border-bottom: 0px solid;
+        background-color: transparent;
+
+        .new {
+            padding: 0px 10px 0px 10px !important;
+        }
+    }
+
+    .mat-dialog-container {
+        -webkit-backdrop-filter: blur(25px) saturate(100%);
+        backdrop-filter: blur(25px) saturate(100%);
+        background: rgba(255, 255, 255, 0.8);
+        filter: brightness(108%);
+        -webkit-filter: brightness(108%);
+    }
+
+    .mat-stepper-horizontal {
+        background-color: transparent;
+    }
+
+    .header {
+        background-color: white !important;
+
+        .search-wrapper {
+            width: 100%;
+            max-width: 480px;
+            padding-top: 20px;
+
+            .search {
+                width: 100%;
+            }
+        }
+    }
+
+    .content {
+        background: transparent;
+        height: 100%;
+
+        .sidebar {
+            &:not(.locked-open) {
+                background: white;
+            }
+        }
+    }
+
+    .builder-container {
+        display: flex;
+
+        .builder-source,
+        .builder-target {
+            flex: 1 1 50%;
+            box-sizing: border-box;
+            max-width: 50%;
+        }
+    }
+
+    .ngx-dnd-item {
+        font-size: 16px;
+    }
+
+    .builder-source .ngx-dnd-container {
+        border: none;
+        background-color: lightgrey;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .ngx-dnd-container {
+        justify-content: normal;
+        flex-flow: row wrap;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+
+        padding: 10;
+        min-height: 60px;
+
+        .gu-unselectable &,
+        &.gu-over,
+        &.gu-over .ngx-dnd-container {
+            border: 1px dashed orange;
+        }
+
+        .ngx-dnd-item {
+            // margin: 5px 1%;
+            margin: 0;
+            border: 1px solid transparent;
+            background-color: transparent;
+            width: 100% !important;
+
+            // flex: 1 1 100%;
+            box-sizing: border-box;
+            -webkit-box-flex: 1;
+            max-width: 100%;
+
+            &.control {
+                box-sizing: border-box;
+                -webkit-box-flex: 1;
+                max-height: 80px;
+                padding: 10;
+            }
+
+            &.wide {
+                width: 100%;
+            }
+        }
+    }
+
+    .builder-target {
+        .ngx-input {
+            margin: 0;
+
+            .ngx-input-wrap {
+                margin: 0;
+            }
+        }
+
+        > * > .ngx-dnd-container {
+            min-height: 400px;
+        }
+
+        .ngx-dnd-container {
+            justify-content: normal;
+            flex-flow: row wrap;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            box-sizing: border-box;
+
+            border: 1px dashed lightgrey;
+            background-color: white;
+
+            padding: 10;
+            min-height: 60px;
+
+            .gu-unselectable &,
+            &.gu-over,
+            &.gu-over .ngx-dnd-container {
+                border: 1px dashed orange;
+            }
+
+            .ngx-dnd-item {
+                // margin: 5px 1%;
+                margin: 0;
+                border: 1px solid transparent;
+                background-color: #ffffff;
+
+                // flex: 1 1 100%;
+                box-sizing: border-box;
+                -webkit-box-flex: 1;
+                max-width: 100%;
+
+                &.section {
+                    box-sizing: border-box;
+                    -webkit-box-flex: 1;
+                    max-height: none !important;
+                    padding: 10;
+                }
+
+                &.control {
+                    box-sizing: border-box;
+                    -webkit-box-flex: 1;
+                    max-height: 80px;
+                    padding: 10;
+                }
+
+                &.wide {
+                    width: 100%;
+                }
+            }
+
+            .ngx-dnd-item.gu-transit,
+            .ngx-dnd-item:hover {
+                border: 1px solid #1786e9;
+            }
+        }
+    }
+}

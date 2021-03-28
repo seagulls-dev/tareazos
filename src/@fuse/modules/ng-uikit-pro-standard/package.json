@@ -1,0 +1,47 @@
+{
+  "name": "ng-uikit-pro-standard",
+  "version": "8.8.2",
+  "files": [
+    "assets/**/*",
+    "bundles/**/*",
+    "esm5/**/*",
+    "esm2015/**/*",
+    "fesm5/**/*",
+    "fesm2015/**/*",
+    "lib/**/*",
+    ".gitignore",
+    "changelog",
+    "license.pdf",
+    "ng-uikit-pro-standard.d.ts",
+    "ng-uikit-pro-standard.metadata.json",
+    "package.json",
+    "public_api.d.ts"
+  ],
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0"
+  },
+  "main": "bundles/ng-uikit-pro-standard.umd.js",
+  "module": "fesm5/ng-uikit-pro-standard.js",
+  "es2015_ivy_ngcc": "__ivy_ngcc__/fesm2015/ng-uikit-pro-standard.js",
+  "es2015": "fesm2015/ng-uikit-pro-standard.js",
+  "esm5": "esm5/ng-uikit-pro-standard.js",
+  "esm2015": "esm2015/ng-uikit-pro-standard.js",
+  "fesm5": "fesm5/ng-uikit-pro-standard.js",
+  "fesm2015_ivy_ngcc": "__ivy_ngcc__/fesm2015/ng-uikit-pro-standard.js",
+  "fesm2015": "fesm2015/ng-uikit-pro-standard.js",
+  "typings": "ng-uikit-pro-standard.d.ts",
+  "metadata": "ng-uikit-pro-standard.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "__processed_by_ivy_ngcc__": {
+    "es2015": "9.0.0",
+    "fesm2015": "9.0.0",
+    "typings": "9.0.0"
+  },
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by NGCC. This is not allowed.\\nPlease delete and rebuild the package, without compiling with NGCC, before attempting to publish.\\nNote that NGCC may have been run by importing this package into another project that is being built with Ivy enabled.\\n')\" && exit 1"
+  }
+}

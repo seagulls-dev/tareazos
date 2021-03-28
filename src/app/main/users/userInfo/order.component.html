@@ -1,0 +1,716 @@
+<div id="order" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-around center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="space-around">
+
+                <button mat-icon-button class="mr-16" [routerLink]="'/users/list'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        Firebase Id {{user.userData?.id}}
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span></span>
+                        <span>{{user.userData?.data?.name}}{{user.userData?.data?.lastname}}</span>
+                    </div>
+                </div>
+
+                <button mat-icon-button class="mr-16" (click)="deleteUser()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group fxLayout="column" fxFlex>
+
+                    <mat-tab label="Order Details">
+
+                        <div class="order-details tab-content p-24" fusePerfectScrollbar>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="m-0 mr-16 secondary-text">account_circle</mat-icon>
+                                    <div class="h2 secondary-text">Usuario</div>
+                                </div>
+
+                                <div class="customer mb-32">
+                                    <table class="simple">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Empresa o emprendimiento</th>
+                                                <th>Current Role</th>
+                                                <th>isTasker</th>
+                                                <th>medio de transporte</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <img class="avatar" *ngIf="profilepic" [src]="profilepic">
+                                                        <span class="name text-truncate">{{user.userData?.data?.name}}
+                                                            {{user.userData?.data?.lastname}}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="email text-truncate">{{user.userData?.data?.email}}</span>
+                                                </td>
+                                                <td>
+                                                    <a *ngIf="user.provider?.data?.Generales.Cellphone"
+                                                        [href]="'https://wa.me/+507' + user.provider?.data?.Generales.Cellphone.replace('+507', '').replace('-', '').replace(' ', '')"
+                                                        target="_blank">{{user.provider?.data?.Generales.Cellphone}}</a>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="company text-truncate">{{user.provider?.data?.Generales.displayName}}</span>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="company text-truncate">{{user.userData?.data?.currentRole}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="company text-truncate">{{user.userData?.data?.isTasker}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="company text-truncate">{{user.provider?.data?.Generales.transport}}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <button mat-button color="accent" (click)="editProfile()"
+                                                        aria-label="Example icon button with a home icon">
+                                                        <mat-icon style="font-size: 18px;">edit</mat-icon>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+
+
+                                    <mat-form-field appearance="fill" class="w-100" fxFlex.xs="100" fxFlex="25">
+                                        <mat-label>isTasker</mat-label>
+                                        <mat-select required ngDefaultControl [(ngModel)]="taskerRole"
+                                            #istasker="ngModel">
+                                            <mat-option [value]="true">
+                                                True
+                                            </mat-option>
+                                            <mat-option [value]="false">
+                                                False
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <button mat-raised-button class="mat-accent" fxFlex="15" fxFlex.xs="100"
+                                        [disabled]="!istasker.valid" (click)="updateTaskerRol(taskerRole)">
+                                        Update is Tasker
+                                    </button>
+                                </div>
+
+                                <mat-accordion class="addresses">
+
+                                    <mat-expansion-panel>
+
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title> Dirección </mat-panel-title>
+                                        </mat-expansion-panel-header>
+
+                                        <div fxFlex fxLayout="column">
+                                            <div class="address h4 py-24">{{user.provider?.data?.Generales.Address}}
+                                            </div>
+                                            <div> última ubicación</div>
+                                            <agm-map class="w-100-p h-400" style="height: 300px;" [zoom]="15"
+                                                [latitude]="user.provider?.data?.location?.lat"
+                                                [longitude]="user.provider?.data?.location?.lng">
+                                                <agm-marker [latitude]="user.provider?.data?.location?.lat"
+                                                    [longitude]="user.provider?.data?.location?.lng">
+                                                </agm-marker>
+                                            </agm-map>
+                                        </div>
+
+                                    </mat-expansion-panel>
+
+                                    <mat-expansion-panel>
+
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>Dirección Facturación</mat-panel-title>
+                                        </mat-expansion-panel-header>
+
+                                        <div fxFlex fxLayout="column">
+                                            <div class="address h4 py-24">{{user.provider?.data?.Generales.Address}}
+                                            </div>
+                                            <agm-map class="w-100-p h-400" [zoom]="15"
+                                                [latitude]="order.customer.invoiceAddress.lat"
+                                                [longitude]="order.customer.invoiceAddress.lng">
+                                                <agm-marker [latitude]="order.customer.invoiceAddress.lat"
+                                                    [longitude]="order.customer.invoiceAddress.lng">
+                                                </agm-marker>
+                                            </agm-map>
+                                        </div>
+
+                                    </mat-expansion-panel>
+
+                                </mat-accordion>
+
+                            </div>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="m-0 mr-16 secondary-text">money</mat-icon>
+                                    <div class="h2 secondary-text">Account Movements</div>
+                                </div>
+
+                                <mat-table class="orders-table" #table [dataSource]="dataSource" matSort
+                                    [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="asClient">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>as Client
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">{{order.asClient}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Reference Column -->
+                                    <ng-container matColumnDef="asTasker">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>as Tasker</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="text-truncate">{{order.asTasker}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="concept">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Concepto</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="text-truncate">
+                                                {{order.concept}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="chargedAmount">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Monto</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="text-truncate">
+                                                {{order.chargedAmount | currency}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Status Column -->
+                                    <ng-container matColumnDef="comissionFee">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Comision</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="status text-truncate h6 p-4">
+                                                {{order.comissionFee | currency}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="creditTotal">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Credito
+                                            Total
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">
+                                                {{order.creditTotal | currency }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="movementType">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Tipo de
+                                            Transacción
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">
+                                                {{order.movementType }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="movementDate">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Fecha de
+                                            transaccion
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">
+                                                {{ getDate(order.movementDate) | date:'MM-dd-yyyy HH:mm' }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                                    <mat-row *matRowDef="let order; columns: displayedColumns;" class="order" matRipple>
+                                    </mat-row>
+                                </mat-table>
+
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                </mat-paginator>
+
+                            </div>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="m-0 mr-16 secondary-text">money</mat-icon>
+                                    <div class="h2 secondary-text">Current Balance</div>
+                                </div>
+
+                                <table class="simple">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Balance</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <span class="status h6 p-4">
+                                                    Current Balance
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{user.userData?.data?.currentBalance | currency}}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+                                    <mat-form-field appearance="fill" class="w-100" fxFlex.xs="100" fxFlex="25">
+                                        <mat-label>Crédito por transferencia</mat-label>
+                                        <input matInput type="number" #amountId="ngModel" required ngDefaultControl
+                                            [(ngModel)]="amount">
+                                    </mat-form-field>
+                                    <button mat-raised-button class="mat-accent" fxFlex.xs="100" fxFlex="15"
+                                        (click)="addMovement()" [disabled]="!amountId.valid">
+                                        Add Movement
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="m-0 mr-16 secondary-text">access_time</mat-icon>
+                                    <div class="h2 secondary-text">User Status</div>
+                                </div>
+
+                                <table class="simple">
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td>
+                                                <span class="status h6 p-4">
+                                                    taskerStatus
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span [ngClass]="getStatusColor(user.provider?.data?.taskerStatus)">
+                                                    {{user.provider?.data?.taskerStatus}}
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <span class="status h6 p-4">
+                                                    admin
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span>
+                                                    {{user.userData?.data?.admin}}
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start center">
+
+                                    <mat-form-field appearance="fill" class="w-100" fxFlex.xs="100" fxFlex="25">
+                                        <mat-label>taskerStatus</mat-label>
+                                        <mat-select required ngDefaultControl [(ngModel)]="taskerStatus"
+                                            #tasker="ngModel">
+                                            <mat-option *ngFor="let status of orderStatuses" [value]="status.name">
+                                                {{status.name}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <button mat-raised-button class="mat-accent" fxFlex.xs="100" fxFlex="15"
+                                        (click)="updateStatus('taskerStatus',taskerStatus)" [disabled]="!tasker.valid">
+                                        Update Status
+                                    </button>
+                                    <mat-form-field appearance="fill" class="w-100" fxFlex.xs="100" fxFlex="25">
+                                        <mat-label>Admin</mat-label>
+                                        <mat-select required ngDefaultControl [(ngModel)]="adminStatus"
+                                            #admin="ngModel">
+                                            <mat-option [value]="true">
+                                                True
+                                            </mat-option>
+                                            <mat-option [value]="false">
+                                                False
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <button mat-raised-button class="mat-accent" fxFlex="15" fxFlex.xs="100"
+                                        [disabled]="!admin.valid" (click)="updateStatus('admin',adminStatus)">
+                                        Update Status
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="space-between">
+                                    <mat-icon class="m-0 mr-16 secondary-text">attach_money</mat-icon>
+                                    <div class="h2 secondary-text">Habilidades</div>
+                                    <div class="more secondary-text">
+                                        <a class="font-size-14 font-weight-400 fg-primary" (click)="addSkills()">Añadir
+                                            más </a>
+                                    </div>
+                                </div>
+
+                                <table class="simple">
+                                    <thead>
+                                        <tr>
+                                            <th>Habilidad</th>
+                                            <th>Subcategoría</th>
+                                            <th>No listada</th>
+                                            <th>Tipo de precio</th>
+                                            <th>Precio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let skill of user.provider?.data?.Habilidades; let i=index">
+                                            <td>
+                                                <span class="text-truncate">
+                                                    {{skill.skill}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-truncate">
+                                                    {{skill.subcategory}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-truncate">
+                                                    {{skill.skillNotListed}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-truncate">
+                                                    {{skill.priceType}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-truncate">
+                                                    {{skill.rate}}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button mat-button color="accent" (click)="deleteSkill(i)"
+                                                    aria-label="Example icon button with a home icon">
+                                                    <mat-icon style="font-size: 18px;">delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Documentos">
+
+
+                        <div class="products tab-content p-24" fusePerfectScrollbar>
+
+                            <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+
+                                <div class="h2 secondary-text">Cargar Documentos</div>
+                                <form [formGroup]="form" id="form">
+                                    <div fxLayout="row">
+                                        <div *ngFor="let question of formQuestions | async" fxLayout="column">
+                                            <df-question fxLayout="column" class="ngx-dnd-item" [question]="question"
+                                                [form]="form" (GetDownloadUrl2)="
+                                                GetDownloadUrl($event)
+                                            ">
+                                            </df-question>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+
+
+                            <table class="simple">
+                                <thead>
+                                    <tr>
+                                        <th class="w-80">ID</th>
+                                        <th class="w-120">Image</th>
+                                        <th></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="product-row"
+                                        *ngFor="let product of user.provider?.data?.pictures; let i= index;">
+                                        <td>
+                                            {{product.title}}
+                                        </td>
+                                        <td>
+                                            <img class="product-image" [src]="product.downloadUrl">
+                                        </td>
+                                        <td>
+                                            <button mat-button color="accent" (click)="deletePicture(i)"
+                                                aria-label="Example icon button with a home icon">
+                                                <mat-icon style="font-size: 18px;">delete</mat-icon>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Reseñas, insignias y otros">
+
+                        <div class="invoice tab-content p-24" fusePerfectScrollbar>
+
+                            <div id="invoice" class="compact page-layout blank" fxLayout="column" fxFlex="25" fx
+                                fxFlex.xs="100" fusePerfectScrollbar>
+                                <div class="more secondary-text">
+                                    <a class="font-size-14 font-weight-400 fg-primary" mat-raised-button
+                                        (click)="saveBadges()">Agregar
+                                    </a>
+                                </div>
+                                <br>
+                                <div class="card">
+                                    <mat-selection-list #badgeslist [(ngModel)]="selectedBadges">
+                                        <mat-list-option *ngFor="let shoe of typeOfBadges" [value]="shoe">
+                                            {{shoe}}
+                                        </mat-list-option>
+                                    </mat-selection-list>
+                                    <br>
+                                    <br>
+                                    <p>
+                                        Cantidad de Badges: {{badges?.length}}
+                                        <br>
+                                        Badges actuales:
+                                        <br>
+                                    <p *ngFor="let badge of badges">
+                                        {{badge}}
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Ejemplo Factura">
+                        <div class="invoice tab-content p-24" fusePerfectScrollbar>
+
+                            <div id="invoice" class="compact page-layout blank" fxLayout="row" fusePerfectScrollbar>
+                                <div class="invoice-container">
+
+                                    <!-- INVOICE -->
+                                    <div class="card">
+
+                                        <div class="header">
+                                            <div class="invoice-date">{{order.date}}</div>
+
+                                            <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                                                <div class="client">
+                                                    <div class="invoice-number" fxLayout="row"
+                                                        fxLayoutAlign="start center">
+                                                        <span class="title">INVOICE</span>
+                                                        <span class="number">{{order.reference}}</span>
+                                                    </div>
+
+                                                    <div class="info">
+                                                        <div class="title">
+                                                            {{order.customer.firstName}}
+                                                            {{order.customer.lastName}}
+                                                        </div>
+                                                        <div class="address">
+                                                            {{order.customer.invoiceAddress.address}}
+                                                        </div>
+                                                        <div class="phone">{{order.customer.phone}}</div>
+                                                        <div class="email">{{order.customer.email}}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="issuer accent" fxLayout="row" fxLayoutAlign="start center">
+                                                    <div class="logo">
+                                                        <img src="assets/images/logos/fuse.svg">
+                                                    </div>
+
+                                                    <div class="info">
+                                                        <div class="title">FUSE INC.</div>
+                                                        <div class="address">2810 Country Club Road Cranford, NJ 07016
+                                                        </div>
+                                                        <div class="phone">+66 123 455 87</div>
+                                                        <div class="email">hello@fuseinc.com</div>
+                                                        <div class="website">www.fuseinc.com</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="content">
+
+                                            <table class="simple invoice-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>PRODUCT</th>
+                                                        <th class="text-right">PRICE</th>
+                                                        <th class="text-right">QUANTITY</th>
+                                                        <th class="text-right">TOTAL</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let product of order.products">
+                                                        <td>
+                                                            <div class="title">
+                                                                {{product.name}}
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{product.price | currency:'USD':'symbol'}}
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{product.quantity}}
+                                                        </td>
+                                                        <td class="text-right">
+                                                            {{product.total | currency:'USD':'symbol'}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
+                                            <table class="simple invoice-table-footer">
+                                                <tbody>
+                                                    <tr class="subtotal">
+                                                        <td>SUBTOTAL</td>
+                                                        <td>{{order.subtotal | currency:'USD':'symbol'}}</td>
+                                                    </tr>
+                                                    <tr class="tax">
+                                                        <td>TAX</td>
+                                                        <td>{{order.tax | currency:'USD':'symbol'}}</td>
+                                                    </tr>
+                                                    <tr class="discount">
+                                                        <td>DISCOUNT</td>
+                                                        <td>-{{order.discount | currency:'USD':'symbol'}}</td>
+                                                    </tr>
+                                                    <tr class="total">
+                                                        <td>TOTAL</td>
+                                                        <td>{{order.total | currency:'USD':'symbol'}}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="footer">
+                                            <div class="note">Please pay within 15 days. Thank you for your business.
+                                            </div>
+                                            <div fxLayout="row" fxLayoutAlign="start start">
+                                                <div class="logo">
+                                                    <img src="assets/images/logos/fuse.svg">
+                                                </div>
+                                                <div class="small-note">
+                                                    In condimentum malesuada efficitur. Mauris volutpat placerat auctor.
+                                                    Ut ac congue dolor. Quisque scelerisque lacus sed feugiat fermentum.
+                                                    Cras aliquet facilisis pellentesque. Nunc hendrerit quam at leo
+                                                    commodo, a suscipit tellus dapibus. Etiam at felis volutpat est
+                                                    mollis lacinia. Mauris placerat sem sit amet velit mollis, in
+                                                    porttitor ex finibus. Proin eu nibh id libero tincidunt lacinia et
+                                                    eget eros.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- / INVOICE -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+</div>

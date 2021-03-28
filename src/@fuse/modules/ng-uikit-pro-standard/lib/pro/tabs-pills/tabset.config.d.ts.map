@@ -1,0 +1,1 @@
+{"version":3,"file":"tabset.config.d.ts","sources":["C:/repos/Handyman/src/@fuse/modules/ng-uikit-pro-standard/lib/pro/tabs-pills/tabset.config.d.ts"],"sourcesContent":["export declare class TabsetConfig {\n    /** provides default navigation context class: 'tabs' or 'pills' */\n    type: string;\n}\n"],"names":[],"mappings":";AAAA;;;;;AAGA;"}

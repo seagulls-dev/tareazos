@@ -1,0 +1,69 @@
+
+<div fxLayout="row" fxLayoutAlign="start center" [matTooltip]="'Status: ' + request.status" [matTooltipClass]="'bg-'+request.status">
+    <img class="avatar" src="assets/images/avatars/Arnold.jpg">
+
+    <div class="info" fxFlex FlexLayout="column" fxFlex="80">
+
+        <div class="row-1" fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="w-100" fxLayout="column" fxLayoutAlign="start">
+                <div fxLayout="row">
+                  <!-- <img class="avatar" src="assets/images/avatars/Arnold.jpg"> -->
+                  <span fxFlex class="fg-primary text-bold text-truncate"> {{request.authorname}}: {{request.title}}</span>
+                </div>
+                <div fxLayout="column">
+                    <span class="pt-4 fg-darkGray" *ngIf="request.createDate">
+                        {{ request.createDate.seconds * 1000 | date:'MM-dd-yyyy HH:mm' }}</span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row-2" fxLayout="row" fxLayoutAlign="start center">
+
+            <div fxLayout="column" fxLayoutAlign="start start" fxFlex>
+                <div  *ngIf="!request.subcategory">
+                <span class="subject text-truncate" >
+                    {{request[request.category].Area}}
+                </span>
+                <span class="message text-truncate" *ngIf="request?.title">
+                    {{request[request.category].TaskDescription}}
+                </span>    
+            </div>
+            <div *ngIf="request.subcategory">
+                <span class="subject text-truncate" *ngIf="request.subcategory">
+                    {{request[request.subcategory].Area}}
+                </span>
+            </div>
+
+               
+
+                <!-- <div class="labels" fxLayout="row wrap" fxHide fxShow.gt-sm>
+                    <div class="label" fxLayout="row" fxLayoutAlign="start center">
+                        <div class="label-color" style="background-color: '#7cb342'" *ngIf="request.status == 'Open'">
+                        </div>
+                        <div class="label-color" style="background-color: '#03a9f4'"
+                            *ngIf="request.status == 'Assigned'"></div>
+                        <div class="label-color" style="background-color: '#d84315'"
+                            *ngIf="request.status == 'Completed'"></div>
+                        <div class="label-title">{{request.status}}</div>
+                    </div>
+                </div> -->
+
+            </div>
+
+
+        </div>
+
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-between center" fxFlex="20" class="mt-12">
+        <div class="text-bold fg-darkGray">
+            {{request.Request.Budget | currency}}
+        </div>
+        <div *ngIf="!(_mailService.inboxtype == 'AsClient')">
+            <button mat-button (click)="openDialog()" color="warn">Ofertar</button>
+        </div>
+
+    </div>
+
+</div>

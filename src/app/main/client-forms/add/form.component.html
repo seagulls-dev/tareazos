@@ -1,0 +1,157 @@
+<div id="client-forms" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+    <mat-toolbar class="mat-toolbar pl-0">
+        <div fxFlex fxLayout="column" fxLayoutAlign="start center">
+            {{ Title }}
+        </div>
+    </mat-toolbar>
+
+    <div class="content pt-30">
+        <div class="center" fusePerfectScrollbar>
+            <div class="content">
+                <div fxLayout="column">
+                    <mat-horizontal-stepper linear fxFlex>
+                        <mat-step *ngFor="let step of stepper; let i = index" [stepControl]="step.form">
+                            <div *ngIf="step.id == 'Habilidades'">
+                                <div class="cdk-virtual-scroll-data-source-example w-100">
+                                    <cdk-virtual-scroll-viewport orientation="horizontal" itemSize="20"
+                                        class="example-viewport">
+                                        <mat-card *cdkVirtualFor="
+                                                let item of ServicesList
+                                            " class="example-item m-4 mat-elevation-z0" (click)="
+                                                SelectService(item, step.form)
+                                            " [ngClass]="{'active': selectedService === item}">
+                                            <div class="text-center">
+                                                <img mat-card-image [src]="item.publicIconUrl"
+                                                    style="max-width: 50%;" />
+                                            </div>
+                                            <mat-card-content>
+                                                <p class="text-center pt-4 font-size-16 font-weight-600">
+                                                    {{ item.description }}
+                                                </p>
+                                            </mat-card-content>
+                                        </mat-card>
+                                    </cdk-virtual-scroll-viewport>
+                                </div>
+                            </div>
+                            <form [formGroup]="step.form" id="step.id">
+                                <ng-template matStepLabel>{{
+                                    step.title
+                                }}</ng-template>
+
+                                <div *ngIf="isColumn === false">
+                                    <div fxLayout="column" class="ngx-dnd-container" fxHide.gt-sm>
+                                        <div fxHide.gt-sm *ngFor="
+                                                let question of step.formQuestions
+                                                    | async
+                                            " fxFlex="100">
+                                            <df-question fxFlex class="ngx-dnd-item" [question]="question"
+                                                [form]="step.form" (ControlChange)="
+                                                GetDropdownChange($event,step)
+                                                " (GetDownloadUrl2)="
+                                                    GetDownloadUrl($event)
+                                                ">
+                                            </df-question>
+                                        </div>
+                                    </div>
+
+                                    <div [fxLayout]="row" class="ngx-dnd-container" fxHide fxShow.gt-sm>
+                                        <div fxHide fxShow.gt-sm *ngFor="
+                                                let question of step.formQuestions
+                                                    | async
+                                            " [fxFlex]="question.width">
+                                            <df-question fxFlex class="ngx-dnd-item" [question]="question"
+                                                [form]="step.form" (ControlChange)="
+                                                GetDropdownChange($event,step)
+                                                ">
+                                            </df-question>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="isColumn">
+                                    <div fxLayout="column" class="ngx-dnd-container">
+                                        <div *ngFor="
+                                                let question of step.formQuestions
+                                                    | async
+                                            " fxFlex="100">
+                                            <df-question fxFlex class="ngx-dnd-item" [question]="question"
+                                                [form]="step.form" (ControlChange)="
+                                                GetDropdownChange($event,step)
+                                                " (GetDownloadUrl2)="
+                                                    GetDownloadUrl($event)
+                                                ">
+                                            </df-question>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="step.formName == 'Candidatos'">
+                                    <button mat-button (click)="Opentab()">
+                                        ¿Problemas para cargar los documentos?
+                                    </button>
+                                </div>
+                                <app-crudlist *ngIf="step.AllowAddingItems" [Item]="step.form"
+                                    (ListToEmit)="GetLists($event, step.title)"></app-crudlist>
+                                <br />
+
+                                <div *ngIf="isColumn === false">
+                                    <div fxLayout="row" fxLayoutAlign="end end" fxShow="true" fxHide.xs fxHide.sm>
+                                        <button mat-button *ngIf="
+                                                i > 0 && i != stepper.length - 1
+                                            " matStepperPrevious fxFlex="50" fxFlex.md="25" fxFlex.lg="25"
+                                            fxFlex.xl="25">
+                                            Atrás
+                                        </button>
+                                        <button mat-flat-button *ngIf="!(i == stepper.length - 1)" color="primary" [disabled]="validateFirstStep(step)"
+                                            matStepperNext fxFlex="50" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="25">
+                                            Siguiente
+                                        </button>
+                                        <button mat-raised-button color="primary" *ngIf="i == stepper.length - 1"
+                                            (click)="SubmitForm()" fxFlex="50" fxFlex.md="25" fxFlex.lg="25"
+                                            fxFlex.xl="25">
+                                            Enviar
+                                        </button>
+                                    </div>
+
+                                    <div fxLayout="column" fxLayoutAlign="space-around stretch" fxShow="true" fxHide.md
+                                        fxHide.lg fxHide.xl>
+                                        <button mat-button fxFlex *ngIf="
+                                                i > 0 && i != stepper.length - 1
+                                            " matStepperPrevious>
+                                            Atrás
+                                        </button>
+                                        <button mat-flat-button *ngIf="!(i == stepper.length - 1)" color="primary"  [disabled]="validateFirstStep(step)"
+                                            matStepperNext>
+                                            Siguiente
+                                        </button>
+                                        <button mat-raised-button color="primary" *ngIf="i == stepper.length - 1"
+                                            (click)="SubmitForm()" fxFlex>
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div *ngIf="isColumn">
+                                    <div fxLayout="column" fxLayoutAlign="space-around stretch">
+                                        <button mat-button fxFlex="50" *ngIf="
+                                                i > 0 && i != stepper.length - 1
+                                            " matStepperPrevious >
+                                            Atrás
+                                        </button>
+                                        <button mat-flat-button fxFlex="50" *ngIf="!(i == stepper.length - 1)"
+                                            color="primary" matStepperNext [disabled]="validateFirstStep(step)">
+                                            Siguiente
+                                        </button>
+                                        <button mat-raised-button fxFlex="50" color="primary"
+                                            *ngIf="i === stepper.length - 1" (click)="SubmitForm()">
+                                            Enviar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

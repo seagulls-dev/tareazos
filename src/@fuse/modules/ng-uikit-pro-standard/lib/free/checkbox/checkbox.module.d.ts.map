@@ -1,0 +1,1 @@
+{"version":3,"file":"checkbox.module.d.ts","sources":["C:/repos/Handyman/src/@fuse/modules/ng-uikit-pro-standard/lib/free/checkbox/checkbox.module.d.ts"],"sourcesContent":["export { CHECKBOX_VALUE_ACCESSOR, CheckboxComponent } from './checkbox.component';\nexport declare class CheckboxModule {\n}\n"],"names":[],"mappings":";;;;AAAA;;;;AAEA;"}

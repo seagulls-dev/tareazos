@@ -1,0 +1,53 @@
+<div id="mail" class="page-layout carded left-sidebar inner-scroll">
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- SIDEBAR -->
+    <fuse-sidebar
+        class="sidebar"
+        name="mail-main-sidebar"
+        position="left"
+        lockedOpen="gt-md"
+    >
+        <mail-main-sidebar></mail-main-sidebar>
+    </fuse-sidebar>
+    <!-- / SIDEBAR -->
+
+    <!-- CENTER -->
+    <div class="center mr-12">
+        <!-- CONTENT HEADER -->
+        <div class="pt-12">
+            <button
+                mat-flat-button
+                color="primary"
+                class="compose-dialog-button w-100-p"
+                (click)="composeDialog()"
+                aria-label="Compose"
+            >
+                {{ "MAIL.COMPOSE" | translate }}
+            </button>
+        </div>
+
+        <div class="pt-12" fxLayout="row" fxLayoutAlign="start start">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Buscar</mat-label>
+                <input matInput [placeholder]="'MAIL.SEARCH_PLACEHOLDER' | translate" [formControl]="searchInput">
+                <mat-icon matPrefix>search</mat-icon>
+            </mat-form-field>
+        </div>
+        <!-- / CONTENT HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card" [ngClass]="{ 'current-mail-selected': currentMail }">
+            <!-- CONTENT -->
+            <div class="content" fxLayout="row">
+                <mail-list fusePerfectScrollbar fxFlex="30"></mail-list>
+                <mail-details fusePerfectScrollbar fxFlex="70"></mail-details>
+            </div>
+            <!-- / CONTENT -->
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

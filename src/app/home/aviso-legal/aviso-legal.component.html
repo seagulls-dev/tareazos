@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+</head>
+
+<body id="body">
+    <mat-toolbar color="primary" *ngIf="isJsLoaded">
+        <div class="containerHome pr-0 pl-0">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-icon-button (click)="showMenu = !showMenu" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <img src="/assets/images/logos/logo1.png" alt="logo" width="145" style="margin-top: -10px;" />
+
+                <div fxShow="true" fxHide.lt-md fxFlex="65">
+                    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                    <a [routerLink]="'/home'" mat-button>Home</a>
+                    <a href="home#tareadores" mat-button>Tareadores</a>
+                    <a href="nosotros#section1" mat-button>Nosotros</a>
+                </div>
+
+                <div class="icon-links" fxShow="true" fxHide.lt-md>
+                    <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                            class="icon-facebook text-center icon-white"></i></a>
+                    <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                            class="icon-twitter text-center icon-white"></i></a>
+                    <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                            class="icon-instagram text-center icon-white"></i></a>
+                    <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                    <a fxShow="true" fxHide.lt-md class="linkedin" href="https://www.linkedin.com/company/tareazos"
+                        target="_blank"><i class="icon-linkedin text-center icon-white"></i></a>
+                </div>
+
+                <div *ngIf="authService.user">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        {{ authService.user.name }}
+                        {{ authService.user.lastname }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            Cerrar Sesión
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div *ngIf="!authService.user">
+                    <!-- <button mat-button (click)="btnLogin()">
+                        Login
+                    </button> -->
+                    <a mat-button [routerLink]="'/forms/signup'">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showMenu" class="w-100 bg-primary menu" [@animate]="{
+                value: '*',
+                params: {
+                    delay: '100ms',
+                    y: '-100px'
+                }
+            }">
+        <mat-nav-list [@animate]="{
+                    value: '*',
+                    params: {
+                        delay: '100ms',
+                        y: '-100px'
+                    }
+                }">
+            <a [routerLink]="'/home'" mat-list-item class="fg-white font-weight-700">Home</a>
+            <a href="home#tareadores" mat-list-item class="fg-white font-weight-700">Tareadores</a>
+            <a href="nosotros#section1" mat-list-item class="fg-white font-weight-700">Nosotros</a>
+        </mat-nav-list>
+    </div>
+    <main fusePerfectScrollbar class="bg-white">
+        <section id="section1">
+            <div class="containerHome pt-100 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2>Aviso Legal</h2>
+                        </div>
+                        <p><br /></p>
+                        <p><span style="font-weight: 400;">El presente Aviso Legal establecer&aacute; y regular&aacute;
+                                la forma en que utilizas
+                                nuestro sitio web.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">El sitio web </span><a href="http://www.tareazos.com/"><span
+                                    style="font-weight: 400;">www.tareazos.com</span></a><span
+                                style="font-weight: 400;"> y todo su contenido es
+                                de titularidad de FIRED SOFTWARE DEVELOPMENT, S.A (en adelante, la Sociedad), sociedad
+                                an&oacute;nima inscrita
+                                al Folio Electr&oacute;nico 155650553 de la secci&oacute;n de mercantil del Registro
+                                P&uacute;blico de la
+                                Rep&uacute;blica de Panam&aacute;.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Si navegas en nuestro sitio web, te conviertes
+                                autom&aacute;ticamente en usuario del
+                                mismo y aceptas nuestro Aviso Legal, Pol&iacute;ticas de Privacidad y Cookies.</span>
+                        </p>
+                        <p><br /></p>
+                        <p><strong>El Titular</strong></p>
+                        <p><span style="font-weight: 400;">El titular del sitio web Tareazos.com es:</span></p>
+                        <ul>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Su </span> <span
+                                    style="font-weight: 400;">denominaci&oacute;n social es: FIRED </span> <span
+                                    style="font-weight: 400;">SOFTWARE DEVELOPMENT, S.A.</span><span
+                                    style="font-weight: 400;"><br /></span>
+                            </li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Su </span> <span
+                                    style="font-weight: 400;">denominaci&oacute;n comercial es: Tareazos</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Su </span> <span
+                                    style="font-weight: 400;">Registro
+                                </span> <span style="font-weight: 400;">&Uacute;nico de Contribuyente </span> <span
+                                    style="font-weight: 400;">es: 155650553-2-2017</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Su </span> <span
+                                    style="font-weight: 400;">domicilio
+                                    social est&aacute; en: Ciudad de Panam&aacute; </span> <span
+                                    style="font-weight: 400;"></span></li>
+                        </ul>
+                        <p><br /></p>
+                        <p><strong>Comunicaciones</strong></p>
+                        <p><span style="font-weight: 400;">En caso de dudas, preguntas o sugerencias puedes contactarnos
+                                a trav&eacute;s
+                                de:</span></p>
+                        <p><span style="font-weight: 400;">Correo Electr&oacute;nico: info@tareazos.com</span></p>
+                        <p><span style="font-weight: 400;">Tel&eacute;fono de Contacto: +507 6832-9942</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Todas las notificaciones y comunicaciones entre los usuarios
+                                y titular de la web se
+                                considerar&aacute;n eficaces, a todos los efectos, cuando se realicen a trav&eacute;s de
+                                cualquier medio de los
+                                detallados anteriormente.</span></p>
+                        <br>
+                        <p><span style="font-weight: 400;">Propiedad Intelectual e Industrial</span></p>
+
+                        <p><span style="font-weight: 400;">Este sitio web se rige por la legislaci&oacute;n nacional e
+                                internacional sobre
+                                propiedad intelectual e industrial.</span></p>
+                        <p><span style="font-weight: 400;">En ning&uacute;n caso se entender&aacute; que el acceso y
+                                navegaci&oacute;n de un
+                                usuario al sitio web o la utilizaci&oacute;n, adquisici&oacute;n y/o contrataci&oacute;n
+                                de productos o
+                                servicios ofertados a trav&eacute;s de la misma, implique una renuncia,
+                                transmisi&oacute;n, licencia o
+                                cesi&oacute;n total ni parcial de dichos derechos por parte del titular del sitio
+                                web.</span></p>
+                        <p><span style="font-weight: 400;">FIRED SOFTWARE DEVELOPMENT, S.A. es titular o ha obtenido la
+                                correspondiente licencia
+                                sobre los derechos de explotaci&oacute;n de propiedad intelectual e industrial de
+                                TAREAZOS as&iacute; como de
+                                los derechos y/o licencias de propiedad intelectual, industrial y de imagen sobre los
+                                contenidos y productos
+                                disponibles a trav&eacute;s del mismo.</span></p>
+                        <p><span style="font-weight: 400;">No est&aacute; permitido suprimir, eludir o manipular el
+                                aviso de derechos de autor
+                                ("copyright") y cualesquiera otros datos de identificaci&oacute;n de los derechos de
+                                autor.</span></p>
+                        <p><span style="font-weight: 400;">Asimismo est&aacute; prohibido modificar, copiar, reutilizar,
+                                explotar, reproducir,
+                                comunicar p&uacute;blicamente, hacer segundas o posteriores publicaciones, cargar
+                                archivos, enviar por correo,
+                                transmitir, usar, tratar o distribuir de cualquier forma la totalidad o parte de los
+                                contenidos y productos,
+                                incluidos en <a href="www.tareazos.com" target="_blank">www.tareazos.com</a> para
+                                prop&oacute;sitos p&uacute;blicos o comerciales, si
+                                no se cuenta con la
+                                autorizaci&oacute;n expresa y por escrito del titular del sitio web.</span></p>
+                        <br>
+                        <p><span style="font-weight: 400;">La sociedad es la titular de todos los derechos de propiedad
+                                intelectual e industrial
+                                de este sitio web, as&iacute; como de las im&aacute;genes, gr&aacute;ficos, iconos,
+                                sonido, audio, v&iacute;deo,
+                                dise&ntilde;o gr&aacute;fico, c&oacute;digo fuente, programas de ordenador o software o
+                                textos; marcas o
+                                logotipos, nombres comerciales, combinaciones de colores, estructura y dise&ntilde;o,
+                                selecci&oacute;n de
+                                materiales usados, estos &uacute;ltimos podr&aacute;n entenderse que son de titularidad
+                                de un
+                                licenciante.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">De acuerdo a la Ley 64 de 2012 sobre Derecho de Autor y
+                                Derechos Conexos, quedan
+                                expresamente prohibidas la reproducci&oacute;n, la distribuci&oacute;n y la
+                                comunicaci&oacute;n p&uacute;blica,
+                                incluida su modalidad de puesta a disposici&oacute;n, de la totalidad o parte de los
+                                contenidos de este sitio
+                                web, con fines comerciales, en cualquier soporte y por cualquier medio t&eacute;cnico,
+                                sin la
+                                autorizaci&oacute;n de la sociedad.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Todos los iconos e im&aacute;genes mostrados en esta web son
+                                titularidad de FIRED
+                                SOFTWARE DEVELOPMENT, S.A.</span></p>
+                        <p><br /></p>
+                        <p><strong>Excepciones</strong></p>
+                        <p><span style="font-weight: 400;">El contenido del presente sitio web es de car&aacute;cter
+                                general y tiene una
+                                finalidad meramente informativa, sin que se garantice plenamente el acceso a todos los
+                                contenidos servicios, ni
+                                su exhaustividad, correcci&oacute;n, vigencia o actualidad, ni su idoneidad o utilidad
+                                para un objetivo
+                                espec&iacute;fico.</span></p><br>
+                        <p><span style="font-weight: 400;">El titular del sitio web excluye, hasta donde permite la Ley,
+                                cualquier
+                                responsabilidad por los da&ntilde;os y perjuicios de toda naturaleza derivados
+                                de:</span></p>
+                        <ul>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">La </span> <span
+                                    style="font-weight: 400;">imposibilidad de acceso al sitio web o la falta de
+                                    veracidad, </span> <span style="font-weight: 400;">exactitud, exhaustividad y/o
+                                    actualidad de los contenidos, as&iacute; como </span>
+                                <span style="font-weight: 400;">la existencia de vicios y defectos de toda clase de los
+                                    contenidos </span> <span style="font-weight: 400;">transmitidos, difundidos,
+                                    almacenados, puestos a disposici&oacute;n, a los </span>
+                                <span style="font-weight: 400;">que se haya accedido a trav&eacute;s del sitio web o de
+                                    los servicios que
+                                </span> <span style="font-weight: 400;">se ofrecen;</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">La </span> <span
+                                    style="font-weight: 400;">presencia
+                                    de virus o de otros elementos en los contenidos que puedan </span> <span
+                                    style="font-weight: 400;">producir
+                                    alteraciones en los sistemas inform&aacute;ticos, documentos </span> <span
+                                    style="font-weight: 400;">electr&oacute;nicos o datos de los usuarios;</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">El incumplimiento de las
+                                    leyes, la buena fe, el orden
+                                    p&uacute;blico, los usos del tr&aacute;fico y el presente aviso legal como
+                                    consecuencia del uso incorrecto
+                                    del sitio web. En particular, y a modo ejemplificativo, el titular del sitio web no
+                                    se hace responsable de
+                                    las actuaciones de terceros que vulneren derechos de propiedad </span> <span
+                                    style="font-weight: 400;">intelectual e industrial, secretos empresariales, derechos
+                                    al honor, a la
+                                    intimidad personal y familiar y a la propia imagen, as&iacute; como la normativa en
+                                    materia de competencia
+                                    desleal y publicidad il&iacute;cita.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                        </ul>
+                        <p><span style="font-weight: 400;">Asimismo, el titular del sitio web declina cualquier
+                                responsabilidad respecto a la
+                                informaci&oacute;n que se halle fuera de esta web y no sea gestionada directamente por
+                                su administrador.</span>
+                        </p>
+                        <p><br /></p>
+                        <p><strong>Enlaces externos</strong></p>
+                        <p><span style="font-weight: 400;">La funci&oacute;n de los enlaces que aparecen en este sitio
+                                web son exclusivamente la
+                                de informar al usuario sobre la existencia de otras fuentes susceptibles de ampliar los
+                                contenidos que ofrece
+                                este sitio web.</span></p>
+                        <br>
+                        <p><span style="font-weight: 400;">El titular del sitio web no garantiza ni se responsabiliza
+                                del funcionamiento o
+                                accesibilidad de los sitios enlazados; ni sugiere, invita o recomienda la visita a los
+                                mismos, por lo que
+                                tampoco ser&aacute; responsable del resultado obtenido.</span></p><br>
+                        <p><span style="font-weight: 400;">El titular del sitio web no se responsabiliza del
+                                establecimiento de enlaces por
+                                parte de terceros.</span></p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <i class="scroll-top-btn scroll-top show fg-white"></i>
+    <footer class="light">
+        <div class="containerHome">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>Tareazos</h3>
+                    <p>
+                        Atiende las cosas más importantes de tu vida.
+                    </p>
+                    <div class="icon-links icon-social icon-links-grid social-colors">
+                        <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                                class="icon-facebook text-center"></i></a>
+                        <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                                class="icon-twitter text-center"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                                class="icon-instagram text-center"></i></a>
+                        <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                        <a class="linkedin" href="https://www.linkedin.com/company/tareazos" target="_blank"><i
+                                class="icon-linkedin text-center"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Términos</h3>
+                    <ul class="icon-list1 icon-line">
+                        <li> <a class="fg-white" [routerLink]="'/aviso-legal'">Aviso legal</a></li>
+                        <li><a class="fg-white" [routerLink]="'/politicas'">Políticas de cookies y privacidad</a></li>
+                        <li><a class="fg-white" [routerLink]="'/terminos-condiciones'">Términos y condiciones</a></li>
+                        <li><a class="fg-white" [routerLink]="'/cargos-comisiones'">Cargos y Comisiones</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="text-list text-list-line">
+                        <li>
+                            <b>Dirección</b>
+                            <hr />
+                            <p>Costa del Este, Panamá</p>
+                        </li>
+                        <li>
+                            <b>Correo</b>
+                            <hr />
+                            <p>info@tareazos.com</p>
+                        </li>
+                        <li>
+                            <b>Teléfono</b>
+                            <hr />
+                            <p>+507 6832-9942</p>
+                        </li>
+                        <li>
+                            <b>Horario</b>
+                            <hr />
+                            <p>9am-6pm Lunes - Viernes</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div class="containerHome">
+                <span>© 2020 Tareazos </span>
+                <span><a class="fg-white" href="mailto:info@tareazos.com">Contáctanos</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

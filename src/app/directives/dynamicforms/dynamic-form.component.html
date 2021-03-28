@@ -1,0 +1,16 @@
+<div>
+  <form (ngSubmit)="onSubmit()" formGroup="form">
+    <div class="flex-container" 
+     fxLayout="column"  style="overflow: scroll; height: 350px;">     
+    <div *ngFor="let question of questions | async" class="form-row">
+      <df-question [question]="question" [form]="form"></df-question>
+    </div>
+    </div>
+    <div class="form-row">
+      <button mat-button type="submit" [disabled]="!form.valid">Save</button>
+    </div>
+  </form>
+  <div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br>{{payLoad}}
+  </div>
+</div>

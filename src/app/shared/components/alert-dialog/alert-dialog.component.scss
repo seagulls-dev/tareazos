@@ -1,0 +1,16 @@
+.dialog {
+    background: transparent;
+}
+
+.mat-dialog-content {
+    margin: 0;
+    padding: 16px;
+}
+
+.mat-dialog-container {
+    -webkit-backdrop-filter: blur(25px) saturate(100%);
+    backdrop-filter: blur(25px) saturate(100%);
+    background: rgba(255, 255, 255, 0.42);
+    filter: brightness(108%);
+    -webkit-filter: brightness(108%);
+}

@@ -1,0 +1,52 @@
+<br>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <div fxFlex.xs="35">
+    <button mat-flat-button color="primary" (click)="Save()" fxFlex>Agregar </button>
+  </div>
+</div>
+<br>
+<mat-divider></mat-divider>
+<div fxLayout="row" fxLayoutAlign="center center">
+  <span *ngIf="items.length == 0">No ha ingresado ningún registro</span>
+
+  <mat-list style="overflow: auto; max-height: 350px;">
+    <mat-list-item *ngFor="let link of items; let i= index; last as isLast">
+      <h2 mat-line> {{link[firstkey]}} </h2>
+      <p mat-line>
+        <span *ngFor="let key of keys; last as keyLast">
+          <span *ngIf="key == 'rate'"> $ </span>
+         
+      <span *ngIf="key != firstkey">{{link[key]}} &nbsp; </span> <span *ngIf="link[key] && key != firstkey && !keyLast"> | </span>
+      </span>
+      </p>
+      <button mat-icon-button (click)="deleteItem(index)">
+        <mat-icon class="mat-24">delete</mat-icon>
+      </button>
+    </mat-list-item>
+  </mat-list>
+  <!--  <mat-accordion>
+    <mat-expansion-panel >
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+
+          <span mat-raised-button color="primary" style="color:#c00024">
+            {{link[firstkey]}}
+          </span>
+        </mat-panel-title>
+        <mat-panel-description>
+          &nbsp;
+
+          <button mat-mini-fab disabled aria-label="Example icon button with a home icon" (click)="deleteItem(index)">
+            <mat-icon>delete</mat-icon>
+          </button>
+         
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field *ngFor="let key of keys">
+        <input matInput value="{{link[key]}}" disabled>
+      </mat-form-field>
+    </mat-expansion-panel>
+  </mat-accordion> -->
+
+</div>

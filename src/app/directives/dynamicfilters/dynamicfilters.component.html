@@ -1,0 +1,27 @@
+
+
+        <div class="center" fusePerfectScrollbar>
+                            <form [formGroup]="form" id="step.id">
+                                <ng-template ></ng-template>
+                                <div class="ngx-dnd-container" fxFlex>
+                                    <div *ngFor="let question of formQuestions | async" fxFlex="{{question.width}}">
+                                        <df-question
+                                            fxFlex
+                                            class="ngx-dnd-item"
+                                            [question]="question" 
+                                            [form]="form" 
+                                            (ControlChange)="GetControl($event)">
+                                        </df-question>
+                                    </div>
+                                   
+                                    <button mat-raised-button  style="height: 30px" color="primary" 
+                                    (click)="ApplyFilter()">Filtrar</button>
+                                </div>
+                                
+                               
+                               
+                            </form>
+                            
+        </div>
+   
+                

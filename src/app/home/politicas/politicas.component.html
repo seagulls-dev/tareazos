@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+</head>
+
+<body>
+    <mat-toolbar color="primary" *ngIf="isJsLoaded">
+        <div class="containerHome pr-0 pl-0">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-icon-button (click)="showMenu = !showMenu" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <img src="/assets/images/logos/logo1.png" alt="logo" width="145" style="margin-top: -10px;" />
+
+                <div fxShow="true" fxHide.lt-md fxFlex="65">
+                    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                    <a [routerLink]="'/home'" mat-button>Home</a>
+                    <a href="home#tareadores" mat-button>Tareadores</a>
+                    <a href="nosotros#section1" mat-button>Nosotros</a>
+                </div>
+
+                <div class="icon-links" fxShow="true" fxHide.lt-md>
+                    <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                            class="icon-facebook text-center icon-white"></i></a>
+                    <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                            class="icon-twitter text-center icon-white"></i></a>
+                    <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                            class="icon-instagram text-center icon-white"></i></a>
+                    <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                    <a fxShow="true" fxHide.lt-md class="linkedin" href="https://www.linkedin.com/company/tareazos"
+                        target="_blank"><i class="icon-linkedin text-center icon-white"></i></a>
+                </div>
+
+                <div *ngIf="authService.user">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        {{ authService.user.name }}
+                        {{ authService.user.lastname }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            Cerrar Sesión
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div *ngIf="!authService.user">
+                    <!-- <button mat-button (click)="btnLogin()">
+                        Login
+                    </button> -->
+                    <a mat-button [routerLink]="'/forms/signup'">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showMenu" class="w-100 bg-primary menu" [@animate]="{
+                value: '*',
+                params: {
+                    delay: '100ms',
+                    y: '-100px'
+                }
+            }">
+        <mat-nav-list [@animate]="{
+                    value: '*',
+                    params: {
+                        delay: '100ms',
+                        y: '-100px'
+                    }
+                }">
+            <a [routerLink]="'/home'" mat-list-item class="fg-white font-weight-700">Home</a>
+            <a href="home#tareadores" mat-list-item class="fg-white font-weight-700">Tareadores</a>
+            <a href="nosotros#section1" mat-list-item class="fg-white font-weight-700">Nosotros</a>
+        </mat-nav-list>
+    </div>
+    <main fusePerfectScrollbar class="bg-white">
+        <section id="cookies">
+            <div class="containerHome pt-100 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2>Pol&iacute;ticas de Cookies</h2>
+                        </div>
+                        <p><br /></p>
+                        <p><span style="font-weight: 400;">El sitio web podr&aacute; utilizar cookies para el correcto
+                                funcionamiento de este
+                                sitio web.</span></p>
+                        <p><br /></p>
+                        <p><strong>Definici&oacute;n</strong></p>
+                        <p><span style="font-weight: 400;">Las cookies son peque&ntilde;os archivos de texto generados
+                                por las p&aacute;ginas
+                                web que visitas, las cuales contienen los datos de sesi&oacute;n que pueden ser de
+                                utilidad durante la
+                                navegaci&oacute;n. Los datos permiten que la p&aacute;gina web pueda mantener su
+                                informaci&oacute;n entre las
+                                p&aacute;ginas y tambi&eacute;n para analizar la forma de interactuar con el sitio web.
+                                Las cookies son seguras
+                                ya que s&oacute;lo pueden almacenar la informaci&oacute;n que se puso en su lugar por el
+                                navegador, lo que es
+                                informaci&oacute;n que el usuario ha introducido en el navegador o la que se incluye en
+                                la solicitud de
+                                p&aacute;gina. No pueden ejecutar c&oacute;digo y no se pueden utilizar para acceder a
+                                tu ordenador.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Las cookies son esenciales para el funcionamiento de
+                                internet, aportando innumerables
+                                ventajas en la prestaci&oacute;n de servicios interactivos, facilitando la
+                                navegaci&oacute;n y usabilidad de la
+                                web. Las cookies no pueden da&ntilde;ar su equipo y que est&eacute;n activadas ayuda a
+                                identificar y resolver
+                                los errores.</span></p>
+                        <p><br /></p>
+                        <p><strong>Tipos de Cookies</strong></p>
+                        <p><span style="font-weight: 400;">&ndash; Cookies de sesi&oacute;n: son cookies temporales que
+                                permanecen en el archivo
+                                de cookies del navegador hasta que se abandona la p&aacute;gina web, por lo que ninguna
+                                queda registrada en el
+                                disco duro del usuario. La informaci&oacute;n obtenida por medio de estas cookies sirve
+                                para analizar pautas de
+                                tr&aacute;fico en la web. A la larga, esto permite proporcionar una mejor experiencia
+                                para mejorar el contenido
+                                y facilitar su uso.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">&ndash; Cookies permanentes: son almacenadas en el disco duro
+                                y la p&aacute;gina web
+                                las lee cada vez que se realiza una nueva visita. A pesar de su nombre, una web
+                                permanente posee una fecha de
+                                expiraci&oacute;n determinada. La cookie dejar&aacute; de funcionar despu&eacute;s de
+                                esa fecha. Se utilizan,
+                                generalmente, para facilitar los diferentes servicios que ofrecen las p&aacute;ginas
+                                web.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">&ndash; Cookies estrictamente necesarias: aquellas que sirven
+                                para una correcta
+                                navegaci&oacute;n o las que permiten realizar el pago de bienes o servicios solicitados
+                                por el usuario o cookies
+                                que sirven para asegurar que el contenido de la p&aacute;gina web se carga
+                                eficazmente.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">&ndash; Cookies de terceros: las usadas por redes sociales, o
+                                por complementos
+                                externos de contenido.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">&ndash; Cookies anal&iacute;ticas: con prop&oacute;sitos de
+                                mantenimiento
+                                peri&oacute;dico y, en aras de garantizar el mejor servicio posible al usuario, con las
+                                que los sitios webs
+                                recopilan datos estad&iacute;sticos de la actividad, utilizamos google analytics.</span>
+                        </p>
+                        <p><br /></p>
+                        <p><strong>Gesti&oacute;n de cookies</strong></p>
+                        <p><span style="font-weight: 400;">Todos los navegadores de Internet permiten limitar el
+                                comportamiento de una cookie o
+                                desactivar las cookies dentro de la configuraci&oacute;n o las opciones del navegador.
+                                Los pasos para hacerlo
+                                son diferentes para cada navegador, pudi&eacute;ndose encontrar instrucciones en el
+                                men&uacute; de ayuda de tu
+                                navegador.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Muchos navegadores permiten activar un modo privado mediante
+                                el cual las cookies se
+                                borran siempre despu&eacute;s de la visita.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">EL titular del sitio web podr&aacute; utilizar cookies
+                                durante la prestaci&oacute;n
+                                de servicios del sitio. Las cookies son ficheros f&iacute;sicos de informaci&oacute;n
+                                personal alojados en el
+                                propio terminal del usuario. El usuario tiene la posibilidad de configurar su programa
+                                navegador de manera que
+                                se impida la creaci&oacute;n de archivos cookie o se advierta de la misma.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Si opta a abandonar nuestro sitio web a trav&eacute;s de
+                                enlaces a sitios web no
+                                pertenecientes a nuestra entidad, el titular del sitio web no se har&aacute; responsable
+                                de las pol&iacute;ticas
+                                de privacidad de dichos sitios web ni de las cookies que &eacute;stos puedan almacenar
+                                en el ordenador del
+                                usuario.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Nuestra pol&iacute;tica con respecto al envi&oacute; de
+                                correo electr&oacute;nico se
+                                centra en remitir &uacute;nicamente comunicaciones que usted haya solicitado
+                                recibir.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Si prefiere no recibir estos mensajes por correo
+                                electr&oacute;nico le ofreceremos a
+                                trav&eacute;s de los mismos la posibilidad de ejercer su derecho de cancelaci&oacute;n y
+                                renuncia a la
+                                recepci&oacute;n de estos mensajes, en conformidad con lo dispuesto en la Ley 81 de 2019
+                                sobre Protecci&oacute;n
+                                de Datos Personales.</span></p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="privacidad">
+            <div class="containerHome pt-64 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2>Pol&iacute;tica de Privacidad</h2>
+                        </div>
+                        <p><br /></p>
+                        <p><span style="font-weight: 400;">La pol&iacute;tica de privacidad de este sitio web
+                                velar&aacute; por el correcto
+                                tratamiento de los datos de car&aacute;cter personal de sus usuarios.</span></p>
+                        <p><br /></p>
+                        <p><strong>Nosotros</strong></p>
+                        <p><span style="font-weight: 400;">FIRED SOFTWARE DEVELOPMENT, S.A. como titular de la
+                                plataforma digital TAREAZOS son
+                                los responsables del tratamiento de los datos personales de los usuarios del sitio web
+                                www.tareazos.com</span>
+                        </p>
+                        <p><span style="font-weight: 400;">TAREAZOS es una plataforma digital que sirve de intermediario
+                                entre los TAREADORES y
+                                CLIENTES para la propuestas de oferta y demanda de sercivios que no se encuentren
+                                cubiertos en el mercado
+                                actual.</span></p>
+                        <p><br /></p>
+                        <p><strong>&iquest;Qu&eacute; datos personales recolectamos?</strong></p>
+                        <p><span style="font-weight: 400;">La plataforma recolectar&aacute; datos personales tanto de
+                                los TAREADORES como de los
+                                clientes en los siguientes casos:</span></p>
+                        <ul>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Darse </span> <span
+                                    style="font-weight: 400;">de alta
+                                    en la plataforma.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Suscribirse </span> <span
+                                    style="font-weight: 400;">a
+                                    la </span><em><span style="font-weight: 400;">newsletter.</span></em><em><span
+                                        style="font-weight: 400;"><br /></span></em></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Contactar </span> <span
+                                    style="font-weight: 400;">a un
+                                    tareador.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Recibir </span> <span
+                                    style="font-weight: 400;">ofertas.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Proponer </span> <span
+                                    style="font-weight: 400;">un
+                                    servicio.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Aceptar </span> <span
+                                    style="font-weight: 400;">un
+                                    servicio.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Agendar </span> <span
+                                    style="font-weight: 400;">un
+                                    servicio.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Pagar </span> <span
+                                    style="font-weight: 400;">a un
+                                    tareador.</span><span style="font-weight: 400;"><br /></span></li>
+                        </ul>
+                        <p><span style="font-weight: 400;">Los datos personales solicitados ser&aacute;n: nombre,
+                                apellido, c&eacute;dula,
+                                celular, correo electr&oacute;nico, domicilio, datos sobre tu perfil profesional como
+                                formaci&oacute;n
+                                acad&eacute;mica, actividad e idoneidad profesional y cuentas de redes sociales.</span>
+                        </p>
+                        <p><br /></p>
+                        <p><span style="font-weight: 400;">Puedes actualizar tu informaci&oacute;n ejerciendo tu derecho
+                                de
+                                rectificaci&oacute;n sobre tus datos personales desde tu cuenta de usuario o
+                                comunic&aacute;ndote con nosotros a
+                                la siguiente direcci&oacute;n de correo electr&oacute;nico: info@tareazos.com</span></p>
+                        <p><br /></p>
+                        <p><strong>&iquest;D&oacute;nde obtenemos los datos personales?</strong></p>
+                        <p><span style="font-weight: 400;">Los datos personales que tratamos son aportados por su
+                                titular con el debido
+                                consentimiento expreso, l&iacute;cito, informado e inequ&iacute;voco. En caso de datos
+                                personales aportados por
+                                un tercero, se deber&aacute; garantizar que el titular de los datos personales ha sido
+                                informado sobre la
+                                Pol&iacute;tica de Privacidad y ha autorizado al tercero para facilitar sus datos con
+                                las finalidades indicadas
+                                de esta plataforma. Igualmente, el tercero se hace responsable de cualquier da&ntilde;o
+                                o perjuicio, directo o
+                                indirecto como consecuencia del incumplimiento de esta obligaci&oacute;n.</span></p>
+                        <p><br /></p>
+                        <p><strong>&iquest;C&oacute;mo usaremos los datos personales?</strong></p>
+                        <ol>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Prestar </span> <span
+                                    style="font-weight: 400;">los
+                                    servicios de intermediario entre un TAREADOR y su respectivo </span> <span
+                                    style="font-weight: 400;">cliente.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Atender </span> <span
+                                    style="font-weight: 400;">la
+                                    solicitud de ejercicio de sus derechos ARCO.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Informar </span> <span
+                                    style="font-weight: 400;">sobre
+                                    nuestro servicio, a trav&eacute;s del envi&oacute; de noticias, novedades, </span>
+                                <span style="font-weight: 400;">eventos y actividades relacionadas con nuestra
+                                    plataforma digital.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Evaluar </span> <span
+                                    style="font-weight: 400;">los
+                                    perfiles de aquellos TAREADORES cuyo servicio requiera de una </span> <span
+                                    style="font-weight: 400;">idoneidad profesional.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                        </ol>
+                        <p><br /></p>
+                        <p><strong>&iquest;Cu&aacute;nto tiempo almacenamos los datos
+                                personales?</strong></p>
+                        <p><span style="font-weight: 400;">Mantendremos tus datos personales durante un tiempo
+                                prudencial para ofrecerte los
+                                servicios de intermediaci&oacute;n de nuestra plataforma y durante el tiempo que sea
+                                necesario para responder
+                                ante eventuales reclamaciones.</span></p>
+                        <p><br /></p>
+                        <p><span style="font-weight: 400;">Podr&aacute;s solicitar el ejercicio del derecho de
+                                supresi&oacute;n de tus datos
+                                personales, y en caso de plazos legales de conservaci&oacute;n que debamos cumplir de
+                                conformidad con su
+                                legislaci&oacute;n aplicable.</span></p>
+                        <p><br /></p>
+                        <p><strong>&iquest;C&oacute;mo protegemos tus datos personales?</strong></p>
+                        <p><span style="font-weight: 400;">El titular del sitio web garantiza la seguridad de la
+                                informaci&oacute;n de sus
+                                clientes, la cual viaja de manera encriptada a nuestro sitio seguro y es manejada de tal
+                                forma que no puede ser
+                                descifrada por agentes externos a nosotros.</span></p>
+                        <p><br /></p>
+                        <p><strong>Transferencia de datos personales</strong></p>
+                        <p><span style="font-weight: 400;">Podr&iacute;amos comunicar tus datos personales a las
+                                siguientes entidades conforme a
+                                una legislaci&oacute;n aplicable al tipo de dato.</span></p>
+                        <ul>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">A </span> <span
+                                    style="font-weight: 400;">las
+                                    autoridades gubernamentales en cumplimiento de las obligaciones </span> <span
+                                    style="font-weight: 400;">legales.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">A </span> <span
+                                    style="font-weight: 400;">nuestros
+                                    proveedores de servicios para el correcto funcionamiento de </span> <span
+                                    style="font-weight: 400;">nuestra
+                                    plataforma como hosting, de herramientas de gesti&oacute;n de </span> <span
+                                    style="font-weight: 400;">servicio al cliente como CRM o servicios de env&iacute;o
+                                    de mailing). </span>
+                                <span style="font-weight: 400;"><br /></span></li>
+                        </ul>
+                        <p><br /></p>
+                        <p><strong>&iquest;Qu&eacute; derechos puede ejercer sobre mis datos
+                                personales?</strong></p>
+                        <ol>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">ACCESO: </span> <span
+                                    style="font-weight: 400;">acceder a tus datos personales para saber cu&aacute;les
+                                    est&aacute;n siendo
+                                </span> <span style="font-weight: 400;">objeto de tratamiento y con qu&eacute;
+                                    finalidad.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">RECTIFICACI&Oacute;N: </span>
+                                <span style="font-weight: 400;">rectificar cualquier dato personal inexacto.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">OPOSICI&Oacute;N: </span>
+                                <span style="font-weight: 400;">oponerte al tratamiento de tus datos personales cuando
+                                    nos basemos </span> <span style="font-weight: 400;">en el inter&eacute;s
+                                    leg&iacute;timo para tratar tus datos y suprimir tus datos
+                                </span> <span style="font-weight: 400;">personales, cuando esto sea posible.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">CONSENTIMIENTO: </span> <span
+                                    style="font-weight: 400;">Revocar el consentimiento otorgado.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">PORTABILIDAD: </span> <span
+                                    style="font-weight: 400;">portar tus datos personales de nuestra plataforma digital
+                                    a un </span> <span style="font-weight: 400;">tercero.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                        </ol>
+                        <p><span style="font-weight: 400;">Podr&aacute;s ejercitar tus derechos ARCOP en cualquier
+                                momento y sin coste alguno,
+                                indicando qu&eacute; derecho quieres ejercitar y tus datos para que podamos
+                                identificarte, a trav&eacute;s de un
+                                correo electr&oacute;nico o una solicitud escrita a nuestros datos de contacto
+                                se&ntilde;alados en nuestro Aviso
+                                Legal.</span></p>
+                        <p><br /></p>
+                        <p><span style="font-weight: 400;">Igualmente tienes el derecho a presentar una
+                                reclamaci&oacute;n ante la
+                                Direcci&oacute;n de Protecci&oacute;n de Datos la Autoridad de Transparencia y Acceso a
+                                la Informaci&oacute;n
+                                P&uacute;blica (ANTAI) de la Rep&uacute;blica de Panam&aacute; si consideras que hemos
+                                cometido una
+                                infracci&oacute;n a la legislaci&oacute;n aplicable en la materia.</span></p>
+                        <p><br /></p>
+                        <p><strong>&iquest;C&oacute;mo protegemos tus datos personales?</strong></p>
+                        <p><span style="font-weight: 400;">Con la finalidad de prevenir accesos indebidos o la
+                                revelaci&oacute;n no autorizada
+                                de datos personales, hemos implementado medidas t&eacute;cnicas, f&iacute;sicas y
+                                legales para la
+                                protecci&oacute;n de tus datos personales.</span></p>
+                        <p><br /></p>
+                        <h1 class="fg-black"><strong>Responsable del Tratamiento</strong></h1>
+                        <p><span style="font-weight: 400;">FIRED SOFTWARE DEVELOPMENT, S.A.</span></p>
+                        <p><span style="font-weight: 400;">Tareazos</span></p>
+                        <p><span style="font-weight: 400;">Registro &Uacute;nico de Contribuyente es:
+                                155650553-2-2017</span></p>
+                        <p><span style="font-weight: 400;">Domicilio social est&aacute; en: Ciudad de
+                                Panam&aacute;</span></p>
+                        <p><br /></p>
+                        <p><strong>Finalidad del Tratamiento</strong></p>
+                        <ul>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Prestar </span> <span
+                                    style="font-weight: 400;">los
+                                    servicios de intermediario entre un TAREADOR y su respectivo </span> <span
+                                    style="font-weight: 400;">cliente.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Atender </span> <span
+                                    style="font-weight: 400;">la
+                                    solicitud de ejercicio de sus derechos ARCO.</span><span
+                                    style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Informar </span> <span
+                                    style="font-weight: 400;">sobre
+                                    nuestro servicio, a trav&eacute;s del envi&oacute; de noticias, novedades, </span>
+                                <span style="font-weight: 400;">eventos y actividades relacionadas con nuestra
+                                    plataforma digital.</span><span style="font-weight: 400;"><br /></span></li>
+                            <li style="font-weight: 400;"><span style="font-weight: 400;">Evaluar </span> <span
+                                    style="font-weight: 400;">los
+                                    perfiles de aquellos TAREADORES cuyo servicio requiera de una </span> <span
+                                    style="font-weight: 400;">idoneidad profesional.</span><span
+                                    style="font-weight: 400;"><br /></span>
+                            </li>
+                        </ul>
+                        <p><br /></p>
+                        <p><strong>Plazos de Conservaci&oacute;n</strong></p>
+                        <p><span style="font-weight: 400;">Conservaremos tus datos personales mientras mantengamos una
+                                relaci&oacute;n de
+                                TAREADOR o CLIENTE con nuestra plataforma. Podr&aacute;s en cualquier momento solicitar
+                                la eliminaci&oacute;n de
+                                tus datos personales. Igualmente podemos eliminar tus datos personales por atender una
+                                obligaci&oacute;n legal o
+                                una reclamaci&oacute;n.</span></p>
+                        <p><br /></p>
+                        <p><strong>Tus Datos Personales</strong></p>
+                        <p><span style="font-weight: 400;">Hemos recabado tus datos personales porque nos los haz
+                                facilitado o porque lo hemos
+                                obtenido por tu navegaci&oacute;n por nuestro sitio web a trav&eacute;s de cookies y
+                                otros dispositivos de
+                                seguimiento.</span></p>
+                        <p><br /></p>
+                        <p><strong>Bases Legitimaci&oacute;n</strong></p>
+                        <p><span style="font-weight: 400;">Para hacer un tratamiento de tus datos personales, nos
+                                basamos en la
+                                aceptaci&oacute;n de nuestros t&eacute;rminos y condiciones de uso de nuestra
+                                plataforma, d&aacute;ndonos el
+                                consentimiento para tratar tus datos personales.</span></p>
+                        <p><br /></p>
+                        <p><strong>Cesi&oacute;n de Datos Personales</strong></p>
+                        <p><span style="font-weight: 400;">La cesi&oacute;n de tus datos personales a terceros las
+                                haremos en cumplimiento de
+                                las finalidades antes mencionadas o de un mandato legal, administrativo o
+                                judicial.</span></p>
+                        <p><br /></p>
+                        <p><strong>Derechos ARCOP</strong></p>
+                        <p><span style="font-weight: 400;">Podr&aacute;s solicitar el ejercicio de tus derechos por
+                                correo electr&oacute;nico:
+                                datos@tareazos.com o en nuestro domicilio en la ciudad de Panam&aacute;.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Puedes ejercitar tu derecho a acceder a tus datos, a
+                                solicitar su
+                                rectificaci&oacute;n o supresi&oacute;n, a oponerte a determinados tratamientos, a
+                                retirar el consentimiento que
+                                nos hubieras prestado, a la portabilidad de tus datos o a no ser objeto de una
+                                decisi&oacute;n basada
+                                &uacute;nicamente en el tratamiento automatizado.</span></p>
+                        <br />
+                        <p><span style="font-weight: 400;">Si no estas conforme con el tratamiento de tus datos
+                                personales, puedes presentar una
+                                reclamaci&oacute;n administrativa ante la Direcci&oacute;n de Protecci&oacute;n de Datos
+                                de la Autoridad
+                                Nacional de Transparencia y Acceso a la Informaci&oacute;n P&uacute;blica
+                                (ANTAI).</span></p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <i class="scroll-top-btn scroll-top show fg-white"></i>
+    <footer class="light">
+        <div class="containerHome">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>Tareazos</h3>
+                    <p>
+                        Atiende las cosas más importantes de tu vida.
+                    </p>
+                    <div class="icon-links icon-social icon-links-grid social-colors">
+                        <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                                class="icon-facebook text-center"></i></a>
+                        <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                                class="icon-twitter text-center"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                                class="icon-instagram text-center"></i></a>
+                        <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                        <a class="linkedin" href="https://www.linkedin.com/company/tareazos" target="_blank"><i
+                                class="icon-linkedin text-center"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Términos</h3>
+                    <ul class="icon-list1 icon-line">
+                        <li> <a class="fg-white" [routerLink]="'/aviso-legal'">Aviso legal</a></li>
+                        <li><a class="fg-white" [routerLink]="'/politicas'">Políticas de cookies y privacidad</a></li>
+                        <li><a class="fg-white" [routerLink]="'/terminos-condiciones'">Términos y condiciones</a></li>
+                        <li><a class="fg-white" [routerLink]="'/cargos-comisiones'">Cargos y Comisiones</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="text-list text-list-line">
+                        <li>
+                            <b>Dirección</b>
+                            <hr />
+                            <p>Costa del Este, Panamá</p>
+                        </li>
+                        <li>
+                            <b>Correo</b>
+                            <hr />
+                            <p>info@tareazos.com</p>
+                        </li>
+                        <li>
+                            <b>Teléfono</b>
+                            <hr />
+                            <p>+507 6832-9942</p>
+                        </li>
+                        <li>
+                            <b>Horario</b>
+                            <hr />
+                            <p>9am-6pm Lunes - Viernes</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div class="containerHome">
+                <span>© 2020 Tareazos </span>
+                <span><a class="fg-white" href="mailto:info@tareazos.com">Contáctanos</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

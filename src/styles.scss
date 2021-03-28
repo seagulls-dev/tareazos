@@ -1,0 +1,240 @@
+// Import Fuse core library
+@import "@fuse/scss/core";
+
+// Import app.theme.scss
+@import "app/app.theme";
+
+@-webkit-keyframes placeholderShimmer {
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.shine {
+    background: #f6f7f8;
+    background-image: linear-gradient(
+        to right,
+        #f6f7f8 0%,
+        #edeef1 20%,
+        #f6f7f8 40%,
+        #f6f7f8 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 800px 104px;
+    display: inline-block;
+    position: relative;
+
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-name: placeholderShimmer;
+    -webkit-animation-timing-function: linear;
+}
+
+.mt-5 {
+    margin-top: 5px !important;
+}
+
+.mt-10 {
+    margin-top: 10px !important;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.mat-header-row {
+    background-color: $fondo-body !important;
+    min-height: 48px !important;
+}
+
+.mat-header-cell {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    color: #323130 !important;
+    // text-transform: uppercase !important;
+}
+
+.mat-row:hover {
+    background: rgb(237, 235, 233) !important;
+    color: mat-color($default-primary-palette) !important;
+    // font-weight: 600 !important;
+    border-color: rgb(237, 235, 233) !important;
+    cursor: pointer !important;
+
+    .mat-cell {
+        color: mat-color($default-primary-palette) !important;
+        // font-weight: 600 !important;
+    }
+}
+
+// body.theme-default .mat-form-field-ripple {
+//     background-color: mat-color($default-accent-palette) !important;
+// }
+
+body.theme-default .mat-toolbar {
+    background-color: $fondo-body;
+}
+
+.bold {
+    font-weight: 600 !important;
+}
+
+.mat-dialog-container {
+    padding: 0 !important;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.fg-white {
+    color: #ffffff !important;
+}
+
+.fg-black {
+    color: #000000 !important;
+}
+
+.fg-primary {
+    color: mat-color($default-primary-palette) !important;
+}
+
+.fg-accent {
+    color: mat-color($default-accent-palette) !important;
+}
+
+.fg-warn {
+    color: mat-color($default-warn-palette) !important;
+}
+
+.fg-darkGray {
+    color: #323130 !important;
+}
+
+.bg-primary {
+    background: mat-color($default-primary-palette) !important;
+}
+
+.bg-menuPrimaryLight {
+    background: #deedf3 !important;
+    color: mat-color($default-primary-palette) !important;
+}
+
+.bg-accent {
+    background: mat-color($default-accent-palette) !important;
+    color: mat-color($default-primary-palette) !important;
+}
+
+.bg-warn {
+    background: mat-color($default-warn-palette) !important;
+}
+
+.bg-accentLight {
+    background: #fff9e6 !important;
+}
+
+.bg-Open {
+    background: #7cb342 !important;
+}
+
+.bg-Assigned {
+    background: #03a9f4 !important;
+}
+
+.bg-Completed {
+    background: #d84315 !important;
+}
+
+.fg-disabled {
+    color: rgba(0, 0, 0, 0.38) !important;
+}
+
+.mat-form-field {
+    font-size: 14px !important;
+}
+
+.dropzone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-weight: 200;
+    height: 100px;
+    border: 2px dashed rgb(3, 101, 140);
+    border-radius: 5px;
+    background: white;
+    margin: 10px 0;
+
+    &.hovering {
+        border: 2px solid #f16624;
+        color: #dadada !important;
+    }
+
+    .file-label {
+        font-size: 0.9em;
+    }
+}
+.dropzone-hidden {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 200;
+}
+
+.cdk-virtual-scroll-data-source-example .example-viewport {
+    height: 150px;
+    width: 100%;
+}
+
+.cdk-virtual-scroll-data-source-example
+    .example-viewport
+    .cdk-virtual-scroll-content-wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.cdk-virtual-scroll-data-source-example .example-item {
+    width: auto;
+    height: 100%;
+    writing-mode: horizontal-tb;
+}
+
+progress::-webkit-progress-value {
+    transition: width 0.1s ease;
+}
+
+.ng5-slider {
+    .ng5-slider-selection,
+    .ng5-slider-pointer {
+        background: mat-color($default-primary-palette) !important;
+    }
+
+    .ng5-slider-pointer.ng5-slider-active:after {
+        background-color: #ffffff !important;
+    }
+}
+
+body.theme-default .mat-dialog-container {
+    backdrop-filter: blur(25px) saturate(100%);
+    background: rgba(255, 255, 255, 0.8);
+    filter: brightness(108%);
+    -webkit-filter: brightness(108%);
+}
+
+.transparent {
+    background-color: transparent !important;
+    background: transparent !important;
+}

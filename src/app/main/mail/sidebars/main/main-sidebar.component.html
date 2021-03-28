@@ -1,0 +1,140 @@
+<!-- SIDEBAR HEADER -->
+<div fxLayout="column" class="p-12 pt-15 pb-0">
+    <span
+        class="font-size-24 line-height-30"
+        [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }">
+        {{ title }}
+    </span>
+
+    <mat-form-field appearance="fill" class="pt-18">
+        <mat-label>Tipo de bandeja</mat-label>
+        <mat-select
+            class="account-selection"
+            placeholder="Seleeciona el tipo"
+            [ngModel]="selectedAccount"
+            (ngModelChange)="ChangeInboxType($event)">
+            <mat-option
+                *ngFor="let account of accounts | keys"
+                [value]="account.key"
+            >
+                {{ account.value }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+</div>
+<!-- / SIDEBAR HEADER -->
+
+<!-- SIDEBAR CONTENT -->
+<div
+    class="content"
+    fusePerfectScrollbar
+    [@animate]="{ value: '*', params: { y: '50px' } }"
+>
+    <div class="nav material2">
+        <div class="nav-subheader">{{ "MAIL.FOLDERS" | translate }}</div>
+
+        <div class="nav-item" *ngFor="let folder of folders">
+            <a  class="nav-link"
+                matRipple
+                [ngClass]="{
+                    'active bg-menuPrimaryLight': !selectedStatus,
+                    '': selectedAccount
+                }"
+                (click)="
+                    ChangeTodas({
+                        folder: folder.handle
+                    })
+                ">
+                <mat-icon class="nav-link-icon" *ngIf="folder.icon">{{folder.icon}}</mat-icon>
+                <span>{{ folder.title }}</span>
+            </a>
+        </div>
+
+        <div class="nav-subheader">{{ "MAIL.FILTERS" | translate }}</div>
+
+        <div class="nav-item" *ngFor="let status of statues">
+            <a
+                class="nav-link"
+                [ngClass]="{
+                    'active bg-menuPrimaryLight': status.handle === selectedStatus,
+                    ' ': status.handle !== selectedStatus
+                }"
+                matRipple
+                (click)="
+                    ChangeStatus({
+                        status: status.handle
+                    })
+                "
+            >
+                <mat-icon
+                    class="nav-link-icon"
+                    [ngClass]="status.color"
+                    *ngIf="status.icon"
+                    >{{ status.icon }}</mat-icon
+                >
+                <span>{{ status.title }}</span>
+            </a>
+        </div>
+
+        <div
+            class="account"
+            fxLayout="column"
+            [@animate]="{ value: '*', params: { delay: '300ms' } }"
+            style="padding: 12px 12px 0 12px;"
+        >
+            <mat-form-field appearance="fill">
+                <mat-label>Category</mat-label>
+                <mat-select
+                    class="account-selection"
+                    placeholder="Seleeciona el Category"
+                    [ngModel]="selectedCategory"
+                    (ngModelChange)="ChangeCategory({ category: $event })"
+                >
+                    <mat-option
+                        *ngFor="let service of services"
+                        [value]="service.key"
+                    >
+                        {{ service.key }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div
+            class="account"
+            fxLayout="column"
+            [@animate]="{ value: '*', params: { delay: '300ms' } }"
+            style="padding: 0 12px 0 12px;"
+        >
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="picker"
+                    (dateInput)="ChangeDate('input', $event)"
+                    (dateChange)="ChangeDate('change', $event)"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div
+            class="custom-slider"
+            fxLayout="column"
+            [@animate]="{ value: '*', params: { delay: '300ms' } }"
+            style="padding: 0 12px 0 12px;"
+        >
+            <ng5-slider
+                [(value)]="minValue"
+                [(highValue)]="maxValue"
+                [options]="sliderOptions"
+                (valueChange)="ChangeValue($event)"
+                (highValueChange)="ChangeHighValue($event)"
+            ></ng5-slider>
+        </div>
+    </div>
+</div>
+<!-- / SIDEBAR CONTENT -->

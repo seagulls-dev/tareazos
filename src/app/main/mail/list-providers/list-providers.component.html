@@ -1,0 +1,97 @@
+<div fxLayout="column" fxLayoutAlign="start center" fxFlex fxLayout.gt-md="100">
+    <div class="profile-box latest-activity" fxLayout="column" fxFill>
+        <header fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="title font-size-16 font-weight-600">
+                Tareadores disponibles
+            </div>
+            <div class="more secondary-text font-size-16 font-weight-400" (click)="openDialog()">
+                Ver todos
+            </div>
+        </header>
+        <ng-container *ngIf="isActive">
+            <div class="p-12 pb-0" fxLayout="row" fxLayoutAlign="start start">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Buscar</mat-label>
+                    <input matInput [placeholder]="'MAIL.SEARCH_PLACEHOLDER' | translate" [formControl]="searchInput">
+                    <mat-icon matPrefix>search</mat-icon>
+                </mat-form-field>
+            </div>
+
+            <div class="table-custom p-12 pt-0">
+                <table mat-table [dataSource]="dataSource">
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="Cellphone">
+                        <th mat-header-cell *matHeaderCellDef>Cellphone</th>
+                        <td mat-cell *matCellDef="let element">
+                            <img class="avatar" *ngIf="
+                                    element.pictures && element.pictures.length > 0
+                                " src="{{ element?.pictures[0].downloadUrl }}" />
+                            <div mat-card-avatar class="avatar" [ngStyle]="{'background-color': element.color}" *ngIf="
+                                    !(
+                                        element.pictures &&
+                                        element.pictures.length > 0
+                                        
+                                    )
+                                ">
+                                {{ element.Generales?.FirstName[0].toUpperCase() }}{{ element.Generales?.LastName[0].toUpperCase() }}
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="FirstName">
+                        <th mat-header-cell *matHeaderCellDef>FirstName</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.Generales.FirstName }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="LastName">
+                        <th mat-header-cell *matHeaderCellDef>LastName</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.Generales.LastName }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Gender">
+                        <th mat-header-cell *matHeaderCellDef>Gender</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.Generales.Gender }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Contratar">
+                        <th mat-header-cell *matHeaderCellDef>Contratar</th>
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-button color="primary" (click)="getContact()">
+                                Contratar
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-row (click)="getRecord(index)" *matRowDef="
+                            let row;
+                            columns: displayedColumns;
+                            let index = index
+                        " id="tr"></tr>
+                </table>
+
+                <!-- <mat-paginator
+                [pageSizeOptions]="[5, 10, 20]"
+                showFirstLastButtons
+            ></mat-paginator> -->
+            </div>
+            <div style="
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-right: 20px;
+                ">
+                <button mat-icon-button color="primary" (click)="prevPage()" [disabled]="!prevKeys?.length">
+                    <mat-icon>skip_previous</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="nextPage()" [disabled]="!nextKey.docId">
+                    <mat-icon>skip_next</mat-icon>
+                </button>
+            </div>
+        </ng-container>
+    </div>
+</div>

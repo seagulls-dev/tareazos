@@ -1,0 +1,336 @@
+<div id="product" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/tasks/products'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="product-image mr-8 mr-sm-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="product.images[0]" [src]="product.images[0].url">
+                    <img *ngIf="!product.images[0]" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{request?.title}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        New Product
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>{{request?.category}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <div>
+                <button mat-raised-button class="save-product-button" [disabled]="productForm.invalid"
+                    *ngIf="pageType ==='new'" (click)="addProduct()">
+                    <span>ADD</span>
+                </button>
+
+                <button mat-raised-button color="warn" *ngIf="pageType ==='edit' && request?.status !== 'Cancelled'"
+                    (click)="updateStatus(request)">
+                    <span>CANCEL TASK</span>
+                </button>
+
+                <button mat-raised-button color="warn" class="ml-4" *ngIf="pageType ==='edit'"
+                    (click)="deleteTask(request)">
+                    <span>DELETE TASK</span>
+                </button>
+
+                <button mat-raised-button class="save-product-button ml-4"
+                    [disabled]="productForm.invalid || productForm.pristine" *ngIf="pageType ==='edit'"
+                    (click)="saveProduct()">
+                    <span>SAVE</span>
+                </button>
+            </div>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <form name="productForm" [formGroup]="productForm" class="product w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Basic Info">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div class="section pb-48">
+                                    <a [routerLink]="'/users/user/'+ request?.authorid">
+                                        <p> Autor: <strong>{{request?.authorname}}</strong></p>
+                                    </a>
+                                    <p> Create Date: {{request?.createDate.seconds  * 1000  | date:'MM-dd-yyyy HH:mm' }}
+                                    </p>
+                                    <p> Budget: {{request?.Request.Budget}}</p>
+                                    <p> Category: {{request?.category}}</p>
+                                    <p> subcategory: {{request?.subcategory}}</p>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Request Title</mat-label>
+                                        <input matInput placeholder="Request title" name="title" formControlName="title"
+                                            required>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Due Date</mat-label>
+                                        <input matInput placeholder="Request dueDate" name="dueDate"
+                                            formControlName="dueDate" required>
+                                    </mat-form-field>
+
+
+                                    <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                        <mat-label>Request Description</mat-label>
+                                        <textarea matInput placeholder="Request Description" name="description"
+                                            formControlName="description" rows="5">
+                                    </textarea>
+                                    </mat-form-field>
+
+                                    <mat-accordion class="addresses" *ngIf="request?.location">
+
+                                        <mat-expansion-panel>
+
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title> Ubicación </mat-panel-title>
+                                            </mat-expansion-panel-header>
+
+                                            <div fxFlex fxLayout="column">
+                                                <div class="address h4 py-24">{{request?.location?.addressLine}}
+                                                </div>
+                                                <div> ubicación</div>
+                                                <agm-map class="w-100-p h-400" style="height: 300px;" [zoom]="15"
+                                                    [latitude]="request?.location?.lat"
+                                                    [longitude]="request?.location?.lng">
+                                                    <agm-marker [latitude]="request?.location?.lat"
+                                                        [longitude]="request?.location?.lng">
+                                                    </agm-marker>
+                                                </agm-map>
+                                            </div>
+
+                                        </mat-expansion-panel>
+
+
+                                    </mat-accordion>
+                                </div>
+                                <div class="section pb-48">
+
+                                    <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                        <mat-icon class="m-0 mr-16 secondary-text">group</mat-icon>
+                                        <div class="h2 secondary-text">Ofertantes</div>
+                                    </div>
+
+                                    <mat-table class="orders-table" #table [dataSource]="dataSource" matSort
+                                        [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="authorname">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
+                                                Ofertante
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                                <p class="text-truncate">{{order.authorname}}</p>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <!-- Reference Column -->
+                                        <ng-container matColumnDef="awarded">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Awarded</mat-header-cell>
+                                            <mat-cell *matCellDef="let order">
+                                                <p class="text-truncate">{{order.awarded}}</p>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="comments">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Comentarios
+                                            </mat-header-cell>
+                                            <mat-cell *matCellDef="let order">
+                                                <p class="text-truncate">
+                                                    {{order.comments}}
+                                                </p>
+                                            </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="rate">
+                                            <mat-header-cell *matHeaderCellDef mat-sort-header>Total</mat-header-cell>
+                                            <mat-cell *matCellDef="let order">
+                                                <p class="text-truncate">
+                                                    {{order.rate | currency}}
+                                                </p>
+                                            </mat-cell>
+                                        </ng-container>
+
+                                        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true">
+                                        </mat-header-row>
+
+                                        <mat-row *matRowDef="let order; columns: displayedColumns;" class="order"
+                                            matRipple>
+                                        </mat-row>
+                                    </mat-table>
+
+                                    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                    </mat-paginator>
+
+                                </div>
+
+                                <div class="section pb-48">
+
+                                    <chat-view></chat-view>
+
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Product Images">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div fxLayout="row wrap" fxLayoutAlign="start start">
+
+                                    <div *ngIf="product.images.length === 0" class="product-image" fxlayout="row"
+                                        fxLayoutAlign="center center">
+                                        <img class="media"
+                                            [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                                    </div>
+
+                                    <div *ngFor="let image of product.images">
+                                        <div *ngIf="product.images.length > 0" class="product-image" fxlayout="row"
+                                            fxLayoutAlign="center center">
+                                            <img class="media" [src]="image.url">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Pricing">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Tax Excluded Price</mat-label>
+                                    <input matInput placeholder="Tax Excluded Price" name="priceTaxExcl"
+                                        formControlName="priceTaxExcl" type="number">
+                                    <span matPrefix>$&nbsp;</span>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Tax Included Price</mat-label>
+                                    <input matInput placeholder="Tax Included Price" name="priceTaxIncl"
+                                        formControlName="priceTaxIncl" type="number">
+                                    <span matPrefix>$&nbsp;</span>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Tax Rate</mat-label>
+                                    <input matInput placeholder="Tax Rate" name="taxRate" formControlName="taxRate"
+                                        type="number">
+                                    <span matPrefix>&#37;&nbsp;</span>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Compared Price</mat-label>
+                                    <input matInput placeholder="Compared Price" name="comparedPrice"
+                                        formControlName="comparedPrice" type="number">
+                                    <span matPrefix>$&nbsp;</span>
+                                    <mat-hint align="start">Add a compare price to show next to the real price
+                                    </mat-hint>
+                                </mat-form-field>
+
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Inventory">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>SKU</mat-label>
+                                    <input matInput placeholder="SKU" name="sku" formControlName="sku">
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Quantity</mat-label>
+                                    <input matInput placeholder="Quantity" name="quantity" formControlName="quantity"
+                                        type="number">
+                                </mat-form-field>
+
+                            </div>
+
+                        </mat-tab>
+
+                        <mat-tab label="Shipping">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar fxLayout="column">
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
+                                        <mat-label>Width</mat-label>
+                                        <input matInput placeholder="Width" name="Width" formControlName="width">
+                                        <span matSuffix>cm</span>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
+                                        <mat-label>Height</mat-label>
+                                        <input matInput placeholder="Height" name="Height" formControlName="height">
+                                        <span matSuffix>cm</span>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="30">
+                                        <mat-label>Depth</mat-label>
+                                        <input matInput placeholder="Depth" name="Depth" formControlName="depth">
+                                        <span matSuffix>cm</span>
+                                    </mat-form-field>
+
+                                </div>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Weight</mat-label>
+                                    <input matInput placeholder="Weight" name="Weight" formControlName="weight">
+                                    <span matSuffix>kg</span>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Extra Shipping Fee</mat-label>
+                                    <input matInput placeholder="Extra Shipping Fee" name="extraShippingFee"
+                                        formControlName="extraShippingFee" type="number">
+                                    <span matPrefix>$&nbsp;</span>
+                                </mat-form-field>
+
+                            </div>
+
+                        </mat-tab>
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

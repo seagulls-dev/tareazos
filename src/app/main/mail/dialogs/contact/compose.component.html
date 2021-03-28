@@ -1,0 +1,76 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar class="m-0 transparent">
+        <mat-toolbar-row
+            fxFlex
+            fxLayout="row"
+            fxLayoutAlign="space-between center"
+        >
+            <span class="title dialog-title"
+                >Vas a contratar a Test Profile Pic</span
+            >
+            <button
+                mat-icon-button
+                (click)="matDialogRef.close()"
+                aria-label="Close dialog"
+            >
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="p-24">
+        <p>
+            Este tareador tiene disponibilidad exacta en la fecha que
+            solicitaste
+        </p>
+
+        <div
+            class="account pt-12"
+            fxLayout="column"
+            [@animate]="{ value: '*', params: { delay: '300ms' } }"
+            style="width: 50%;"
+        >
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input
+                    matInput
+                    [matDatepicker]="picker"
+                    (dateInput)="ChangeOfferDate('input', $event)"
+                    (dateChange)="ChangeOfferDate('change', $event)"
+                    (click)="picker.open()"
+                />
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+    <div
+        mat-dialog-actions
+        class="m-0 p-16"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+    >
+        <div>
+            <button
+                mat-flat-button
+                color="primary"
+                (click)="updateOfferDate()"
+                class="save-button"
+                aria-label="SAVE"
+            >
+                AGENDAR TAREA
+            </button>
+            <button
+                mat-button
+                color="warn"
+                (click)="matDialogRef.close()"
+                class="save-button"
+                aria-label="SAVE"
+            >
+                CANCELAR
+            </button>
+        </div>
+    </div>
+</div>

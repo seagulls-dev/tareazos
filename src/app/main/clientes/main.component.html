@@ -1,0 +1,247 @@
+<div id="orders" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="column" fxLayoutAlign="center center"
+             fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-sm-0"
+                 fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" >
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">Formularios </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper  ml-sm-32">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search for an order">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            <div fxFlex="0 1 auto" fxLayout="row" fxLayoutAlign="start center" *ngIf="topic.name !== undefined">
+                <button mat-button color="warn" class="new" (click)="CleanForm()"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                    <mat-icon class="mt--4">close</mat-icon> Cerrar
+                </button>
+                <button mat-button color="primary" class="new" (click)="SaveTopic()"
+                    [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+                    <mat-icon class="mt--4">save</mat-icon> Guardar
+                </button>
+            </div>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card"  style="padding:25px">
+            <div class="center" fusePerfectScrollbar>
+                <div class="content p-16">
+                    <div fxLayout="row">
+                        <mat-form-field class="w-100" appearance='fill'>
+                            <mat-label>Formulario</mat-label>
+                            <mat-select [(ngModel)]="categoryID" (ngModelChange)="ChangeForm(categoryID)"
+                                placeholder="Formulario">
+                                <mat-option *ngFor="let opt of formsref | async" [value]="opt.key">{{opt.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+    
+                        <mat-form-field class="w-100" appearance='fill'>
+                            <mat-label>Nombre del Formulario</mat-label>
+                            <input matInput placeholder="Nombre del Formulario" [(ngModel)]="topic.name" name="text" (change)="loadQuestions()">
+                        </mat-form-field>
+                    </div>
+    
+                    <div class="flex-container">
+                        <div class="fill-width" *ngIf="(topic.img_url || url)">
+                            <img src="{{url? url: topic.img_url}}" style="width:150px; height:100px">
+                        </div>
+    
+                        <mat-divider></mat-divider>
+    
+    
+                        <div fxLayout="row" fxLayout.xs="column" *ngIf="topic.name !== undefined">
+                            <div fxFlex="15" class="builder-source">
+                                <h4>Source</h4>
+    
+                                <ngx-dnd-container class="root-container" [model]="sourceBuilderTools"
+                                    [dropZones]="['builder-target']" [copy]="true" [droppableItemClass]="droppableItemClass"
+                                    (drag)="builderDrag($event)" direction="mixed" >
+    
+                                    <ng-template let-item="model" >
+    
+                                        <div [ngSwitch]="item.controlType" >
+                                            <div *ngSwitchCase="'section'">
+                                                <i [class]="item.icon"></i>
+                                                {{item.label}}
+                                            </div>
+    
+                                            <mat-form-field *ngSwitchCase="'textbox'" class="w-100" appearance='fill'>
+                                                <mat-label>{{item.label}}</mat-label>
+                                                <input matInput placeholder="{{item.label}}">
+                                            </mat-form-field>
+    
+                                            <mat-form-field *ngSwitchCase="'dropdown'" class="w-100" appearance='fill'>
+                                                <mat-label>{{item.label}}</mat-label>
+                                                <mat-select placeholder="{{item.label}}">
+                                                    <mat-option>Option 1</mat-option>
+                                                    <mat-option>Option 2</mat-option>
+                                                    <mat-option>Option 3</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field *ngSwitchCase="'datepicker'" class="w-100" appearance='fill'>
+                                                <mat-label>{{item.label}}:</mat-label>
+                                                <input matInput [matDatepicker]="picker" >
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                              </mat-form-field>
+    
+                                            <mat-form-field *ngSwitchCase="'textarea'" class="w-100" appearance='fill'>
+                                                <mat-label>{{item.label}}</mat-label>
+                                                <textarea matInput placeholder="{{item.label}}">{{item.value}}</textarea>
+                                            </mat-form-field>
+    
+                                            <mat-slide-toggle *ngSwitchCase="'toggle'" class="w-100 pt-16">
+                                                {{item.label}}
+                                            </mat-slide-toggle>
+                                        </div>
+                                    </ng-template>
+                                </ngx-dnd-container>
+                            </div>
+    
+                            <div fxFlex="{{edit !== null ? 70 : 100}}" class="builder-target" fxLayout="row" fxLayout.xs="column">
+                                <h4>Target</h4>
+    
+                                <ngx-dnd-container class="root-container" [model]="topic?.questions"
+                                    dropZone="builder-target" [removeOnSpill]="true"
+                                    [droppableItemClass]="droppableItemClass" (drag)="log($event)" (drop)="log($event)"
+                                    (over)="log($event)" (out)="log($event)" (remove)="log($event)" direction="mixed">
+    
+                                    <ng-template let-model="model" let-template="template">
+                                        <div [formGroup]="form" >
+                                            <div [ngSwitch]="model.controlType">
+                                                <div *ngSwitchCase="'section'">
+                                                    <div class="shadow">
+                                                        {{model.label}}
+                                                        <ngx-dnd-container dropZone="builder-target"
+                                                            [model]="model.children" [removeOnSpill]="true"
+                                                            [template]="template" [droppableItemClass]="droppableItemClass"
+                                                            (drag)="log($event)" (drop)="log($event)" (over)="log($event)"
+                                                            (out)="log($event)" (remove)="log($event)"
+                                                            (cancel)="log($event)" direction="mixed">
+                                                        </ngx-dnd-container>
+                                                    </div>
+                                                </div>
+    
+                                                <div (click)="controlClick(model)" >
+                                                    <mat-form-field *ngSwitchCase="'textbox'" class="w-100" appearance='fill'>
+                                                        <mat-label>{{model.label}}</mat-label>
+                                                        <input type="{{model.type}}" matInput placeholder="{{model.label}}"
+                                                            [id]="model.key" formControlName="{{model.key}}" readonly>
+                                                    </mat-form-field>
+        
+                                                    <mat-form-field *ngSwitchCase="'dropdown'" class="w-100" appearance='fill'>
+                                                        <mat-label>{{model.label}}</mat-label>
+                                                        <mat-select [id]="model.key" (ngModelChange)="controlChange($event)"
+                                                            placeholder="{{model.label}}" formControlName="{{model.key}}"
+                                                            readonly>
+                                                            <!-- <mat-option *ngFor="let opt of options | async" [value]="opt.key">
+                                                                {{opt.description}}
+                                                            </mat-option> -->
+                                                        </mat-select>
+                                                    </mat-form-field>
+        
+                                                    <mat-form-field *ngSwitchCase="'multiple'" class="w-100" appearance='fill'>
+                                                        <mat-label>{{model.label}}</mat-label>
+                                                        <mat-select [id]="model.key" (ngModelChange)="controlChange($event)"
+                                                            placeholder="{{model.label}}" multiple
+                                                            formControlName="{{model.key}}"
+                                                            readonly>
+                                                            <!-- <mat-option *ngFor="let opt of options | async" [value]="opt.key">
+                                                                {{opt.description}}
+                                                            </mat-option> -->
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <mat-form-field *ngSwitchCase="'datepicker'" class="w-100" appearance='fill'>
+                                                        <mat-label>{{model.label}}:</mat-label>
+                                                        <input matInput [matDatepicker]="picker" formControlName="{{model.key}}">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                        <mat-datepicker #picker></mat-datepicker>
+                                                      </mat-form-field>
+        
+                                                    <mat-form-field *ngSwitchCase="'textarea'" class="w-100 pb-10" appearance='fill'>
+                                                        <mat-label>{{model.label}}</mat-label>
+                                                        <textarea matInput placeholder="{{model.label}}" [id]="model.key"
+                                                            formControlName="{{model.key}}" readonly>{{model.value}}</textarea>
+                                                    </mat-form-field>
+        
+                                                    <mat-slide-toggle *ngSwitchCase="'toggle'" class="w-100"
+                                                        formControlName="{{model.key}}" readonly>
+                                                        {{model.label}}
+                                                    </mat-slide-toggle>
+        
+                                                    <div *ngSwitchCase="'file'">
+                                                        <mat-form-field class="width80" appearance='fill'>
+                                                            <mat-label>{{model.label}}</mat-label>
+                                                            <input matInput [value]="filename" formControlName="{{model.key}}" readonly>
+                                                        </mat-form-field>
+        
+                                                        <a mat-mini-fab color="default" (click)="FileInput.click()">
+                                                            <mat-icon>attach_file</mat-icon>
+                                                        </a>
+                                                        <input type="file" hidden #FileInput readonly
+                                                            (change)="uploadFile($event,model.key)"
+                                                            accept="application/pdf,image/jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngx-dnd-container>
+                            </div>
+    
+    
+                            <div fxFlex="15" *ngIf="edit !== null"
+                                [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                                <!-- <pre><code>{{topic?.questions | json}}</code></pre> -->
+    
+                                <edit-form [_data]="edit"></edit-form>
+                            </div>
+    
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="main" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+    <mat-toolbar class="mat-toolbar pl-0">
+        <div fxFlex fxFill fxLayout="row" fxLayoutAlign="start center">
+            <div fxFlex="1 0 auto" fxLayout="row" fxLayoutAlign="start center" class="pl-16">
+                Formularios
+            </div>
+            
+        </div>
+    </mat-toolbar>
+
+    <div class="content">
+     
+
+    </div>

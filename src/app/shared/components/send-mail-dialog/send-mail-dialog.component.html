@@ -1,0 +1,22 @@
+<div class="dialog" fxLayout="column">
+    <mat-toolbar class="transparent m-0 pt-0">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Descargar Tareazos</span>
+            <span class="spacer"></span>
+            <button mat-icon-button>
+                <mat-icon aria-hidden="false" aria-label="Example heart icon" [mat-dialog-close]="null">close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div fxFlex="100">
+        <div mat-dialog-content fxLayout="column">
+            <div [innerHTML]="message" class="font-weight-500"></div>
+           
+        </div>
+        <div fxLayout="row justify-content-md-center">
+            <img src="/assets/images/google-play.png" (click)="Opentab()" style="width:125px;height: 40px;"/>
+            <img src="/assets/images/appstore.png" (click)="Opentab()" style="width:135px;height: 40px;"/>
+         </div>
+       
+    </div>
+</div>

@@ -1,0 +1,302 @@
+@import "../../../@fuse/scss/fuse";
+
+
+    #orders {
+
+        .top-bg {
+
+            @include media-breakpoint('xs') {
+                height: 224px;
+            }
+        }
+
+        > .center {
+
+            > .header {
+
+                .search-wrapper {
+                    width: 100%;
+                    max-width: 480px;
+                    border-radius: 28px;
+                    overflow: hidden;
+                    @include mat-elevation(1);
+
+                    @include media-breakpoint('xs') {
+                        width: 100%;
+                    }
+
+                    .search {
+                        width: 100%;
+                        height: 48px;
+                        line-height: 48px;
+                        padding: 0 18px;
+
+                        input {
+                            width: 100%;
+                            height: 48px;
+                            min-height: 48px;
+                            max-height: 48px;
+                            padding: 0 16px;
+                            border: none;
+                            outline: none;
+                        }
+                    }
+                }
+
+                @include media-breakpoint('xs') {
+                    padding: 8px 0;
+                    height: 160px !important;
+                    min-height: 160px !important;
+                    max-height: 160px !important;
+                }
+            }
+        }
+    }
+
+    .mat-tab-group,
+    .mat-tab-body-wrapper,
+    .tab-content {
+        flex: 1 1 auto;
+        max-width: 100%;
+    }
+
+    .orders-table {
+        flex: 1 1 auto;
+        border-bottom: 1px solid rgba(0, 0, 0, .12);
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+
+        .mat-header-row {
+            min-height: 64px;
+        }
+
+        .order {
+            position: relative;
+            cursor: pointer;
+            height: 84px;
+        }
+
+        .mat-cell {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .mat-column-id {
+            flex: 0 1 84px;
+        }
+
+        .mat-column-image {
+            flex: 0 1 84px;
+
+            .product-image {
+                width: 52px;
+                height: 52px;
+                border: 1px solid rgba(0, 0, 0, .12);
+            }
+        }
+
+        .mat-column-buttons {
+            flex: 0 1 80px;
+        }
+
+        .quantity-indicator {
+            display: inline-block;
+            vertical-align: middle;
+            width: 8px;
+            height: 8px;
+            border-radius: 4px;
+            margin-right: 8px;
+
+            & + span {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .active-icon {
+            border-radius: 50%;
+        }
+    }
+
+
+
+#main {
+
+    mat-toolbar {
+        height: 50px;
+        min-height: 50px;
+        border-bottom-color: rgb(220, 219, 218) !important;
+        border-bottom: 1px solid;
+
+        .new {
+            padding: 0px 10px 0px 10px !important;
+        }
+    }
+
+    .content {
+        background: transparent;
+        height: 100%;
+
+        .sidebar {
+
+            &:not(.locked-open) {
+                background: white;
+            }
+        }
+    }
+
+    .builder-container {
+        display: flex;
+
+        .builder-source,
+        .builder-target {
+            flex: 1 1 50%;
+            box-sizing: border-box;
+            max-width: 50%;
+        }
+    }
+
+    .ngx-dnd-item {
+        font-size: 16px;
+    }
+
+    .builder-source .ngx-dnd-container {
+        border: none;
+        background-color: lightgrey;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    .builder-source {
+        .ngx-dnd-container {
+            
+
+            .gu-unselectable &,
+            &.gu-over,
+            &.gu-over .ngx-dnd-container {
+                border: 1px dashed orange;
+            }
+
+            .ngx-dnd-item {
+                // margin: 5px 1%;
+                margin: 0;
+                border: 1px solid transparent;
+                background-color: #ffffff;
+                width: 100% !important;
+
+                // flex: 1 1 100%;
+                box-sizing: border-box;
+                -webkit-box-flex: 1;
+                max-width: 100%;
+
+                &.control {
+                    box-sizing: border-box;
+                    -webkit-box-flex: 1;
+                    max-height: 80px;
+                    padding: 10;
+                }
+
+                &.wide {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .builder-target {
+        .ngx-input {
+            margin: 0;
+
+            .ngx-input-wrap {
+                margin: 0;
+            }
+        }
+
+        >*>.ngx-dnd-container {
+            min-height: 400px;
+        }
+
+        .ngx-dnd-container {
+            justify-content: normal;
+            flex-flow: row wrap;
+            display: flex;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: normal;
+            box-sizing: border-box;
+
+            border: 1px dashed lightgrey;
+            background-color: white;
+
+            padding: 10;
+            min-height: 60px;
+
+            .gu-unselectable &,
+            &.gu-over,
+            &.gu-over .ngx-dnd-container {
+                border: 1px dashed orange;
+            }
+
+            .ngx-dnd-item {
+                // margin: 5px 1%;
+                margin: 0;
+                border: 1px solid transparent;
+                background-color: #ffffff;
+
+                // flex: 1 1 100%;
+                box-sizing: border-box;
+                -webkit-box-flex: 1;
+                max-width: 100%;
+
+                &.section {
+                    box-sizing: border-box;
+                    -webkit-box-flex: 1;
+                    max-height: none !important;
+                    padding: 10;
+                }
+
+                &.control {
+                    box-sizing: border-box;
+                    -webkit-box-flex: 1;
+                    max-height: 80px;
+                    padding: 10;
+                }
+
+                &.wide {
+                    width: 100%;
+                }
+            }
+
+            .ngx-dnd-item.gu-transit,
+            .ngx-dnd-item:hover {
+                border: 1px solid #1786e9
+            }
+        }
+    }
+}
+
+
+
+
+@for $i from 1 through 100 {
+    .widthControl-#{$i} { 
+        width: ($i) * 1%;
+    }
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    height: 64px;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.width80 {
+    width: 80%;
+}

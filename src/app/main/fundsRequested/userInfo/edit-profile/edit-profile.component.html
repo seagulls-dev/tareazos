@@ -1,0 +1,50 @@
+<div id="client-forms" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+    <mat-toolbar class="mat-toolbar pl-0">
+        <div fxFlex fxLayout="column" fxLayoutAlign="start center">
+            Comprobante de Pago
+        </div>
+    </mat-toolbar>
+
+    <div class="content pt-30">
+        <div class="center" fusePerfectScrollbar>
+            <div class="content">
+                <div fxLayout="column">
+                    <form [formGroup]="form" id="form">
+                        <div fxLayout="row">
+                            <div *ngFor="let question of formQuestions | async" fxLayout="column">
+                                <df-question fxLayout="column" class="ngx-dnd-item" [question]="question" [form]="form"
+                                    (GetDownloadUrl2)="GetDownloadUrl($event)">
+                                </df-question>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <button mat-button color="accent" (click)="updateStatus()">Guardar</button>
+
+                    <!-- <table class="simple">
+                        <thead>
+                            <tr>
+                                <th class="w-80">ID</th>
+                                <th class="w-120">Image</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="product-row" *ngFor="let product of user.provider?.data?.pictures; let i= index;">
+                                <td>
+                                    {{product.title}}
+                                </td>
+                                <td>
+                                    <img class="product-image" [src]="product.downloadUrl">
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

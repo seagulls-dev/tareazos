@@ -1,0 +1,273 @@
+@import "../../../@fuse/scss/fuse";
+
+@for $i from 1 through 100 {
+    .widthControl-#{$i} { 
+        width: ($i) * 1%;
+    }
+}
+
+toolbar .mat-toolbar { 
+    position: absolute ;
+    box-shadow: none;
+}
+
+.border-toolbar {
+    box-shadow: rgba(0,0,0,.09) 0 2px 0 !important;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    height: 64px;
+}
+
+.w-100 {
+    width: 100% !important;
+}
+
+.pb-10 {
+    padding-bottom: 10px;
+}
+
+.width80 {
+    width: 80%;
+}
+
+ 
+#academy-courses {
+    overflow-y: scroll;
+    height: 100vh;
+
+    .header {
+        position: relative;
+        flex: 1 0 auto;
+        height: 100vh;
+        max-height: 100vh;
+        text-align: center;
+        overflow: hidden;
+        background-image: url('https://www.airtasker.com/images/homepage/hero-images/homepage-image.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        @include media-breakpoint('xs') {
+            height: 240px;
+            padding: 16px;
+        }
+
+        .hero-text {
+            color: #ffffff;
+
+            // .hero-icon {
+            //     position: absolute;
+            //     top: -64px;
+            //     left: 0px;
+            //     opacity: 0.04;
+            //     font-size: 512px !important;
+            //     width: 512px !important;
+            //     height: 512px !important;
+            // }
+
+            h1 {
+                font-size: 55px;
+                font-weight: 600;
+                letter-spacing: 0.01em;
+                text-align: center;
+                margin-top: 0;
+                margin-bottom: 16px;
+
+                @include media-breakpoint('xs') {
+                    font-size: 24px;
+                }
+            }
+
+            h3 {
+                max-width: 480px;
+                text-align: center;
+                font-weight: 300;
+                letter-spacing: 0.03em;
+                margin: 0;
+
+                @include media-breakpoint('xs') {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+    .content {
+        .backButton {
+            position: absolute;
+            z-index: 1;
+            padding-top: 5px;
+            background-color: transparent;
+        }
+        .category-selector {
+            min-width: 320px;
+        }
+
+        .filters {
+            width: 100%;
+            max-width: 1040px;
+            margin: 24px auto;
+            padding: 0 20px;
+
+            @include media-breakpoint('xs') {
+                margin: 0 auto;
+            }
+
+            .course-search {
+                width: 320px;
+
+                @include media-breakpoint('gt-xs') {
+                    margin-right: 16px;
+                }
+            }
+        }
+
+        .courses {
+            width: 100%;
+            max-width: 1040px;
+            margin: 0 auto;
+
+            .no-courses {
+                font-size: 24px;
+                margin: 24px 0;
+                text-align: center;
+            }
+
+            .course {
+                padding: 16px;
+
+                &:hover {
+
+                    .course-content {
+                        border: none;
+                        @include mat-elevation(12);
+                    }
+                }
+
+                .course-content {
+                    min-height: 240px;
+                    border-radius: 4px;
+                    overflow: hidden;
+                    transition: box-shadow 200ms ease-in-out;
+                    @include mat-elevation(0);
+                    background-color: #ffffff;
+
+                    .header {
+                        padding: 16px 24px;
+                        height: 64px !important;
+                        min-height: 64px !important;
+                        max-height: 64px !important;
+
+                        &.web-bg {
+                            background: mat-color($mat-blue, 500);
+                        }
+
+                        &.android-bg {
+                            background: mat-color($mat-green, 500);
+                        }
+
+                        &.firebase-bg {
+                            background: mat-color($mat-amber, 800);
+                        }
+
+                        &.cloud-bg {
+                            background: mat-color($mat-blue-grey, 500);
+                        }
+
+                        .category {
+                            text-transform: capitalize;
+                            text-align: left;
+                            font-weight: 600;
+                        }
+
+                        .length {
+
+                            .length-icon {
+                                margin-right: 8px;
+                            }
+
+                            .min {
+                                font-size: 16px;
+                            }
+                        }
+                    }
+
+                    .content {
+                        padding: 24px;
+
+                        .h1 {
+                            font-size: 16px;
+                            text-align: center;
+                        }
+
+                        .updated {
+                            font-size: 13px;
+                            font-weight: 600;
+                            margin-top: 4px;
+                        }
+                    }
+
+                    .footer {
+                        padding: 16px;
+                        height: 48px !important;
+                        min-height: 48px !important;
+                        max-height: 48px !important;
+                        box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.12);
+                    }
+                }
+            }
+        }
+    }
+}
+
+#photos-videos {
+
+    .period {
+
+        .period-title {
+            margin-bottom: 24px;
+
+            .name {
+                font-size: 20px;
+            }
+
+            .info {
+                margin-left: 16px;
+                font-size: 15px;
+            }
+        }
+
+        .period-media {
+            margin-bottom: 16px;
+
+            .media {
+                border-radius: 50%;
+                height: 100px;
+                width: 100px;
+                background-color: #004b8b;
+                position: relative;
+                margin: 0 16px 16px 0;
+                overflow: hidden;
+
+                .preview {
+                    display: block;
+                    width: 100px;
+                    height: 100px;
+                }
+
+                .title {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 10;
+                    padding: 0 16px;
+                    height: 48px;
+                    line-height: 48px;
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,237 @@
+<div id="profile" class="page-layout simple tabbed" *ngIf="profile">
+    <div *ngIf="profile.data">
+        <!-- HEADER -->
+        <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between end">
+
+            <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+                fxLayoutAlign.gt-sm="start center">
+                <img class="profile?-image avatar huge"
+                    [style.visibility]="(profile?.data?.picture !== '') ? 'visible': 'hidden'"
+                    src="{{ profile?.data?.picture }}" />
+
+
+                <div class="name font-size-28 font-weight-700 line-height-30"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}" *ngIf="profile">
+                    {{capitalize(profile?.data.Generales.FirstName)}} {{capitalize(profile?.data.Generales.LastName)}}
+                    <!-- <div class="info-line">
+                    <div class="title">Rating</div>
+                </div> -->
+                </div>
+            </div>
+
+            <!--   <div class="actions" fxLayout="row" fxLayoutAlign="end center"
+                [@animate]="{value:'*',params:{delay:'200ms'}}">
+                <button mat-button color="primary" aria-label="Follow">
+                    <mat-icon class="fg-primary">person_add</mat-icon> Follow
+                </button>
+                <button mat-button color="primary" aria-label="Send Message">
+                    <mat-icon class="fg-primary">mail</mat-icon> Send Message
+                </button>
+            </div> -->
+            <div class="actions" fxLayout="row" fxLayoutAlign="end center"
+                [@animate]="{value:'*',params:{delay:'200ms'}}">
+
+                <button mat-button color="primary" aria-label="Send Message"
+                    *ngIf="profile?.data.taskerStatus == 'Completed'">
+                    Perfil en proceso de aprobación
+                </button>
+                <button mat-button color="primary" aria-label="Send Message"
+                    *ngIf="profile?.data.taskerStatus == 'Approved' || profile?.data.taskerStatus == 'ClientOnly'">
+                    Perfil activo.
+                </button>
+            </div>
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT -->
+        <div class="content">
+
+            <mat-tab-group dynamicHeight="true" [style.visibility]="(profile) ? 'visible': 'hidden'">
+
+                <mat-tab label="Acerca">
+                    <div id="about" fxLayout="row wrap" [style.visibility]="(profile?.data) ? 'visible': 'hidden'">
+
+                        <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="50">
+
+                            <div class="profile-box info-box general" fxLayout="column">
+
+                                <header class="fg-primary pt-20" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="font-size-24 fg-primary">description</mat-icon><span
+                                        class="font-size-20 font-weight-400 pl-4"> Información general</span>
+                                </header>
+
+                                <div class="content pt-0">
+                                    <div fxLayout="row">
+                                        <div class="info-line" fxFlex>
+                                            <div class="">Nombre</div>
+                                            <div class="info">{{profile?.data?.Generales?.FirstName}}</div>
+                                        </div>
+
+                                        <div class="info-line" fxFlex>
+                                            <div class="">Apellido</div>
+                                            <div class="info">{{profile?.data?.Generales?.LastName}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout="row">
+                                        <div class="info-line" fxFlex>
+                                            <div class="">País</div>
+                                            <div class="info">{{profile?.data?.Generales?.Country}}</div>
+                                        </div>
+                                        <div class="info-line" fxFlex>
+                                            <div class="">Provincia</div>
+                                            <div class="info">{{profile?.data?.Generales?.Province}}</div>
+                                        </div>
+
+                                    </div>
+
+                                    <div fxLayout="row">
+                                        <div class="info-line" fxFlex>
+                                            <div class="">Teléfono</div>
+                                            <div class="info">{{profile?.data?.Generales?.Cellphone}}</div>
+                                        </div>
+
+                                        <div class="info-line" fxFlex>
+                                            <div class="">Dirección</div>
+                                            <div class="info">{{profile?.data?.Generales?.Address}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout="row">
+                                        <div class="info-line" fxFlex>
+                                            <div class="">Sobre mí</div>
+                                            <div class="info"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="50">
+
+                            <div class="profile-box info-box work" fxLayout="column">
+
+                                <header class="fg-primary pt-20" fxLayout="row" fxLayoutAlign="space-between center">
+                                    <mat-icon class="font-size-24 fg-primary">engineering</mat-icon><span
+                                        class="font-size-20 font-weight-400 pl-4"> Habilidades</span>
+
+                                    <div class="more secondary-text">
+
+                                        <a class="font-size-14 font-weight-400 fg-primary" (click)="addSkills()">Añadir
+                                            más </a>
+                                    </div>
+                                </header>
+
+                                <div class="content pt-0">
+
+                                    <div class="info-line">
+
+                                        <div class="info" fxLayout="row" fxLayoutAlign="start start"
+                                            *ngFor="let job of profile?.data?.Habilidades;let i=index;">
+                                            <div fxFlex="60"
+                                                [style.visibility]="(profile?.data?.Habilidades) ? 'visible': 'hidden'">
+                                                <div class="info font-weight-600">{{job.skill}} <span
+                                                        [style.visibility]="(job?.subcategory) ? 'visible': 'hidden'"> -
+                                                        {{job.subcategory}}</span></div>
+
+                                            </div>
+
+                                            <div fxFlex="30"
+                                                [style.visibility]="(profile?.data?.Habilidades) ? 'visible': 'hidden'">
+                                                <div class="info font-weight-600">
+                                                    {{job.rate | currency}}/{{job.priceType.replace('Precio por ', '').replace('Precio ', '').toLowerCase() }}
+                                                </div>
+                                            </div>
+                                            <div fxFlex="10"
+                                                [style.visibility]="(profile?.data?.Habilidades) ? 'visible': 'hidden'">
+                                                <div class="info font-weight-600">
+                                                    <button mat-button color="accent" (click)="deleteSkill(i)"
+                                                        aria-label="Example icon button with a home icon">
+                                                        <mat-icon style="font-size: 18px;">delete</mat-icon>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="info">{{about.Generales.skills}}</div> -->
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="profile-box group" fxLayout="column">
+
+                                <header class="fg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                                    <div fxLayout="row">
+                                        <mat-icon class="font-size-24 fg-primary">security</mat-icon><span
+                                            class="font-size-20 font-weight-400 pl-4"> Insignias</span>
+                                    </div>
+
+                                </header>
+
+                                <div class="content">
+                                    Aún no tienes Insignias.
+                                    <!--    <div class="group" *ngFor="let group of about.Generales" fxLayout="row"
+                                         fxLayoutAlign="space-between center">
+                    
+                                        <div fxLayout="row" fxLayoutAlign="start center">
+                    
+                                            <div class="logo">{{group.name.substring(0,1)}}</div>
+                    
+                                            <div>
+                                                <div class="name">{{group.name}}</div>
+                                                <div class="category">{{group.category}}</div>
+                                                <div class="members">{{group.members}} people</div>
+                                            </div>
+                                        </div>
+                    
+                                        <button mat-icon-button aria-label="More">
+                                            <mat-icon>more_vert</mat-icon>
+                                        </button>
+                                    </div> -->
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </mat-tab>
+
+                <mat-tab label="Reseñas">
+                    <profile-timeline [profile]="profile?.data"></profile-timeline>
+                </mat-tab>
+
+                <mat-tab label="Documentos">
+                    <div class="tab-content p-24" fusePerfectScrollbar>
+                        <mat-card>
+                        <h3 class="pb-16 fg-darkGray"> Tus documentos se encuentran en proceso de aprobación si deseas
+                            cargas nuevos archivos o tienes alguna duda escríbenos a
+                            info@tareazos.com</h3>
+                        <div fxLayout="row wrap" fxLayoutAlign="start start">
+
+                            <div *ngIf="profile.data.pictures?.length === 0" class="product-image" fxlayout="row"
+                                fxLayoutAlign="center center">
+                                <img class="media" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                            </div>
+
+                            <div *ngFor="let image of profile.data?.pictures">
+                                <div *ngIf="profile.data.pictures?.length > 0" class="product-image" fxlayout="row"
+                                    fxLayoutAlign="center center">
+                                    <img class="media" [src]="image.downloadUrl">
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card>
+                    </div>
+                </mat-tab>
+
+            </mat-tab-group>
+
+        </div>
+        <!-- / CONTENT -->
+    </div>
+</div>

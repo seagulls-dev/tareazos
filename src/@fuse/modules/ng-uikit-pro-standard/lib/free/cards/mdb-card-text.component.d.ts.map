@@ -1,0 +1,1 @@
+{"version":3,"file":"mdb-card-text.component.d.ts","sources":["C:/repos/Handyman/src/@fuse/modules/ng-uikit-pro-standard/lib/free/cards/mdb-card-text.component.d.ts"],"sourcesContent":["export declare class MdbCardTextComponent {\n    class: string;\n}\n"],"names":[],"mappings":";AAAA;;;;;;AAEA;"}

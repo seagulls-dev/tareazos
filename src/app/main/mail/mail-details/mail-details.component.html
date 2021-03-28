@@ -1,0 +1,139 @@
+<div *ngIf="!request" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+    <mat-icon class="s-128 mb-16 select-message-icon hint-text"
+        [@animate]="{ value: '*', params: { delay: '300ms', scale: '0.2' } }">
+        description
+    </mat-icon>
+    <span class="select-message-text hint-text" [@animate]="{ value: '*', params: { delay: '400ms' } }">
+        <span>{{ "MAIL.SELECT_A_MESSAGE_TO_READ" | translate }}</span>
+    </span>
+</div>
+
+<div *ngIf="request" id="timeline">
+    <div *ngIf="request !== null" class="timeline-content" fxLayout="column" fxFlex [@animate]="{ value: '*', params: { y: '50%' } }">
+        <mat-toolbar class="p-0">
+            <button class="ml-4" mat-button color="primary"
+                *ngIf="(request.awardedOffer && request.status != 'Completed')" (click)="
+                    OpenBooking(request.awardedOffer, requestId)">
+                Modificar Reserva
+            </button>
+            <button class="ml-4" mat-button color="primary"
+                *ngIf="request.authorid == AuthService.user.uid && request.status == 'Open'"
+                (click)="DeleteTask()">Borrar</button>
+            <button class="ml-4" mat-button color="primary" *ngIf="request.status == 'Assigned'"
+                (click)="MarkAsCompleted()">Marcar
+                como completada</button>
+            <button class="ml-4" mat-button color="primary" *ngIf="request.status == 'Completed' && !request.reviewed"
+                (click)="OpenBooking(request.awardedOffer, requestId)">Calificar Tareador</button>
+
+            <span class="example-spacer"></span>
+            <button mat-icon-button aria-label="Me gusta">
+                <mat-icon>favorite_border</mat-icon>
+            </button>
+
+            <button mat-icon-button aria-label="Compartir" class="mr-8">
+                <mat-icon>share</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="timeline-item">
+            <header fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="user" fxLayout="column" fxLayoutAlign="start ">
+                    <span class="font-size-18 font-weight-600 fg-darkGray">{{ request.title }}</span>
+                    <div fxLayout="row" class="title pt-12">
+                        <img class="avatar" src="assets/images/avatars/Arnold.jpg" />
+                        <div fxLayout="column">
+                            <span class="font-weight-600 fg-darkGray"> {{ request.authorname }}</span>
+                            <div class="font-weight-400 time" *ngIf="request.createDate">
+                                {{
+                                    request.createDate.seconds * 1000
+                                        | date: "MM-dd-yyyy"
+                                }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content">
+                <div class="message font-size-16 font-weight-400 line-height-20" *ngIf="!request.subcategory">
+                    {{ request[request.category].TaskDescription }}
+                </div>
+                <div class="message font-size-16 font-weight-400 line-height-20" *ngIf="request.subcategory">
+                    {{ request[request.subcategory].TaskDescription }}
+                </div>
+
+                <div class="media">
+                    <!--  <img *ngIf="post.media.type === 'image'" [src]="post.media.preview">
+                    <div *ngIf="post.media.type === 'video'" [innerHtml]="post.media.embed"></div> -->
+                </div>
+            </div>
+
+            <div class="footer" fxLayout="column" fxLayoutAlign="start start">
+                <div *ngIf="(requestOffers)?.length == 0" class="comment-count" fxLayout="row"
+                    fxLayoutAlign="start center">
+                    No has recibido ofertas todavía
+                </div>
+                <div *ngIf="(requestOffers)?.length > 0" class="font-size-16 font-weight-600 comment-count"
+                    fxLayout="row" fxLayoutAlign="start center">
+                    Ofertas: ({{ (requestOffers)?.length }})
+                    <mat-icon class="s-16">keyboard_arrow_down</mat-icon>
+                </div>
+
+                <div class="comment" [ngClass]="{'bg-accentLight': offer.data.awarded}" fxLayout="row" fxFlexFill *ngFor="let offer of requestOffers"
+                    [@animate]="{ value: '*', params: { y: '50%' } }">
+                    <img class="profile-image avatar" *ngIf="offer.data.picture !== ''" [src]="offer.data.picture" />
+                    <div mat-card-avatar class="profile-image avatar font-size-18" *ngIf="offer.data.picture === ''" 
+                        [ngStyle]="{'background-color': offer.data.color}">
+                        {{ getInitials(offer.data.authorname) }}
+                    </div>
+                    <!-- <img class="avatar" /> -->
+
+                    <div fxLayout="column" fxFlex="70" class="mr-12">
+                        <div fxLayout="row" fxLayoutAlign="start center">
+                            <span class="username"><a class="fg-primary" href="javascript:void(0);" (click)="
+                                        OpenProviderProfile(
+                                            offer.data.authoruid
+                                        )
+                                    ">Oferta de {{ offer.data.authorname }}</a></span>
+                            <span class="time"> </span>
+                        </div>
+                        <div class="message">
+                            {{ offer.data.comments }}
+                        </div>
+                        <div class="actions" fxLayout="row" fxLayoutAlign="space-between center">
+                            <!--     <a href="#" class="reply-button">Enviar Mensaje</a> -->
+                            <!-- <button mat-icon-button color="primary" class="reply-button">
+                                <mat-icon>message</mat-icon>
+                            </button> -->
+                            <a mat-raised-button color="primary" class="reply-button" *ngIf="
+                                    request.authorid == AuthService.user.uid &&
+                                    request.status == 'Open'
+                                " (click)="OpenBooking(offer.id, requestId)">Aceptar </a>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxFlex="30" fxLayoutAlign="space-between end">
+                        <div class="font-weight-600">
+                            Oferta: ${{ offer.data.rate }}
+                        </div>
+                        <div class="pt-8 fg-accent font-weight-600" *ngIf="offer.data.awarded">
+                            El cliente aceptó esta oferta
+                        </div>
+                    </div>
+                </div>
+
+                <!--          <div class="reply" fxLayout="row">
+                    <img src="assets/images/avatars/profile.jpg" class="avatar" />
+
+                    <form fxFlex>
+                        <textarea placeholder="Add a comment..."></textarea>
+                        <button mat-raised-button color="accent" class="post-comment-button" aria-label="Post Comment">
+                            Post Comment
+                        </button>
+                    </form>
+                </div> -->
+            </div>
+        </div>
+        <div *ngIf="!(_mailService.inboxtype == 'AsTasker')">
+            <app-list-providers [category]="request.category" [@animate]="{ value: '*', params: { y: '50%' } }"></app-list-providers>
+        </div>
+    </div>
+</div>

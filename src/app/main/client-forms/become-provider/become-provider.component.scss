@@ -1,0 +1,12 @@
+.mat-dialog-container {
+    -webkit-backdrop-filter: blur(25px) saturate(100%);
+    backdrop-filter: blur(25px) saturate(100%);
+    background: rgba(255, 255, 255, 0.8);
+    filter: brightness(108%);
+    -webkit-filter: brightness(108%);
+}
+
+body.theme-default .mat-stepper-horizontal,
+body.theme-default .mat-stepper-vertical {
+    background-color: transparent;
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"mdb-breadcrumb.component.d.ts","sources":["C:/repos/Handyman/src/@fuse/modules/ng-uikit-pro-standard/lib/free/breadcrumbs/mdb-breadcrumb.component.d.ts"],"sourcesContent":["export declare class MdbBreadcrumbComponent {\n    customClass: string;\n    textTransform: string;\n}\n"],"names":[],"mappings":";AAAA;;;;;;;;AAGA;"}

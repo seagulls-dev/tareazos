@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+</head>
+
+<body>
+    <mat-toolbar color="primary" *ngIf="isJsLoaded">
+        <div class="containerHome pr-0 pl-0">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-icon-button (click)="showMenu = !showMenu" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <img src="/assets/images/logos/logo1.png" alt="logo" width="145" style="margin-top: -10px;" />
+
+                <div fxShow="true" fxHide.lt-md fxFlex="65">
+                    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                    <a [routerLink]="'/home'" mat-button>Home</a>
+                    <a href="home#tareadores" mat-button>Tareadores</a>
+                    <a href="nosotros#section1" mat-button>Nosotros</a>
+                </div>
+
+                <div class="icon-links" fxShow="true" fxHide.lt-md>
+                    <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                            class="icon-facebook text-center icon-white"></i></a>
+                    <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                            class="icon-twitter text-center icon-white"></i></a>
+                    <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                            class="icon-instagram text-center icon-white"></i></a>
+                    <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                    <a fxShow="true" fxHide.lt-md class="linkedin" href="https://www.linkedin.com/company/tareazos"
+                        target="_blank"><i class="icon-linkedin text-center icon-white"></i></a>
+                </div>
+
+                <div *ngIf="authService.user">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        {{ authService.user.name }}
+                        {{ authService.user.lastname }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            Cerrar Sesión
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div *ngIf="!authService.user">
+                    <!-- <button mat-button (click)="btnLogin()">
+                        Login
+                    </button> -->
+                    <a mat-button [routerLink]="'/forms/signup'">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showMenu" class="w-100 bg-primary menu" [@animate]="{
+                value: '*',
+                params: {
+                    delay: '100ms',
+                    y: '-100px'
+                }
+            }">
+        <mat-nav-list [@animate]="{
+                    value: '*',
+                    params: {
+                        delay: '100ms',
+                        y: '-100px'
+                    }
+                }">
+            <a [routerLink]="'/home'" mat-list-item class="fg-white font-weight-700">Home</a>
+            <a href="home#tareadores" mat-list-item class="fg-white font-weight-700">Tareadores</a>
+            <a href="nosotros#section1" mat-list-item class="fg-white font-weight-700">Nosotros</a>
+        </mat-nav-list>
+    </div>
+    <main fusePerfectScrollbar class="bg-white">
+        <section id="section1">
+            <div class="containerHome pt-132 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4 text-center">
+                        <img class="h-256" src="/assets/images/logos/tareazos_avatar-transparente-01.png" alt="" />
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="title pb-16">
+                            <h2>
+                                ¿Quiénes somos?
+                            </h2>
+                        </div>
+                        <p class="line-height-24 font-weight-400">
+                            Somos una plataforma panameña que cree, centraliza y
+                            promueve la <strong>economía colaborativa</strong>. Creamos una
+                            comunidad en la cual nuestros usuarios encuentran los
+                            talentos y las habilidades que necesitan para sus tareas.
+                            Donde cada persona puede cotizar servicios, recibir ofertas,
+                            encontrar al mejor candidato y ofrecerle una recompensa por
+                            su trabajo.
+                        </p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section2">
+            <div class="containerHome pt-0 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6 text-center" fxShow="true" fxHide.gt-sm>
+                        <mat-icon class="iconsMat">attach_money</mat-icon>
+                    </div>
+                    <!-- <div class="col-lg-6" fxShow="true" fxHide.gt-sm>
+                        <img src="/assets/images/sections/otros-256.png" alt="" />
+                    </div> -->
+                    <div class="col-lg-4">
+                        <div class="title pb-16">
+                            <h2>
+                                Todo talento, literalmente, suma
+                            </h2>
+                        </div>
+                        <p class="line-height-24 font-weight-400">
+                            Somos una nueva forma de generar ingresos para aquellas
+                            personas que necesitan una mano económicamente. Ya sea
+                            porque están sin empleo o porque quieren hacer crecer sus
+                            posibilidades financieras.
+                        </p>
+                        <hr class="space-sm" />
+                    </div>
+                    <div class="col-lg-4 text-center" fxShow="true" fxHide.lt-md>
+                        <mat-icon class="iconsMat">attach_money</mat-icon>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section3">
+            <div class="containerHome pt-0 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4 text-center">
+                        <img src="/assets/images/sections/otros-256.png" alt="" />
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="title pb-16">
+                            <h2>
+                                Una idea insaciable por innovación
+                            </h2>
+                        </div>
+                        <p class="line-height-24 font-weight-400">
+                            Desde el inicio definimos Tareazos como una plataforma con
+                            un apetito insaciable por la innovación. Donde cada vez hay
+                            más funcionalidades, llegamos a más lugares y donde más
+                            profesionales encuentran su pasión transformada en ingresos.
+                        </p>
+
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section4">
+            <div class="containerHome pt-0 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6" fxShow="true" fxHide.gt-sm>
+                        <img src="/assets/images/sections/taskers-nosotros.jpg" alt="" />
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="title pb-16">
+                            <h2>
+                                Detrás del telón
+                            </h2>
+                        </div>
+                        <p class="line-height-24 font-weight-400">
+                            <strong>La magia de tareazos la hace su comunidad de
+                                Tareadores</strong>. Nosotros estamos detrás, asegurándonos que
+                            nuestros usuarios tengan la mejor calidad posible. La que se
+                            merecen.
+                        </p>
+
+                        <hr class="space-sm" />
+                    </div>
+                    <div class="col-lg-4" fxShow="true" fxHide.lt-md>
+                        <img src="/assets/images/sections/taskers-nosotros.jpg" alt="" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section5">
+            <div class="containerHome pt-0 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4">
+                        <img src="/assets/images/sections/handshake.jpg" alt="" />
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="title pb-16">
+                            <h2>
+                                Sobre los fundadores
+                            </h2>
+                        </div>
+                        <p class="line-height-24 font-weight-400">
+                            <strong>Somos dos emprendedores panameños</strong>. Ambos hemos
+                            participado en proyectos de innovación ocupando diferentes
+                            roles. Desde desarrolladores freelance hasta líderes de
+                            proyecto y arquitectos de solución.
+                        </p>
+
+                        <p class="line-height-24 font-weight-400">
+                            Hemos visto los beneficios de ofrecer tu talento como servicio
+                            y <strong>queremos darle a todos esa misma oportunidad</strong>.
+                        </p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section6">
+            <div class="containerHome pt-0 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-3"></div>
+                    <div class="col-lg-6" fxShow="true" fxHide.gt-sm>
+                        <img src="/assets/images/sections/taskers.jpg" alt="" />
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="title pb-16">
+                            <h2>
+                                Lo que nos mueve
+                            </h2>
+                        </div>
+                        <p class="line-height-24 font-weight-400">
+                            Construimos Tareazos para mejorar la calidad de vida de las
+                            personas. <strong>Todos tienen un talento pero pocos lo explotan;
+                                todos necesitan una mano pero es difícil de encontrar</strong>.
+                            Hasta ahora, no existía una plataforma centralizada que
+                            conectara ambos mundos.
+                        </p>
+
+                        <p class="line-height-24 font-weight-400">
+                            Tareazos llegó para cambiar eso.
+                        </p>
+                        <hr class="space-sm" />
+                    </div>
+                    <div class="col-lg-4" fxShow="true" fxHide.lt-md>
+                        <img src="/assets/images/sections/taskers.jpg" alt="" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <i class="scroll-top-btn scroll-top show fg-white"></i>
+    <footer class="light">
+        <div class="containerHome">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>Tareazos</h3>
+                    <p>
+                        Atiende las cosas más importantes de tu vida.
+                    </p>
+                    <div class="icon-links icon-social icon-links-grid social-colors">
+                        <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                                class="icon-facebook text-center"></i></a>
+                        <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                                class="icon-twitter text-center"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                                class="icon-instagram text-center"></i></a>
+                        <a class="linkedin" href="https://www.linkedin.com/company/tareazos" target="_blank"><i
+                                class="icon-linkedin text-center"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Términos</h3>
+                    <ul class="icon-list1 icon-line">
+                        <li> <a class="fg-white" [routerLink]="'/aviso-legal'">Aviso legal</a></li>
+                        <li><a class="fg-white" [routerLink]="'/politicas'">Políticas de cookies y privacidad</a></li>
+                        <li><a class="fg-white" [routerLink]="'/terminos-condiciones'">Términos y condiciones</a></li>
+                        <li><a class="fg-white" [routerLink]="'/cargos-comisiones'">Cargos y Comisiones</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="text-list text-list-line">
+                        <li>
+                            <b>Dirección</b>
+                            <hr />
+                            <p>Costa del Este, Panamá</p>
+                        </li>
+                        <li>
+                            <b>Correo</b>
+                            <hr />
+                            <p>info@tareazos.com</p>
+                        </li>
+                        <li>
+                            <b>Teléfono</b>
+                            <hr />
+                            <p>+507 6832-9942</p>
+                        </li>
+                        <li>
+                            <b>Horario</b>
+                            <hr />
+                            <p>9am-6pm Lunes - Viernes</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div class="containerHome">
+                <span>© 2020 Tareazos </span>
+                <span><a class="fg-white" href="mailto:info@tareazos.com">Contáctanos</a> </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

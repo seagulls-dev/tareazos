@@ -1,0 +1,28 @@
+<div class="dialog-content-wrapper acrylic">
+    <mat-toolbar class="m-0 transparent">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Perfil</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0" fusePerfectScrollbar *ngIf="provider">
+        <profile [profile]="provider"></profile>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button mat-flat-button color="primary" (click)="matDialogRef.close(['send',composeForm])"
+                class="save-button" aria-label="SAVE">
+                CONTRATAR
+            </button>
+            <button mat-button color="primary" (click)="matDialogRef.close(['send',composeForm])"
+                class="save-button" aria-label="SAVE">
+                PEDIR COTIZACIÓN
+            </button>
+        </div>
+    </div>
+</div>

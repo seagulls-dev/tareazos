@@ -1,0 +1,64 @@
+<!-- CHAT -->
+<div class="chat" fxFlex fxLayout="column">
+
+    <!-- CHAT TOOLBAR -->
+    <mat-toolbar class="chat-toolbar">
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <!-- RESPONSIVE CHATS BUTTON-->
+                <button mat-icon-button fxHide.gt-md class="responsive-chats-button mr-16"
+                    fuseMatSidenavToggler="chat-left-sidenav" aria-label="chats button">
+                    <mat-icon>chat</mat-icon>
+                </button>
+                <!-- / RESPONSIVE CHATS BUTTON-->
+
+                <!-- CHAT CONTACT-->
+                <div class="chat-contact" fxLayout="row" fxLayoutAlign="start center"
+                    fuseMatSidenavToggler="chat-right-sidenav">
+
+                    <div class="chat-contact-name">
+                        Chat
+                    </div>
+
+                </div>
+                <!-- / CHAT CONTACT-->
+            </div>
+
+        </div>
+    </mat-toolbar>
+    <!-- / CHAT TOOLBAR -->
+
+    <!-- CHAT CONTENT -->
+    <div id="chat-content" fxFlex="1 1 auto" fusePerfectScrollbar>
+
+        <!-- CHAT MESSAGES -->
+        <div class="chat-messages">
+
+            <!-- MESSAGE -->
+            <div *ngFor="let message of dialog; let i = index" class="message-row" [ngClass]="{
+                            'me': message.who === authorid,
+                            'contact': message.who !== authorid,
+                            'first-of-group': isFirstMessageOfGroup(message, i),
+                            'last-of-group': isLastMessageOfGroup(message, i)
+                            }">
+
+                <div class="bubble">
+                    <div class="message">{{message.message}}</div>
+                    <div class="time secondary-text">{{message.who === authorid ? authorname : 'Tareador'}} -
+                        {{message.time | date:'short'}}</div>
+                </div>
+
+            </div>
+            <!-- / MESSAGE -->
+
+        </div>
+        <!-- CHAT MESSAGES -->
+
+    </div>
+    <!-- / CHAT CONTENT -->
+
+</div>
+<!-- / CHAT -->

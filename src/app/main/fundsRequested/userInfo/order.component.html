@@ -1,0 +1,166 @@
+<div id="order" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-around center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="space-around">
+
+                <button mat-icon-button class="mr-16" [routerLink]="'/fundsRequested/list'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        Firebase Id {{userId}}
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span></span>
+                        <span>{{user.userData?.data?.name}}{{user.userData?.data?.lastname}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+
+                <mat-tab-group fxLayout="column" fxFlex>
+
+                    <mat-tab label="Order Details">
+
+                        <div class="order-details tab-content p-24" fusePerfectScrollbar>
+
+                            <div class="section pb-48">
+
+                                <div class="pb-16" fxLayout="row" fxLayoutAlign="start center">
+                                    <mat-icon class="m-0 mr-16 secondary-text">money</mat-icon>
+                                    <div class="h2 secondary-text">Solicitudes de Retiro</div>
+                                </div>
+
+                                <mat-table class="orders-table" #table [dataSource]="dataSource" matSort
+                                    [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+
+                                    <!-- Name Column -->
+                                    <ng-container matColumnDef="bank">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Banco</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="text-truncate">
+                                                {{order.bank}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Status Column -->
+                                    <ng-container matColumnDef="nameOnAccount">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>A nombre de</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="status text-truncate h6 p-4">
+                                                {{order.nameOnAccount}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="accountType">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Tipo de
+                                            cuenta
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">{{order.accountType}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="bankAccount">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Número de cuenta
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="text-truncate">
+                                                {{order.bankAccount}}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Reference Column -->
+                                    <ng-container matColumnDef="amount">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header>Monto</mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <p class="text-truncate">{{order.amount | currency}}</p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="requestedDate">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Fecha de
+                                            solicitud
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">
+                                                {{ getDate(order.requestDate) | date:'MM-dd-yyyy HH:mm' }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="status">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Status
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                                            <p class="text-truncate">
+                                                {{order.status }}
+                                            </p>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <!-- Date Column -->
+                                    <ng-container matColumnDef="options">
+                                        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>
+                                        </mat-header-cell>
+                                        <mat-cell *matCellDef="let order">
+                                            <a mat-button color="accent" *ngIf="order.status === 'Procesado'"
+                                                target="_blank" [href]="order.pictures[0].downloadUrl">Ver
+                                                Comprobante</a>
+                                            <button mat-button color="accent" *ngIf="order.status === 'Pendiente'"
+                                                (click)="updateStatus(order)">Marcar como procesado</button>
+                                        </mat-cell>
+                                    </ng-container>
+
+                                    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                                    <mat-row *matRowDef="let order; columns: displayedColumns;" class="order">
+                                    </mat-row>
+                                </mat-table>
+
+                                <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]">
+                                </mat-paginator>
+
+                            </div>
+
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+</div>

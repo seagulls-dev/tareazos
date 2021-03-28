@@ -1,0 +1,120 @@
+<div id="orders" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1">Usuarios</span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper  ml-sm-32">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search for an order">
+                </div>
+
+            </div>
+            <button mat-raised-button color="primary" (click)="UpdateDb()"> Actualizar desde DB</button>
+
+
+            <!-- / SEARCH -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table class="orders-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
+                fusePerfectScrollbar>
+
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Skills</mat-header-cell>
+                    <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                        <p class="text-truncate">{{order.data.Habilidades?.length}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Reference Column -->
+                <ng-container matColumnDef="reference">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Firebase ID</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="text-truncate">{{order.data.docId}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="customer">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="text-truncate">
+                            {{order.data.Generales.FirstName}}
+                            {{order.data.Generales.LastName}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="cellphone">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Celular</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="text-truncate" *ngIf="order.data.Generales.Cellphone">
+                            <a [href]="'https://wa.me/+507' + order.data.Generales.Cellphone.replace('+507', '').replace('-', '').replace(' ', '')"
+                                target="_blank">{{order.data.Generales.Cellphone}}</a>
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+
+
+
+                <!-- Status Column -->
+                <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+                    <mat-cell *matCellDef="let order">
+                        <p class="status text-truncate h6 p-4" [ngClass]="getStatusColor(order.data.taskerStatus)">
+                            {{order.data.taskerStatus}}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Date Column -->
+                <ng-container matColumnDef="date">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Fecha de registro
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let order" fxHide fxShow.gt-sm>
+                        <p class="text-truncate">
+                            {{order.data.createDate.seconds * 1000 | date:'MM-dd-yyyy HH:mm' }}
+                        </p>
+                    </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let order; columns: displayedColumns;" class="order" matRipple
+                    [routerLink]="'/users/user/'+ order.data.docId">
+                </mat-row>
+            </mat-table>
+
+            <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+       
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

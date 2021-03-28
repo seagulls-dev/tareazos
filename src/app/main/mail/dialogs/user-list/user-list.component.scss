@@ -1,0 +1,120 @@
+@import "src/@fuse/scss/fuse";
+
+.mail-compose-dialog {
+    @include media-breakpoint("xs") {
+        width: 100%;
+    }
+
+    @include media-breakpoint("gt-xs") {
+        width: 800px;
+    }
+
+    .mat-dialog-container {
+        padding: 0;
+
+        .compose-form {
+            .mat-form-field {
+                width: 100%;
+            }
+
+            .show-hide-extra-fields {
+                text-align: right;
+                cursor: pointer;
+                font-size: 12px;
+            }
+
+            .attachment-list {
+                font-size: 13px;
+
+                .attachment {
+                    border: 1px solid;
+                    border-radius: 20px;
+                    padding-left: 16px;
+                    margin-top: 8px;
+
+                    .filename {
+                        font-weight: 600;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .dialog-content-wrapper {
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+    }
+}
+.activity {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 10px;
+}
+.activities {
+    width: 100%;
+}
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 12px;
+    width: 100%;
+}
+
+td,
+th {
+    width: 25%;
+}
+.search-wrapper {
+    width: 60%;
+    overflow: hidden;
+    margin-left: 10px;
+}
+.table-custom {
+    // margin-top: 5px;
+}
+.sidebar {
+    width: 30%;
+    border-radius: 4px;
+    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    // margin-right: 2%;
+}
+.content {
+    width: 68%;
+    border-radius: 4px;
+    // box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    //     0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+    .responsive-modal {
+        max-width: 600px;
+    }
+}
+@media (max-width: 600px) {
+    .sidebar {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    .content {
+        width: 100%;
+    }
+}
+
+.mat-table {
+    background: transparent !important;
+}
+
+.mat-row:hover {
+    background: #0000000a !important;
+    color: #03658c !important;
+    border-color: #edebe9 !important;
+    cursor: pointer !important;
+}

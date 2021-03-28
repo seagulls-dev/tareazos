@@ -1,0 +1,62 @@
+
+<div id="changelog" class="page-layout simple fullwidth docs">
+
+    <!-- HEADER -->
+    <div class="header accent p-20" fxLayout="column" fxLayoutAlign="center start">
+        <div fxLayout="row" fxLayoutAlign="space-around end">
+            <app-dynamicfilters [FormId]="'Request'" fxFlex (ControlChange)="FilterChange($event)"></app-dynamicfilters>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content" class="w-100">
+        
+        <div class="changelog" fxLayout="row" fxLayoutAlign="space-around start">
+            <div fxLayout="column" fxFlex="40">
+            <div class="entry" *ngFor="let request of requests | async" fxLayout="row" fxFlex>
+
+                <div class="title">
+                    <span class="version"> Tarea: {{request.data.title}}</span>
+                    <span class="date">  {{request.data['Request'].Date}}</span>
+                    <span class="version"> $ {{request.data['Request'].Budget}}</span>
+                </div>
+
+                <div class="groups">
+
+            <!-- --------------------------------------------------------------------------------------------- -->
+            <!-- EL TITLE ES EL MISMO NOMBRE DEL OBJETO QUE CONTIENE EL RESTO DE LA INFORMACION EJEMPLO PINTURA : EL OBJETO TIENE EL TASKDESCRIPTION EN "PINTURA"                                                                       -->
+            <!-- --------------------------------------------------------------------------------------------- -->
+                    <div class="fixed">
+                        <span class="title">  {{request.data.status}}</span>
+                        <ul>
+                            <li> Dirección: {{request.data[request.data.title].Area}}</li>
+                            <li> Descripción del trabajo: {{request.data[request.data.title].TaskDescription}}</li>
+                        </ul>
+                        
+                    </div>
+                    <div class="p-8 pt-0" fxLayout="row" fxLayoutAlign="start center">
+                        <button mat-button (click)="openDialog(request.id)" color="primary">Ofertar</button>
+                        <button mat-button (click)="ViewRequestDetails(request.id)" color="accent">Ver detalles</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+      <div fxLayout="column" class="" fxFlex="60">
+            <app-request-detail [requestId]="selectedrequest"></app-request-detail>
+        </div>
+
+        </div>
+     
+        <div>
+            
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+

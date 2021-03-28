@@ -1,0 +1,9 @@
+node_modules
+dist
+.firebase
+.firebase/hosting.ZGlzdFxmdXNl.cache
+
+functions/lib/index.js
+functions/lib/index.js.map
+.firebase/hosting.ZGlzdFxmdXNl.cache
+*.cache

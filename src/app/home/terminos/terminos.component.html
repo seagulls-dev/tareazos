@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+</head>
+
+<body>
+    <mat-toolbar color="primary" *ngIf="isJsLoaded">
+        <div class="containerHome pr-0 pl-0">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-icon-button (click)="showMenu = !showMenu" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <img src="/assets/images/logos/logo1.png" alt="logo" width="145" style="margin-top: -10px;" />
+
+                <div fxShow="true" fxHide.lt-md fxFlex="65">
+                    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                    <a [routerLink]="'/home'" mat-button>Home</a>
+                    <a href="home#tareadores" mat-button>Tareadores</a>
+                    <a href="nosotros#section1" mat-button>Nosotros</a>
+                </div>
+
+                <div class="icon-links" fxShow="true" fxHide.lt-md>
+                    <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                            class="icon-facebook text-center icon-white"></i></a>
+                    <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                            class="icon-twitter text-center icon-white"></i></a>
+                    <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                            class="icon-instagram text-center icon-white"></i></a>
+                    <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                    <a fxShow="true" fxHide.lt-md class="linkedin" href="https://www.linkedin.com/company/tareazos"
+                        target="_blank"><i class="icon-linkedin text-center icon-white"></i></a>
+                </div>
+
+                <div *ngIf="authService.user">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        {{ authService.user.name }}
+                        {{ authService.user.lastname }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            Cerrar Sesión
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div *ngIf="!authService.user">
+                    <!-- <button mat-button (click)="btnLogin()">
+                        Login
+                    </button> -->
+                    <a mat-button [routerLink]="'/forms/signup'">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showMenu" class="w-100 bg-primary menu" [@animate]="{
+                value: '*',
+                params: {
+                    delay: '100ms',
+                    y: '-100px'
+                }
+            }">
+        <mat-nav-list [@animate]="{
+                    value: '*',
+                    params: {
+                        delay: '100ms',
+                        y: '-100px'
+                    }
+                }">
+            <a [routerLink]="'/home'" mat-list-item class="fg-white font-weight-700">Home</a>
+            <a href="home#tareadores" mat-list-item class="fg-white font-weight-700">Tareadores</a>
+            <a href="nosotros#section1" mat-list-item class="fg-white font-weight-700">Nosotros</a>
+        </mat-nav-list>
+    </div>
+    <main fusePerfectScrollbar class="bg-white">
+        <section id="section1">
+            <div class="containerHome pt-100 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2>T&eacute;rminos y Condiciones</h2>
+                        </div>
+                        <h2>&nbsp;</h2>
+                        <p><strong>Objeto y &Aacute;mbito de Aplicaci&oacute;n</strong></p>
+                        <p><span style="font-weight: 400;">Los presentes t&eacute;rminos y condiciones tienen por objeto
+                                regular las pautas para
+                                el uso, navegaci&oacute;n , acceso y registro a los contenidos y servicios para usuarios
+                                del sitio web </span><a href="http://www.tareazos.com"><span
+                                    style="font-weight: 400;">www.tareazos.com</span></a><span
+                                style="font-weight: 400;"> o de la aplicaci&oacute;n m&oacute;vil Tareazos, la cual es
+                                una plataforma de
+                                intermediaci&oacute;n donde usuarios encuentran talentos y habilidades que necesitan
+                                para realizar sus tareas.
+                                Las personas pueden cotizar servicios, recibir ofertas, encontrar al mejor candidato y
+                                ofrecerle una recompensa
+                                por su trabajo.</span></p>
+                        <p><span style="font-weight: 400;">El hecho de acceder, registrar, navegar o utilizar los
+                                servicios y contenidos del
+                                sitio web y nuestra APP implica que el usuario ha le&iacute;do y tiene conocimiento y
+                                acepta sin reserva alguna
+                                todos los t&eacute;rminos y condiciones del sitio web y App.</span></p>
+                        <p><br></p>
+                        <p><strong>Uso del Sitio Web</strong></p>
+                        <p><span style="font-weight: 400;">El usuario tendr&aacute; acceso gratuito a los contenidos y
+                                utilizaci&oacute;n de los
+                                servicios proporcionados por el sitio web y la aplicaci&oacute;n m&oacute;vil, algunos
+                                servicios ofrecidos
+                                pueden estar sujetos a registro y contrataci&oacute;n previa y/o al pago de una cantidad
+                                por parte del usuario,
+                                lo cual se especificar&aacute; en los t&eacute;rminos y condiciones.</span></p>
+                        <p><span style="font-weight: 400;">Es importante se&ntilde;alar que el titular del sitio web no
+                                es el responsable de
+                                realizar ninguno de los servicios que se ofrecen en la misma, sino de servir de
+                                intermediario para conectar la
+                                oferta y la demanda de todos estos servicios entre los </span><span
+                                style="font-weight: 400;">diferentes tipos
+                                de usuarios de la plataforma.</span></p>
+                        <p><br></p>
+
+                        <p><strong>Usuarios del Sitio Web y Aplicaci&oacute;n m&oacute;vil</strong></p>
+                        <p><span style="font-weight: 400;">Tareador: la persona f&iacute;sica o natural que haga uso,
+                                navegue, o acceda, a
+                                cualquiera de los contenidos y ofrezca sus servicios en el sitio web o en la
+                                aplicaci&oacute;n
+                                m&oacute;vil.&nbsp;</span></p>
+                        <p><span style="font-weight: 400;">Usuario: la persona f&iacute;sica o natural que haga uso,
+                                navegue, o acceda, a
+                                cualquiera de los contenidos y contrate los servicios ofrecidos en el sitio web y en la
+                                aplicaci&oacute;n
+                                m&oacute;vil</span></p>
+                        <p><span style="font-weight: 400;">El usuario garantiza la autenticidad y actualidad de sus
+                                datos personales que
+                                comunique al titular del sitio web y ser&aacute; el &uacute;nico responsable de las
+                            </span><span style="font-weight: 400;">manifestaciones falsas o inexactas que
+                                realice.</span></p>
+                        <p><span style="font-weight: 400;">El usuario de este sitio weby del app Tareazos, asume la
+                                responsabilidad y se
+                                compromete expresamente a hacer un uso adecuado de los contenidos y servicios de la
+                                plataforma (como por ejemplo
+                                servicios de chat, foros de discusi&oacute;n o grupos de noticias) y a no emplearlos
+                                para, entre otros:</span>
+                        </p>
+                        <ul>
+                            <li><span style="font-weight: 400;"> incurrir en actividades il&iacute;citas, ilegales o
+                                    contrarias a la buena fe y
+                                    al orden p&uacute;blico o para ofrecer bienes o servicios a terceros;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Difundir contenidos o mensajes delictivos, violentos,
+                                    pornogr&aacute;ficos,
+                                    racistas, xen&oacute;fobos, ofensivos, de apolog&iacute;a del terrorismo o, en
+                                    general, contrarios a la ley
+                                    o al orden p&uacute;blico o que atenten contra derechos fundamentales y libertades
+                                    p&uacute;blicas
+                                    reconocidas constitucionalmente o en los tratados internacionales y en el resto del
+                                    ordenamiento
+                                    jur&iacute;dico;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Induzcan o inciten a involucrarse en pr&aacute;cticas
+                                    peligrosas, de riesgo o
+                                    nocivas para la salud y el equilibrio ps&iacute;quico;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Sean falsos, ambiguos, inexactos, exagerados o
+                                    extempor&aacute;neos, de forma
+                                    que puedan inducir a error sobre su objeto o sobre las intenciones o
+                                    prop&oacute;sitos del
+                                    comunicante;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> enviar mensajes que difamen o insulten, o que contengan
+                                    informaci&oacute;n
+                                    falsa, que sea inapropiada, abusiva, da&ntilde;ina, pornogr&aacute;fica,
+                                    amenazadora, da&ntilde;ando la
+                                    imagen p&uacute;blica o la vida privada de terceras personas o que por alguna causa
+                                    infrinjan alguna ley o
+                                    que Induzcan, inciten o promuevan actuaciones delictivas, denigratorias,
+                                    difamatorias o violentas;</span>
+                            </li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Introducir en la red virus inform&aacute;ticos o
+                                    realizar actuaciones
+                                    susceptibles de alterar, estropear, interrumpir o generar errores o da&ntilde;os en
+                                    los documentos
+                                    electr&oacute;nicos, datos o sistemas f&iacute;sicos y l&oacute;gicos de o de
+                                    terceras personas; as&iacute;
+                                    como obstaculizar el acceso de otros usuarios al sitio web y a sus servicios
+                                    mediante el consumo masivo de
+                                    los recursos inform&aacute;ticos a trav&eacute;s de los cuales se prestan los
+                                    servicios;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Intentar acceder a las cuentas de correo
+                                    electr&oacute;nico de otros usuarios o
+                                    a &aacute;reas restringidas de los sistemas inform&aacute;ticos del titular de la
+                                    web o de terceros y, en su
+                                    caso, extraer informaci&oacute;n y modificar o manipular sus mensajes;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Vulnerar los derechos de propiedad intelectual o
+                                    industrial pertenecientes a
+                                    terceros, sin que el usuario haya obtenido previamente de sus titulares la
+                                    autorizaci&oacute;n necesaria
+                                    para llevar a cabo el uso que efect&uacute;a, as&iacute; como violar la
+                                    confidencialidad de la
+                                    informaci&oacute;n del titular del sitio web o de terceros;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Proporcionar datos falsos o inexactos, as&iacute; como
+                                    suplantar la identidad
+                                    de cualquier otro usuario;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Reproducir, copiar, distribuir, poner a
+                                    disposici&oacute;n de, o cualquier otra
+                                    forma de comunicaci&oacute;n p&uacute;blica, transformar o modificar los contenidos,
+                                    a menos que se cuente
+                                    con la autorizaci&oacute;n del titular de los correspondientes derechos o ello
+                                    resulte legalmente
+                                    permitido;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Recabar o captar datos con finalidad publicitaria y de
+                                    remitir publicidad de
+                                    cualquier clase y comunicaciones con fines de venta u otras de naturaleza comercial
+                                    sin que medie su previa
+                                    solicitud o consentimiento;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Infrinjan la legislaci&oacute;n relativa a la
+                                    privacidad y el secreto de las
+                                    comunicaciones;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Violen los secretos empresariales de terceros;</span>
+                            </li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Sean contrarios al derecho al honor, a la intimidad
+                                    personal y familiar o a la
+                                    propia imagen de las personas;</span></li>
+                        </ul>
+
+                        <ul>
+                            <li><span style="font-weight: 400;"> Provoquen por sus caracter&iacute;sticas (como formato,
+                                    extensi&oacute;n, etc.)
+                                    dificultades en el normal funcionamiento de los servicios del sitio web o de la
+                                    aplicaci&oacute;n
+                                    m&oacute;vil.</span></li>
+                        </ul>
+
+                        <p><br></p>
+                        <p><strong>Comunicaciones en el sitio web y aplicaci&oacute;n m&oacute;vil&nbsp;</strong></p>
+                        <p><span style="font-weight: 400;">En el caso de que el usuario env&iacute;e informaci&oacute;n
+                                de cualquier tipo a
+                                trav&eacute;s de la plataforma, mediante los canales dispuestos, el usuario declara,
+                                garantiza y acepta que
+                                tiene derecho a hacerlo libremente, que dicha informaci&oacute;n no infringe
+                                ning&uacute;n derecho de propiedad
+                                intelectual e industrial, secreto comercial, o cualquier otro derecho de tercero, que
+                                dicha informaci&oacute;n
+                                no tiene car&aacute;cter confidencial y que dicha informaci&oacute;n no es perjudicial
+                                para terceros.</span></p>
+
+                        <p><span style="font-weight: 400;">El usuario reconoce asumir la responsabilidad y dejar&aacute;
+                                indemne al titular de
+                                la plataforma</span> <span style="font-weight: 400;">por cualquier comunicaci&oacute;n
+                                que suministre
+                                personalmente o a su nombre, alcanzando dicha responsabilidad sin restricci&oacute;n
+                                alguna la exactitud,
+                                legalidad, originalidad y titularidad de la misma.</span></p>
+
+                        <p><span style="font-weight: 400;">Los titulares de la plataforma no ser&aacute;n responsable de
+                                las opiniones vertidas
+                                por los usuarios a trav&eacute;s de los canales comunicaci&oacute;n o
+                                participaci&oacute;n y nos reservamos el
+                                derecho a denegar o retirar los accesos, comentarios y aportaciones o servicios
+                                ofrecidos sin necesidad de
+                                preaviso a aquellos usuarios que incumplan este t&eacute;rminos y condiciones que
+                                vulneren el respeto a la
+                                dignidad de la persona, que sean discriminatorios, xen&oacute;fobos, racistas,
+                                pornogr&aacute;ficos, que atenten
+                                contra la juventud o la infancia, el orden o la seguridad p&uacute;blica o que, a su
+                                juicio, no resultaran
+                                adecuados para su publicaci&oacute;n.</span></p>
+                        <p><br></p>
+                        <p><strong>Responsabilidad del sitio web y aplicaci&oacute;n m&oacute;vil sobre los
+                                Servicios</strong></p>
+                        <p><span style="font-weight: 400;">El titular de la plataforma no puede garantizar la
+                                fiabilidad, utilidad o veracidad
+                                de los servicios o de la informaci&oacute;n que se preste a trav&eacute;s de la
+                                plataforma. Su papel es
+                                &uacute;nica y exclusivamente de intermediaci&oacute;n entre los distintos tipos de
+                                usuarios.</span></p>
+                        <p><span style="font-weight: 400;">El titular de la plataforma no garantiza ni se hace
+                                responsable de:</span></p>
+                        <p><span style="font-weight: 400;">- la continuidad de los contenidos del sitio web o de la
+                                aplicaci&oacute;n
+                                m&oacute;vil.</span></p>
+                        <p><span style="font-weight: 400;">- la ausencia de vicios ocultos en la prestaci&oacute;n de
+                                los servicios;</span></p>
+                        <p><span style="font-weight: 400;">- la ausencia de virus y/o dem&aacute;s componentes
+                                da&ntilde;inos en sitio web,
+                                aplicaci&oacute;n m&oacute;vil o en el servidor que lo suministra;</span></p>
+                        <p><span style="font-weight: 400;">- la invulnerabilidad de la plataforma y/o lo inexpugnable de
+                                las medidas de
+                                seguridad que se adopten en el mismo;</span></p>
+                        <p><span style="font-weight: 400;">- la falta de utilidad o rendimiento de los contenidos y
+                                servicios del sitio web o de
+                                la aplicaci&oacute;n m&oacute;vil.</span></p>
+                        <p><span style="font-weight: 400;">- los da&ntilde;os o perjuicios que cause, a s&iacute; mismo
+                                o a un tercero,
+                                cualquier persona que infringiere el aviso legal, t&eacute;rminos y condiciones,
+                                pol&iacute;ticas de cookies y
+                                privacidad que titular del sitio web</span> <span style="font-weight: 400;">establece a
+                                trav&eacute;s de la
+                                vulneraci&oacute;n de los sistemas de seguridad de la misma.</span></p>
+
+                        <p><span style="font-weight: 400;">El titular de Tareazos declara que ha adoptado
+                                todas las medidas
+                                necesarias, dentro de sus posibilidades y del estado de la tecnolog&iacute;a, para
+                                garantizar su funcionamiento
+                                y evitar la existencia y transmisi&oacute;n de virus y dem&aacute;s componentes
+                                da&ntilde;inos a los
+                                usuarios.</span></p>
+
+                        <p><span style="font-weight: 400;">Si el usuario tuviera conocimiento de la existencia de
+                                alg&uacute;n contenido
+                                il&iacute;cito, ilegal, contrario a las leyes o que pudiera suponer una
+                                infracci&oacute;n de derechos de
+                                propiedad intelectual y/o industrial, deber&aacute; notificarlo inmediatamente a los
+                                datos de contactos del
+                                titular de Tareazos para que &eacute;sta pueda proceder a la adopci&oacute;n de las
+                                medidas oportunas.</span>
+                        </p>
+                        <p><br></p>
+                        <p><strong>&iquest;C&oacute;mo funciona nuestro sitio web y aplicaci&oacute;n
+                                m&oacute;vil?</strong></p>
+                        <ol>
+                            <li><span style="font-weight: 400;"> Crea una tarea.</span></li>
+                            <li><span style="font-weight: 400;"> Ingresa tu presupuesto.</span></li>
+                            <li><span style="font-weight: 400;"> Elige a tu Tareador.</span></li>
+                            <li><span style="font-weight: 400;"> Recibe el servicio.</span></li>
+                        </ol>
+                        <p><br></p>
+                        <p><strong>Pedidos</strong></p>
+                        <p><span style="font-weight: 400;">El cliente deber&aacute; proporcionar los datos completos de
+                                su domicilio al
+                                Tareador. En caso que el Tareador no tenga la direcci&oacute;n completa, se podr&aacute;
+                                apoyar al cliente a
+                                buscar la direcci&oacute;n, siempre y cuando &eacute;sta sea un domicilio de negocio,
+                                empresa o lugares que por
+                                su naturaleza comercial, de asistencia o gubernamental sean de inter&eacute;s
+                                p&uacute;blico, debiendo para
+                                estos efectos el cliente proporcionar como m&iacute;nimo el tel&eacute;fono y correo
+                                electr&oacute;nico y nombre
+                                del contacto.</span></p>
+                        <p><br></p>
+                        <p><strong>Pagos</strong></p>
+                        <p><span style="font-weight: 400;">El cliente se obliga a pagar o cancelar el pedido del
+                                servicio realizado por el sitio
+                                web o la aplicaci&oacute;n m&oacute;vil en su totalidad al momento de
+                                solicitarlo.</span></p>
+
+                        <p><span style="font-weight: 400;">La forma de pago ser&aacute; con tarjeta de cr&eacute;dito o
+                                transferencia
+                                bancaria</span></p>
+
+                        <p><span style="font-weight: 400;">El titular de la plataforma est&aacute; afiliado al servicio
+                                Verified by Visa y
+                                Master Security Code para as&iacute; ofrecerle a sus clientes la mayor seguridad y
+                                confianza posibles al
+                                realizar sus pagos en l&iacute;nea.</span></p>
+
+                        <p><span style="font-weight: 400;">No nos hacemos responsables por compras hechas con tarjetas
+                                de cr&eacute;dito sin
+                                autorizaci&oacute;n previa del due&ntilde;o o robadas; entendi&eacute;ndose que la
+                                persona que realiza la compra
+                                est&aacute; plenamente facultada para realizar la transacci&oacute;n y que, por lo
+                                tanto, no podemos negarnos a
+                                tramitarla.</span></p>
+
+                        <p><span style="font-weight: 400;">El realizar transacciones por internet sin el consentimiento
+                                previo del due&ntilde;o
+                                o con tarjetas robadas se constituye un fraude el cual est&aacute; penado por la
+                                legislaci&oacute;n
+                                paname&ntilde;a.</span></p>
+
+                        <p><span style="font-weight: 400;">Enviamos informaci&oacute;n v&iacute;a correo
+                                electr&oacute;nico a nuestros clientes
+                                respecto a nuestros proveedores del pago de tarjeta de cr&eacute;dito. Estamos afiliados
+                                a una
+                                Instituci&oacute;n Financiera con altos est&aacute;ndares a nivel regional, lo cual nos
+                                provee del cobro con
+                                tarjetas de cr&eacute;dito, fungiendo como su &uacute;nica responsabilidad la de ser un
+                                agente de cobro seguro
+                                para nuestros clientes con el banco emisor de la tarjeta. Se le informa que en su estado
+                                de cuenta
+                                aparecer&aacute; el cobro de la compra bajo el nombre de FIRED SOFTWARE DEVELOPMENT,
+                                S.A.</span></p>
+
+                        <p><span style="font-weight: 400;">No aceptamos bajo ninguna circunstancia, cualquier pago no
+                                reconocido por parte del
+                                cliente por la falta de conocimiento de la forma de cobro o por desacuerdos con la
+                                entrega. El hecho de
+                                establecer una reclamaci&oacute;n con el banco, desconociendo con esto su compra,
+                                implica una sospecha de fraude
+                                potencial; por lo que con la informaci&oacute;n del pedido, firma de recepci&oacute;n
+                                del pedido o servicio por
+                                parte del destinatario, se tendr&aacute;n suficientes pruebas para sustentar el reclamo
+                                que se interponga.
+                                Ser&aacute; entonces de vital importancia que el cliente se ponga siempre en contacto
+                                con nosotros para aclarar
+                                cualquier punto.</span></p>
+                        <p><br></p>
+                        <p><strong>Anulaciones</strong></p>
+                        <p><span style="font-weight: 400;">Una vez creada una tarea, ingresado el presupuesto, enviado y
+                                procesado el servicio,
+                                mediante el sitio web &uacute;nicamente aceptaremos anulaciones de cualquier solicitud
+                                de servicio dentro de las
+                                siguientes 24 horas de solicitado, siempre y cuando no se haya procedido a la
+                                facturaci&oacute;n y
+                                realizaci&oacute;n del mismo. En este caso, el cliente deber&aacute; solicitar el
+                                reembolso o anulaci&oacute;n
+                                del pago ya sea con dep&oacute;sito o transferencia bancaria y/o con tarjeta de
+                                cr&eacute;dito, para que se
+                                proceda a su devoluci&oacute;n, siempre que cumpla con las condiciones anteriormente
+                                explicadas.</span></p>
+
+                        <p><span style="font-weight: 400;">Para anular la solicitud de su servicio, el cliente
+                                deber&aacute; ponerse en contacto
+                                con nosotros a trav&eacute;s del Centro de Servicio al Cliente, al correo
+                                electr&oacute;nico
+                                info@tareazos.com</span></p>
+
+                        <p><span style="font-weight: 400;">En estos casos se aplicar&aacute; un recargo por gastos de
+                                gesti&oacute;n y
+                                administraci&oacute;n del </span><strong>20%</strong> <span
+                                style="font-weight: 400;">del valor del servicio. No
+                                se aceptan devoluciones por importes inferiores a USD </span><strong>5</strong><span
+                                style="font-weight: 400;">.</span></p>
+                        <p><br></p>
+                        <p><strong>Garant&iacute;a</strong></p>
+                        <p><span style="font-weight: 400;">La garant&iacute;a de todos nuestros servicios ser&aacute; la
+                                establecida por el
+                                Tareador, el titular del sitio web y de la aplicaci&oacute;n m&oacute;vil no tiene
+                                responsabilidad sobre la
+                                calidad de los servicios prestados a trav&eacute;s de su plataforma.&nbsp;</span></p>
+                        <p><span style="font-weight: 400;">El Tareador deber&aacute; responder por las faltas de
+                                conformidad que se manifiesten
+                                en un plazo de dos semanas desde la realizaci&oacute;n del servicio. El cliente y
+                                usuario deber&aacute; informar
+                                al Tareador de la falta de conformidad en el plazo de dos semanas desde que tuvo
+                                conocimiento de ella.</span>
+                        </p>
+                        <p><br></p>
+                        <p><strong>Disponibilidad</strong></p>
+                        <p><span style="font-weight: 400;">El titular de la plataforma no asegura la disponibilidad de
+                                los servicios en la plataforma. De presentarse una situaci&oacute;n, de falta de
+                                disponibilidad del Tareador, el Tareador </span> <span style="font-weight: 400;"> es el
+                                responsable de notificar a su cliente
+                                el motivo por el cual el servicio no puede ser entregado o el tiempo estimado de
+                                entrega.</span></p>
+                        <p><br></p>
+                        <p><strong>Horarios</strong></p>
+                        <p><span style="font-weight: 400;">Los horarios de servicio al cliente de Tareazos son:</span>
+                        </p>
+                        <p><span style="font-weight: 400;">Lunes a viernes</span><strong>: 9 am a 6 p.m.</strong></p>
+
+                        <p><span style="font-weight: 400;">El cliente acepta que contar&aacute; con una persona en el
+                                lugar donde desee recibir
+                                el servicio en los horarios indicados para aquellas categor&iacute;as de servicios que
+                                lo
+                                requieran.&nbsp;</span></p>
+                        <h2>&nbsp;</h2>
+                        <p><span style="font-weight: 400;">El titular de la plataforma</span> <span
+                                style="font-weight: 400;">no aceptar&aacute;
+                                horarios especiales que el cliente escriba en los campos del formulario de pedido y
+                                s&oacute;lo atender&aacute;
+                                como compromiso lo indicado en los t&eacute;rminos y condiciones.</span></p>
+                        <p><span style="font-weight: 400;">El cliente acepta que si su servicio requerido se ha
+                                registrado fuera de los horarios
+                                de recepci&oacute;n de ofertas, ser&aacute; enviado en el siguiente rango de horario
+                                inmediato
+                                disponible.</span></p>
+                        <p><br></p>
+                        <p><strong>Zonas de servicios</strong></p>
+                        <p><span style="font-weight: 400;">El titular de Tareazos ofrece sus servicios en todo el
+                                territorio paname&ntilde;o. La
+                                disponibilidad de los Tareadores en cada ubicaci&oacute;n depender&aacute; en su
+                                totalidad de las preferencias y
+                                condiciones propias del Tareador.&nbsp;</span></p>
+                        <p><span style="font-weight: 400;">El cliente se obliga a proporcionar la informaci&oacute;n
+                                necesaria al Tareador para
+                                efectuar la entrega del servicio solicitado. Cualquier error o falta de
+                                informaci&oacute;n al respecto,
+                                ser&aacute; de entera responsabilidad del cliente.</span></p>
+                        <p><span style="font-weight: 400;">El tiempo estimado de realizaci&oacute;n del servicio
+                                depender&aacute; del acordado
+                                con el Tareador, y la informaci&oacute;n registrada en la oferta o cotizaci&oacute;n que
+                                haya hecho el Tareador
+                                a su cliente, tambi&eacute;n depender&aacute; del lugar de entrega del
+                                servicio.&nbsp;</span></p>
+                        <p><br></p>
+                        <p><strong>Reembolso</strong></p>
+                        <p><span style="font-weight: 400;">Se podr&aacute; solicitar el reembolso por recibir el monto
+                                que ha pagado un cliente
+                                por un producto o servicio.</span></p>
+
+                        <p><span style="font-weight: 400;">El reembolso ser&aacute; procesado cuando no sea posible
+                                prestar el servicio en
+                                caracter&iacute;sticas similares y de igual o mayor precio.</span></p>
+
+                        <p><span style="font-weight: 400;">Cuando el tiempo de entrega excede de los </span><span
+                                style="font-weight: 400;">7
+                                d&iacute;as</span> <span style="font-weight: 400;">h&aacute;biles desde la fecha de
+                                compra sin que el cliente
+                                reciba el servicio.</span></p>
+
+                        <p><span style="font-weight: 400;">Cuando se ha cobrado un monto incorrecto al cliente, el
+                                reembolso aplica por la
+                                diferencia.</span></p>
+                        <p><br></p>
+                        <p><strong>Solicitud de Reembolso</strong></p>
+                        <p><span style="font-weight: 400;">Para solicitar un reembolso, se te pedir&aacute; la siguiente
+                                informaci&oacute;n, la
+                                cual puedes hacer llegar al titular del sitio web:</span></p>
+                        <p><span style="font-weight: 400;">&iexcl;N&uacute;mero de pedido</span></p>
+                        <p><span style="font-weight: 400;">Descripci&oacute;n del producto y/o servicio.</span></p>
+                        <p><span style="font-weight: 400;">Motivo por el cual se solicita el reembolso.</span></p>
+                        <p><span style="font-weight: 400;">Forma de pago con la que se realiz&oacute; la
+                                transacci&oacute;n.</span></p>
+
+                        <p><span style="font-weight: 400;">Una vez recibida la solicitud de reembolso se
+                                proceder&aacute; al proceso de
+                                revisi&oacute;n del mismo, la recepci&oacute;n de solicitud no implica la
+                                autorizaci&oacute;n del
+                                reembolso.</span></p>
+
+                        <p><span style="font-weight: 400;">Las solicitudes de reembolso se analizar&aacute;n y se
+                                dar&aacute; aviso al cliente
+                                tanto en casos de proceder como en casos de no procedencia de los reembolsos y los
+                                motivos.</span></p>
+
+                        <p><span style="font-weight: 400;">Los gastos de env&iacute;o para la devoluci&oacute;n del
+                                producto o del servicio
+                                correr&aacute;n por cuenta del cliente, si lo desea podemos enviar una gu&iacute;a para
+                                que se programe la
+                                recolecci&oacute;n del producto y el costo del envio se descontar&aacute; del
+                                reembolso.</span></p>
+
+                        <p><span style="font-weight: 400;">Los tiempos estimados para el procesamiento de un Reembolso
+                                una vez autorizado
+                                ser&aacute; de 5 a 10 d&iacute;as h&aacute;biles.</span></p>
+                        <p><br></p>
+                        <p><strong>Modificaci&oacute;n de los T&eacute;rminos y Condiciones</strong></p>
+                        <p><span style="font-weight: 400;">El titular del sitio web y de la aplicaci&oacute;n
+                                m&oacute;vil podr&aacute;
+                                modificar los t&eacute;rminos y condiciones total o parcialmente, publicando cualquier
+                                cambio en la misma forma
+                                en que aparece estos t&eacute;rminos y condiciones, a trav&eacute;s de cualquier tipo de
+                                comunicaci&oacute;n
+                                dirigida a los usuarios de la plataforma.</span></p>
+
+                        <p><span style="font-weight: 400;">La vigencia temporal de estos t&eacute;rminos y condiciones
+                                coincide con el tiempo de
+                                su exposici&oacute;n, hasta que sean modificadas total o parcialmente, momento en el
+                                cual pasar&aacute; a tener
+                                vigencia en las Condiciones de Uso modificadas.</span></p>
+
+                        <p><span style="font-weight: 400;">Cualquier situaci&oacute;n no prevista en estas
+                                pol&iacute;ticas, ser&aacute;n
+                                resueltas por el titular de la plataforma.</span></p>
+                        <p><br></p>
+                        <p><strong>Legislaci&oacute;n aplicable y Jurisdicci&oacute;n</strong></p>
+                        <p><span style="font-weight: 400;">Los t&eacute;rminos y condiciones presentes en este sitio web
+                                se regir&aacute;n por
+                                la legislaci&oacute;n de la Rep&uacute;blica de Panam&aacute; vigente en materia de
+                                tecnolog&iacute;a de la
+                                informaci&oacute;n y comunicaci&oacute;n; propiedad intelectual e industrial, consumidor
+                                y defensa de la
+                                competencia y protecci&oacute;n de datos personales.</span></p>
+                        <p><span style="font-weight: 400;">Las partes se someten, a su elecci&oacute;n, para la
+                                resoluci&oacute;n de los
+                                conflictos y con renuncia a cualquier otro fuero, a los juzgados y tribunales del
+                                domicilio del usuario.
+                                Asimismo el usuario podr&aacute; acudir a los tribunales competentes dentro de la
+                                Republica de Panama.</span>
+                        </p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <i class="scroll-top-btn scroll-top show fg-white"></i>
+    <footer class="light">
+        <div class="containerHome">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>Tareazos</h3>
+                    <p>
+                        Atiende las cosas más importantes de tu vida.
+                    </p>
+                    <div class="icon-links icon-social icon-links-grid social-colors">
+                        <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                                class="icon-facebook text-center"></i></a>
+                        <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                                class="icon-twitter text-center"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                                class="icon-instagram text-center"></i></a>
+                        <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                        <a class="linkedin" href="https://www.linkedin.com/company/tareazos" target="_blank"><i
+                                class="icon-linkedin text-center"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Términos</h3>
+                    <ul class="icon-list1 icon-line">
+                        <li> <a class="fg-white" [routerLink]="'/aviso-legal'">Aviso legal</a></li>
+                        <li><a class="fg-white" [routerLink]="'/politicas'">Políticas de cookies y privacidad</a></li>
+                        <li><a class="fg-white" [routerLink]="'/terminos-condiciones'">Términos y condiciones</a></li>
+                        <li><a class="fg-white" [routerLink]="'/cargos-comisiones'">Cargos y Comisiones</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="text-list text-list-line">
+                        <li>
+                            <b>Dirección</b>
+                            <hr />
+                            <p>Costa del Este, Panamá</p>
+                        </li>
+                        <li>
+                            <b>Correo</b>
+                            <hr />
+                            <p>info@tareazos.com</p>
+                        </li>
+                        <li>
+                            <b>Teléfono</b>
+                            <hr />
+                            <p>+507 6832-9942</p>
+                        </li>
+                        <li>
+                            <b>Horario</b>
+                            <hr />
+                            <p>9am-6pm Lunes - Viernes</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div class="containerHome">
+                <span>© 2020 Tareazos </span>
+                <span><a class="fg-white" href="mailto:info@tareazos.com">Contáctanos</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

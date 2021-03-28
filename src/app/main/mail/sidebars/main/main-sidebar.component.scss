@@ -1,0 +1,33 @@
+mail-main-sidebar {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    height: 100%;
+
+    .pt-18 {
+        padding-top: 18px;
+    }
+
+    .pt-15 {
+        padding-top: 15px;
+    }
+
+    .header {
+
+        .logo {
+
+            .logo-icon {
+                margin: 0 16px 0 0;
+            }
+
+            .logo-text {
+                font-size: 24px;
+                line-height: 24px;
+            }
+        }
+
+        .account {
+            width: 100%;
+        }
+    }
+}

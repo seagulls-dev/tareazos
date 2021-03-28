@@ -1,0 +1,77 @@
+<div id="login" fxLayout="column" fxLayoutAlign="center center" [ngClass]="isSignIn ? 'backgroundImage' : ''">
+    <div id="login-form-wrapper">
+        <mat-toolbar class="transparent m-0" *ngIf="dialogRef.id !== undefined">
+            <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+                <span class="title dialog-title"></span>
+                <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar-row>
+        </mat-toolbar>
+
+        <div id="login-form" *ngIf="isSignIn" [@animate]="{ value: '*', params: { delay: '300ms', x: '100%' } }"
+            fusePerfectScrollbar>
+            <div class="logo">
+                <img src="assets/images/logos/logo.png" />
+            </div>
+
+            <form name="loginForm" [formGroup]="loginForm" novalidate>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" />
+                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                    <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="
+                            !loginForm.get('email').hasError('required') &&
+                            loginForm.get('email').hasError('email')
+                        ">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password" />
+                    <mat-icon matSuffix class="secondary-text">vpn_key</mat-icon>
+                    <mat-error>
+                        Password is required
+                    </mat-error>
+                </mat-form-field>
+                <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                    <a [routerLink]="'/auth/reset-password'" class="link" (click)="dialogRef.close()">¿Olvidaste tu
+                        contraseña?</a>
+                </div>
+
+                <button type="button" mat-flat-button color="accent" class="submit-button" aria-label="LOGIN"
+                    [disabled]="loginForm.invalid" (click)="login()">
+                    Iniciar Sesión
+                </button>
+            </form>
+
+            <div class="separator">
+                <span class="text">O inicia con</span>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center start" *ngIf="this.loginForm.value.isTasker != true">
+                <button mat-button color="primary" aria-label="Google" (click)="loginWithGoogle()">
+                    <img src="https://www.clicktoaction.com.mx/wp-content/uploads/2019/09/google-1015752_960_720.png"
+                        alt="" width="25">
+                </button>
+
+                <button mat-button color="primary" aria-label="Follow">
+                    <img src="https://www.dfmalherbe.co.za/wp-content/uploads/2016/01/facebook-logo-png-transparent-background.png"
+                        alt="" width="25">
+                </button>
+            </div>
+
+            <mat-divider class="mt-24"></mat-divider>
+
+            <div class="register" fxLayout="column" fxLayoutAlign="center center">
+                <span class="text">¿No tienes una cuenta?</span>
+                <a [routerLink]="'/forms/signup'" class="link" (click)="dialogRef.close()">Regístrate aquí</a>
+            </div>
+        </div>
+    </div>
+</div>

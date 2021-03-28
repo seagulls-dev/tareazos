@@ -1,0 +1,51 @@
+mail-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0;
+    border-right: 1px solid;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .mh-0 {
+        min-height: 0px !important;
+    }
+
+    .no-messages-text {
+        font-size: 24px;
+        font-weight: 300;
+    }
+
+    .mail-list {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+
+    .border-Open {
+        border-left: 5px solid #7cb342;
+    }
+
+    .border-Assigned {
+        border-left: 5px solid #03a9f4;
+    }
+
+    .border-Completed {
+        border-left: 5px solid #d84315;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 20px;
+        bottom: 0;
+        position: absolute;
+        width: 100%;
+    }
+}

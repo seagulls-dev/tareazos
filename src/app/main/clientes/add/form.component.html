@@ -1,0 +1,130 @@
+<div class="dialog-content-wrapper" fusePerfectScrollbar>
+    <mat-toolbar matDialogTitle class="m-0 app-toolbar" color="primary">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{_data.question.label}}</span>
+            <!-- <button mat-icon-button (click)="matDialogRef.close(null)" aria-label="Cerrar">
+                <mat-icon>close</mat-icon>
+            </button> -->
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 m-0 bg-white" fusePerfectScrollbar>
+
+        <div fxLayout="column">
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Key" name="key" [(ngModel)]="_data.question.key">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Nombre del campo" name="label" [(ngModel)]="_data.question.label">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-select class="fill-width" placeholder="Tipo de campo" name="controlType"
+                    [(ngModel)]="_data.question.controlType">
+                    <mat-option *ngFor="let opt of _data.questionstype" [value]="opt.key">{{opt.description}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="(_data.question.controlType == 'dropdown') || (_data.question.controlType == 'multiple')" fxFlex>
+                <input matInput placeholder="Nombre de la lista" name="label" [(ngModel)]="_data.question.optionsList">
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="(_data.question.controlType == 'dropdown') || (_data.question.controlType == 'multiple')" fxFlex>
+                <input matInput placeholder="Control que lo cambia" name="label"
+                    [(ngModel)]="_data.question.ChangeMeKey">
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="(_data.question.controlType == 'dropdown') || (_data.question.controlType == 'multiple')" fxFlex>
+                <input matInput placeholder="Lista para Filtrar" name="label" [(ngModel)]="_data.question.ListToFilter">
+            </mat-form-field>
+            <mat-slide-toggle
+                *ngIf="(_data.question.controlType == 'dropdown') || (_data.question.controlType == 'multiple')"
+                name="label" [(ngModel)]="_data.question.noOptionsHidden" fxFlex>Ocultar cuando no options
+            </mat-slide-toggle>
+            <mat-form-field *ngIf="(_data.question.controlType != 'dropdown')" fxFlex>
+                <mat-select *ngIf="(_data.question.controlType != 'dropdown')"
+                    [disabled]="(_data.question.controlType != 'textbox')" class="fill-width" placeholder="Tipo"
+                    name="type" [(ngModel)]="_data.question.type">
+                    <mat-option *ngFor="let opt of _data.textboxType" [value]="opt.key">{{opt.description}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-slide-toggle name="required" [(ngModel)]="_data.question.required" fxFlex>Requerido</mat-slide-toggle>
+            <mat-form-field fxFlex class="pt-16">
+                <input matInput placeholder="Orden" name="label" [(ngModel)]="_data.question.order">
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <input matInput placeholder="Ancho en la tabla" style="text-align:cente;" name="width"
+                    [(ngModel)]="_data.question.width">
+            </mat-form-field>
+            <mat-form-field class="fill-width" fxFlex>
+                <input matInput placeholder="Icono" name="width" [(ngModel)]="_data.question.icon">
+            </mat-form-field>
+            <mat-slide-toggle name="required" [(ngModel)]="_data.question.visible" fxFlex>Visible en la tabla
+            </mat-slide-toggle>
+            <mat-form-field class="fill-width" fxFlex>
+                <input matInput placeholder="Tooltip" name="tooltip" [(ngModel)]="_data.question.tooltip">
+            </mat-form-field>
+            <mat-divider [vertical]="true"></mat-divider>
+
+            <br>
+            <div align="center">
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- <div mat-dialog-actions class="m-0 p-16 bottom-toolbar" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                color="warn"
+                class="mr-8"
+                (click)="btnSave('delete')"
+                [disabled]="form.invalid || snEditar"
+                aria-label="Eliminar"
+                matTooltip="Eliminar">
+            ELIMINAR
+        </button>
+
+        <button *ngIf="action === 'new'"
+                mat-button
+                color="primary"
+                class="save-button"
+                (click)="btnSave('new')"
+                [disabled]="form.invalid"
+                aria-label="SAVE">
+            GUARDAR
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                color="primary"
+                class="save-button"
+                (click)="btnSave('save')"
+                [disabled]="form.invalid || snEditar"
+                aria-label="SAVE">
+            GUARDAR
+        </button>
+
+        <button *ngIf="action === 'view'"
+                mat-button
+                color="warn"
+                class="save-button"
+                (click)="btnSave('desaprobar')"
+                aria-label="NO APROBAR">
+            NO APROBAR
+        </button>
+
+        <button *ngIf="action === 'view'"
+                mat-button
+                color="primary"
+                class="save-button"
+                (click)="btnSave('aprobar')"
+                aria-label="APROBAR">
+            APROBAR
+        </button>
+
+    </div> -->
+</div>

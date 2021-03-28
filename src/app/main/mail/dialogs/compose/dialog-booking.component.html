@@ -1,0 +1,57 @@
+<div class="dialog-content-wrapper" *ngIf="data.offer">
+    <mat-toolbar class="transparent m-0 pl-8">
+        <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title" *ngIf="!data.offer.awarded">Vas a contratar a {{data.offer.authorname}}</span>
+            <span class="title dialog-title" *ngIf="data.offer.awarded && data.request.status != 'Completed'">Modificar la reserva de {{data.offer.authorname}}</span>
+            <span class="title dialog-title" *ngIf="data.request.status == 'Completed'"> Tarea completada {{data.offer.authorname}}</span>
+            <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+        <div *ngIf="(data.request.status != 'Completed')" fxLayout="column">
+            <span *ngIf="data.offer.availability">
+                Este tareador tiene disponibilidad exacta en la fecha que solicitaste.
+            </span>
+            <span *ngIf="!data.offer.availability">
+                El tareador sugirió la siguiente fecha para realizar la tarea:
+                {{data.offer.OfferDate| date:'MM-dd-yyyy' }}
+            </span>
+            <mat-form-field appearance="fill" class="pt-12">
+                <mat-label>Fecha de la tarea:</mat-label>
+                <input matInput [matDatepicker]="picker" (click)="picker.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div *ngIf="(data.request.status == 'Completed')">
+
+            <app-rating [itemId]="data.requestId" (ratingClick)='ratingComponentClick($event)'>
+            </app-rating>
+            <mat-form-field class="w-100" appearance='fill'>
+                <mat-label>¿Que te pareció el trabajo de {{data.offer.authorname}}?</mat-label>
+                <textarea matInput [(ngModel)]="rating.review"></textarea>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-24" fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+            <button mat-flat-button *ngIf="data.request.status != 'Completed'" color="primary"  (click)="dialogRef.close(['book'])" class="save-button"
+                aria-label="SAVE">
+                AGENDAR TAREA
+            </button>
+            <button mat-flat-button *ngIf="data.request.status == 'Completed'" color="primary" (click)="dialogRef.close(['rating',rating,data.offer])" class="save-button"
+                aria-label="SAVE">
+                CALIFICAR
+            </button>
+            <button mat-button color="warn" (click)="dialogRef.close(['delete'])" class="save-button"
+                aria-label="SAVE">
+                CANCELAR
+            </button>
+        </div>
+    </div>
+</div>

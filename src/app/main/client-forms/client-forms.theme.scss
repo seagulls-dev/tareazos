@@ -1,0 +1,68 @@
+
+
+@mixin main-theme($theme) {
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $is-dark: map-get($theme, is-dark);
+
+    #main {
+
+        .header {
+
+            .search-wrapper {
+                background: map-get($background, card);
+
+                .search {
+
+                    .mat-icon {
+                        color: map-get($foreground, icon);
+                    }
+
+                    input {
+                        background: map-get($background, card);
+                        color: map-get($foreground, text);
+                    }
+                }
+            }
+        }
+
+        .content {
+
+            .sidebar {
+
+                .sidebar-content {
+
+                    .card {
+                        background: map-get($background, card);
+                    }
+                }
+            }
+        }
+    }
+
+    #photos-videos {
+
+        .period {
+
+            .period-title {
+
+                .info {
+                    color: map-get($foreground, secondary-text);
+                }
+            }
+
+            .period-media {
+
+                .media {
+                    .title {
+                        background: rgba(0, 0, 0, 0.54);
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+   
+
+}

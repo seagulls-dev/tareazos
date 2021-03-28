@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+</head>
+
+<body id="body">
+    <mat-toolbar color="primary" *ngIf="isJsLoaded">
+        <div class="containerHome pr-0 pl-0">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-icon-button (click)="showMenu = !showMenu" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <img src="/assets/images/logos/logo1.png" alt="logo" width="145" style="margin-top: -10px;" />
+
+                <div fxShow="true" fxHide.lt-md fxFlex="65">
+                    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                    <a [routerLink]="'/home'" mat-button>Home</a>
+                    <a href="home#tareadores" mat-button>Tareadores</a>
+                    <a href="nosotros#section1" mat-button>Nosotros</a>
+                </div>
+
+                <div class="icon-links" fxShow="true" fxHide.lt-md>
+                    <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                            class="icon-facebook text-center icon-white"></i></a>
+                    <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                            class="icon-twitter text-center icon-white"></i></a>
+                    <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                            class="icon-instagram text-center icon-white"></i></a>
+                    <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                    <a fxShow="true" fxHide.lt-md class="linkedin" href="https://www.linkedin.com/company/tareazos"
+                        target="_blank"><i class="icon-linkedin text-center icon-white"></i></a>
+                </div>
+
+                <div *ngIf="authService.user">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        {{ authService.user.name }}
+                        {{ authService.user.lastname }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="logout()">
+                            Cerrar Sesión
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div *ngIf="!authService.user">
+                    <!-- <button mat-button (click)="btnLogin()">
+                        Login
+                    </button> -->
+                    <a mat-button [routerLink]="'/forms/signup'">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showMenu" class="w-100 bg-primary menu" [@animate]="{
+                value: '*',
+                params: {
+                    delay: '100ms',
+                    y: '-100px'
+                }
+            }">
+        <mat-nav-list [@animate]="{
+                    value: '*',
+                    params: {
+                        delay: '100ms',
+                        y: '-100px'
+                    }
+                }">
+            <a [routerLink]="'/home'" mat-list-item class="fg-white font-weight-700">Home</a>
+            <a href="home#tareadores" mat-list-item class="fg-white font-weight-700">Tareadores</a>
+            <a href="nosotros#section1" mat-list-item class="fg-white font-weight-700">Nosotros</a>
+        </mat-nav-list>
+    </div>
+    <main fusePerfectScrollbar class="bg-white">
+        <section id="section1">
+            <div class="containerHome pt-100 pb-24">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2>Cargos y Comisiones</h2>
+                        </div>
+                        <p><br /></p>
+                        <p><strong>Para Clientes:</strong></p>
+                        <p>En Tareazos es gratis registrarte, recibir ofertas de Tareadores, revisar los perfiles y
+                            portafolio de los Tareadores
+                            y discutir los requerimientos de las tareas. Si deseas aceptar la oferta de un Tareador en
+                            tu tarea y agendar una
+                            cita, te cargaremos el costo total de la oferta, la cual puedes pagar con tarjeta de crédito o crédito Tareazos.</p>
+                        <p>Por cada pago que tomemos se te cobrar&aacute; un cargo por procesamiento de 4% + 0.50 por
+                            cada transacci&oacute;n.
+                        </p>
+                        <p>Cada pago es protegido por el sistema de retenci&oacute;n de fondos de Tareazos. Solo liberas
+                            los fondos del Servicio
+                            a tu Tareador una vez est&eacute;s 100% satisfecho con el trabajo.</p>
+
+                        <p><br /></p>
+                        <p><strong>Anulaci&oacute;n de Tareas: </strong></p>
+                        <p>Tareas que sean anuladas con mas de 24 horas de anticipaci&oacute;n, ser&aacute;n acreditadas
+                            autom&aacute;ticamente
+                            a tu cuenta Tareazos.</p>
+                        <p>Si deseas cancelar una tarea con menos de 24 horas de anticipaci&oacute;n. Debes enviar una
+                            solicitud de
+                            cancelaci&oacute;n a nuestro equipo de atenci&oacute;n al cliente a trav&eacute;s de la app
+                            o escribirnos a la
+                            direcci&oacute;n <a href="mailto:info@tareazos.com">info@tareazos.com</a>. Te recomendamos
+                            leer nuestros
+                            t&eacute;rminos y condiciones para m&aacute;s informaci&oacute;n acerca de las
+                            cancelaciones.</p>
+                        <p>Una cancelaci&oacute;n conflictiva entre el Tareador y el cliente puede incurrir en gastos
+                            por arbitraje,
+                            refi&eacute;rete a esta secci&oacute;n para m&aacute;s informaci&oacute;n.</p>
+
+                        <p><br /></p>
+                        <p><strong>Para Tareadores </strong></p>
+                        <p>En Tareazos es gratis registrarse, crear un perfil, agregar habilidades, cargar fotos a tu
+                            portafolio, recibir
+                            notificaciones sobre nuevas oportunidades de tareas, discutir los detalles de las tareas con
+                            los clientes y hacerles
+                            ofertas. Tendr&aacute;s un m&aacute;ximo de 20 ofertas al mes. Si deseas hacer m&aacute;s
+                            ofertas que estas
+                            podr&aacute;s comprar m&aacute;s ofertas con tu tarjeta de cr&eacute;dito o con tus
+                            cr&eacute;ditos Tareazos.</p>
+
+                        <p><br /></p>
+                        <p><strong>Comisi&oacute;n: </strong></p>
+                        <p>Por cada oferta que sea aceptada por el cliente Tareazos retendr&aacute; el 20% del monto
+                            total del servicio, el
+                            resto ir&aacute; a tus fondos en tu cuenta Tareazos.</p>
+
+                        <p><br /></p>
+                        <p><strong>Retiro de fondos: </strong></p>
+                        <p>Podr&aacute;s solicitar en cualquier momento el retiro de tus fondos Tareazos a trav&eacute;s
+                            de nuestra pagina web,
+                            considerando las siguientes condiciones:</p>
+                        <ul>
+                            <li>El dinero solo puede ser retirado por medio de un ACH a una cuenta bancaria de
+                                Panam&aacute;.</li>
+                            <li>No podr&aacute;s retirar fondos en cuentas que no sean paname&ntilde;as.</li>
+                            <li>El costo por cada retiro es de USD $1.00</li>
+                            <li>Solo transferiremos fondos a tu cuenta con una frecuencia máxima de una vez por semana.</li>
+                            <li>No permitimos retiros parciales, cuando hagas una solicitud, transferiremos todos tus
+                                fondos y tu nuevo balance
+                                Tareazos ser&aacute; de USD $0.00</li>
+                        </ul>
+
+                        <p><br /></p>
+                        <p><strong>Cargo por arbitraje: </strong></p>
+                        <p>Si tienes alg&uacute;n conflicto con tu Tareador o con tu cliente, que no logren resolver
+                            entre las partes y Tareazos
+                            tenga que intervenir, haremos un cargo por arbitraje de 10% o USD $5.00 al ganador de la
+                            disputa. Te recomendamos
+                            intentar resolver en la mayor medida posible las dispuestas con tu cliente o Tareador.</p>
+                        <hr class="space-sm" />
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <i class="scroll-top-btn scroll-top show fg-white"></i>
+    <footer class="light">
+        <div class="containerHome">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>Tareazos</h3>
+                    <p>
+                        Atiende las cosas más importantes de tu vida.
+                    </p>
+                    <div class="icon-links icon-social icon-links-grid social-colors">
+                        <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                                class="icon-facebook text-center"></i></a>
+                        <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                                class="icon-twitter text-center"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                                class="icon-instagram text-center"></i></a>
+                        <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                        <a class="linkedin" href="https://www.linkedin.com/company/tareazos" target="_blank"><i
+                                class="icon-linkedin text-center"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Términos</h3>
+                    <ul class="icon-list1 icon-line">
+                        <li> <a class="fg-white" [routerLink]="'/aviso-legal'">Aviso legal</a></li>
+                        <li><a class="fg-white" [routerLink]="'/politicas'">Políticas de cookies y privacidad</a></li>
+                        <li><a class="fg-white" [routerLink]="'/terminos-condiciones'">Términos y condiciones</a></li>
+                        <li><a class="fg-white" [routerLink]="'/cargos-comisiones'">Cargos y Comisiones</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="text-list text-list-line">
+                        <li>
+                            <b>Dirección</b>
+                            <hr />
+                            <p>Costa del Este, Panamá</p>
+                        </li>
+                        <li>
+                            <b>Correo</b>
+                            <hr />
+                            <p>info@tareazos.com</p>
+                        </li>
+                        <li>
+                            <b>Teléfono</b>
+                            <hr />
+                            <p>+507 6832-9942</p>
+                        </li>
+                        <li>
+                            <b>Horario</b>
+                            <hr />
+                            <p>9am-6pm Lunes - Viernes</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div class="containerHome">
+                <span>© 2020 Tareazos </span>
+                <span><a class="fg-white" href="mailto:info@tareazos.com">Contáctanos</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

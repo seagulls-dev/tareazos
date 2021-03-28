@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="" />
+</head>
+
+<body>
+    <mat-toolbar color="primary" *ngIf="isJsLoaded">
+        <div class="containerHome pr-0 pl-0">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button mat-icon-button (click)="showMenu = !showMenu" fxShow="true" fxHide.gt-sm>
+                    <mat-icon>menu</mat-icon>
+                </button>
+
+                <img src="/assets/images/logos/logo1.png" alt="logo" width="145" style="margin-top: -10px;" />
+
+                <div fxShow="true" fxHide.lt-md fxFlex="65">
+                    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+                    <a href="home#section1" mat-button>Home</a>
+                    <a href="home#tareadores" mat-button>Tareadores</a>
+                    <a [routerLink]="'/nosotros'" mat-button>Nosotros</a>
+                </div>
+
+                <div class="icon-links" fxShow="true" fxHide.lt-md>
+                    <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                            class="icon-facebook text-center icon-white"></i></a>
+                    <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                            class="icon-twitter text-center icon-white"></i></a>
+                    <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                            class="icon-instagram text-center icon-white"></i></a>
+                    <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                    <a fxShow="true" fxHide.lt-md class="linkedin" href="https://www.linkedin.com/company/tareazos"
+                        target="_blank"><i class="icon-linkedin text-center icon-white"></i></a>
+                </div>
+
+                <div *ngIf="authService.user">
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        {{ authService.user.name }}
+                        {{ authService.user.lastname }}
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item [routerLink]="'/profile/profile'">
+                            Mi Perfil
+                        </button>
+                        <button mat-menu-item (click)="logout()">
+                            Cerrar Sesión
+                        </button>
+                    </mat-menu>
+                </div>
+
+                <div *ngIf="!authService.user">
+                    <!-- <button mat-button (click)="btnLogin()">
+                        Login
+                    </button> -->
+                    <a mat-button [routerLink]="'/forms/signup'">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </mat-toolbar>
+    <div *ngIf="showMenu" class="w-100 bg-primary menu" [@animate]="{
+                value: '*',
+                params: {
+                    delay: '100ms',
+                    y: '-100px'
+                }
+            }">
+        <mat-nav-list [@animate]="{
+                    value: '*',
+                    params: {
+                        delay: '100ms',
+                        y: '-100px'
+                    }
+                }">
+            <a href="home#section1" mat-list-item class="fg-white font-weight-700">Home</a>
+            <a href="home#tareadores" mat-list-item class="fg-white font-weight-700">Tareadores</a>
+            <a [routerLink]="'/nosotros'" mat-list-item class="fg-white font-weight-700">Nosotros</a>
+        </mat-nav-list>
+    </div>
+    <main fusePerfectScrollbar>
+
+        <section id="section1" class="section-image section-home-one no-padding-y pb-144" fxHide fxShow.gt-md style="
+                    background-image: url(/assets/images/backgrounds/Landing-1.png);
+                ">
+            <div class="containerHome containerHome-fluid w-100">
+                <div class="row justify-content-md-center">
+                    <!-- <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2 class="font-weight-500 font-size-36 fg-primary">
+                                ¿Necesitas ayuda con una Tarea?
+                            </h2>
+                        </div>
+                    </div> -->
+                    <div class="col-lg-6">
+
+                        <hr class="space-md" />
+                        <hr class="space-lg" />
+                        <hr class="space-lg" />
+                        <span class="font-size-46 font-weight-600 fg-primary line-height-44">
+                            Encuentra personas increíbles en tu comunidad
+                            dispuestas a
+                            <span class="font-size-46 font-weight-600 fg-accent">ayudarte </span>
+                            <br /><br /><button (click)="Opentab()" mat-flat-button color="accent">
+                                ¡Encuéntralas hoy!
+                            </button>
+                        </span>
+
+                        <span fxHide.gt-sm class="mat-headline fg-white"></span>
+
+                        <hr class="space-lg" />
+                    </div>
+                    <div class="col-lg-3 hidden-md">
+                        <hr class="space-md" />
+                        <img data-anima="fade-bottom" data-time="1000" class="slide-image" style="max-width: 300px;" />
+                        <!-- src="/assets/images/logos/logo.png" -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section2" class="section-image-mobile section-home-one no-padding-y" fxHide.gt-md style="
+                    background-image: url(/assets/images/backgrounds/mobile-cut.jpg);
+                    background-position: 50% 30%;
+                    background-repeat: no-repeat;
+
+                ">
+            <div class="containerHome-fluid w-100">
+                <div class="row justify-content-md-center">
+                    <!-- <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2 class="font-weight-500 fg-primary">
+                                ¿Necesitas ayuda con una Tarea?
+                            </h2>
+                        </div>
+                    </div> -->
+                    <br>
+                    <div class="col-lg-10">
+
+                        <hr class="space-sm" />
+                        <!-- <a href="#" class="btn btn-sm width-190 full-width-sm">Request a quote</a>
+                                        <a href="#" class="btn btn-border btn-sm width-190 active full-width-sm">Free trial</a> -->
+                        <hr class="space-lg" />
+                        <hr class="space-lg" />
+
+
+                        <div class="font-size-24 font-weight-600 fg-primary line-height-30 text-center">
+                            <br />
+                            <br />
+                            Encuentra personas increíbles en tu comunidad
+                            dispuestas a
+                            <span class="font-size-24 font-weight-600 fg-accent">ayudarte con tus tareas</span>
+                            <br /><br /><button (click)="Opentab()" mat-flat-button color="accent" class="w-100">
+                                ¡Encuéntralas hoy!
+                            </button>
+                        </div>
+
+                        <span fxHide.gt-sm class="mat-headline fg-white"></span>
+
+                        <hr class="space-sm" />
+                        <!-- <a href="#" class="btn btn-sm width-190 full-width-sm">Request a quote</a>
+                                        <a href="#" class="btn btn-border btn-sm width-190 active full-width-sm">Free trial</a> -->
+                        <hr class="space-md" />
+                        <!-- <hr class="space-lg" /> -->
+                    </div>
+                    <div class="col-lg-3 hidden-md">
+                        <hr class="space-md" />
+                        <img data-anima="fade-bottom" data-time="1000" class="slide-image" style="max-width: 300px;" />
+                        <!-- src="/assets/images/logos/logo.png" -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="section3" class="section-base section-overflow-top section-yellow">
+            <div class="containerHome pb-64">
+                <div fxHide fxShow.gt-sm class="grid-list">
+                    <div *ngIf="slides.length === 1">
+                        <mdb-carousel [animation]="'slide'" [isControls]="true"
+                            class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+                            [interval]="false" [@animate]="{
+                                    value: '*',
+                                    params: {
+                                        delay: '100ms',
+                                        x: '25px'
+                                    }
+                                }">
+                            <mdb-carousel-item class="pb-4">
+                                <div class="col-md-4 pl-0">
+                                    <div class="grid-item pointer">
+                                        <div class="cnt-box cnt-box-top-icon boxed">
+                                            <i class="shime-i shine"></i>
+                                            <div class="caption pt-8">
+                                                <h2 class="shine shime-h2 mb-0"></h2>
+                                                <p class="shine shime-p"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-0">
+                                    <div class="grid-item pointer">
+                                        <div class="cnt-box cnt-box-top-icon boxed">
+                                            <i class="shime-i shine"></i>
+                                            <div class="caption pt-8">
+                                                <h2 class="shine shime-h2 mb-0"></h2>
+                                                <p class="shine shime-p"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pl-0">
+                                    <div class="grid-item pointer">
+                                        <div class="cnt-box cnt-box-top-icon boxed">
+                                            <i class="shime-i shine"></i>
+                                            <div class="caption pt-8">
+                                                <h2 class="shine shime-h2 mb-0"></h2>
+                                                <p class="shine shime-p"></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mdb-carousel-item>
+                        </mdb-carousel>
+                    </div>
+                    <div *ngIf="!showForms && slides.length > 0">
+                        <mdb-carousel [animation]="'slide'" [isControls]="true"
+                            class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+                            [interval]="false">
+
+                            <mdb-carousel-item *ngFor="let item of slides; let i = index" [@animate]="{
+                                        value: '*',
+                                        params: {
+                                            delay: '100ms',
+                                            x: '25px'
+                                        }
+                                    }">
+                                <div class="row">
+                                    <div class="col-md-3 pl-0 h-215" *ngFor="
+                                            let card of item;
+                                            let cardIndex = index
+                                        ">
+                                        <div class="grid-item pointer h-100" (click)="LoadForm(card.key)">
+                                            <div class="cnt-box cnt-box-top-icon boxed h-100">
+                                                <img class="img-services" [src]="card.publicIconUrl" />
+                                                <div class="caption pt-8">
+                                                    <h2 class="mb-0">
+                                                        {{ card.description }}
+                                                    </h2>
+                                                    <p class="text-justify">
+                                                        {{ card.legend }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mdb-carousel-item>
+                        </mdb-carousel>
+                    </div>
+                </div>
+                <div fxHide.gt-sm class="grid-list mb--40 mt--65">
+                    <div *ngIf="slides.length === 1">
+                        <mdb-carousel [animation]="'slide'" [isControls]="true"
+                            class="carousel-multi-item multi-animation mdb-carouselMobile"
+                            [type]="'carousel-multi-item'" [interval]="false">
+                            <mdb-carousel-item>
+                                <div class="grid-item pointer">
+                                    <div class="cnt-box cnt-box-top-icon boxed">
+                                        <i class="shime-i shine"></i>
+                                        <div class="caption pt-8">
+                                            <h2 class="shine shime-h2 mb-0"></h2>
+                                            <p class="shine shime-p"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mdb-carousel-item>
+                        </mdb-carousel>
+                    </div>
+                    <div *ngIf="!showForms && ServicesList.length > 0" [@animate]="{
+                                value: '*',
+                                params: { delay: '100ms', y: '25px' }
+                            }">
+                        <mdb-carousel [animation]="'slide'" [isControls]="true"
+                            class="carousel-multi-item multi-animation mdb-carouselMobile"
+                            [type]="'carousel-multi-item'" [interval]="false">
+                            <mdb-carousel-item *ngFor="let item of ServicesList">
+                                <div class="grid-item pointer" (click)="LoadForm(item.key)">
+                                    <div class="cnt-box cnt-box-top-icon boxed">
+                                        <img class="img-services" [src]="item.publicIconUrl" />
+                                        <div class="caption pt-8">
+                                            <h2 class="mb-0">
+                                                {{ item.description }}
+                                            </h2>
+                                            <p>
+                                                {{ item.legend }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mdb-carousel-item>
+                        </mdb-carousel>
+                    </div>
+                </div>
+
+                <button mat-flat-button *ngIf="showForms" (click)="Clean()" class="backButtonMobile" [@animate]="{
+                            value: '*',
+                            params: { delay: '100ms', x: '-25px' }
+                        }">
+                    <mat-icon class="secondary-text s-24">arrow_back</mat-icon>
+                </button>
+                <div *ngIf="showForms" fxLayout="column" fxLayoutAlign="center" [@animate]="{
+                            value: '*',
+                            params: { delay: '100ms', x: '-25px' }
+                        }">
+                    <new-form class="new-formMobile t--90" [Formid]="Formid" [Title]="Formid"
+                        (FormSubmissionEvent)="RecieveRequestForm($event)" [isColumn]="true"></new-form>
+                </div>
+
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-12">
+                        <div class="title text-center">
+                            <h2 class="font-weight-600">
+                                Mira cómo funciona Tareazos
+                            </h2>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="col-lg-8 text-center">
+                        <ul class="slider" data-options="arrows:true,nav:false">
+                            <li>
+                                <a class="img-box img-box-caption btn-video lightbox"
+                                    href="https://www.youtube.com/watch?v=OdIoZ_fS-uw" data-lightbox-anima="fade-top">
+                                    <img src="/assets/images/video_cover.JPG" alt="" />
+                                    <span>¿Cómo funciona?</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <br>
+                        <br>
+                        <p class="font-size-18 line-height-24">
+                            Ya sea que busques ayuda para instalar una TV, servicios de entrega, un plomero o alguien
+                            que te
+                            ayude a organizar tu jardín. Tareazos es el lugar
+                            perfecto para encontrar esa ayuda calificada,
+                            cercana y segura que necesitas para todas tus tareas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="section4" class="section-base bg-pasos" (click)="Opentab()">
+            <div class="containerHome pt-0 pb-0 text-center" data-anima="fade-bottom" data-time="1000">
+                <img src="/assets/images/sections/post-rs-3-new.png" class="img-pasos" fxHide fxShow.gt-sm
+                    alt="Imagina hacer todo tipo de tareas sin moverte de donde estés" />
+
+                <img src="/assets/images/sections/post-rs-3-new.png" class="img-pasosMobile" fxHide.gt-sm
+                    alt="Imagina hacer todo tipo de tareas sin moverte de donde estés" />
+            </div>
+        </section>
+        <section id="section5" class="section-base section-color">
+            <div class="containerHome pt-48 pb-48">
+                <div class="row align-items-center" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-6">
+                        <img src="/assets/media/family.png" alt="" />
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="title">
+                            <h2 class="font-weight-500">
+                                Atiende las cosas más importantes de tu
+                                vida
+                            </h2>
+                            <p>Preocúpate menos, disfruta más:</p>
+                        </div>
+                        <p class="font-size-18 line-height-24">
+                            Nosotros nos encargamos de lo demás:
+                        </p>
+                        <ul class="font-size-18 line-height-24">
+                            <li>
+                                Contamos con muchas categorías de servicios, sin embargo, si tu categoría no se
+                                encuentra listada
+                                recuerda que puedes crear tus tareas con la categoría "Otras".
+                                Queremos ayudarte a encontrar la persona perfecta para cualquier tipo de tarea.
+                            </li>
+                            <br>
+                            <li>
+                                Desde nuestra app todas tus tareas se crean con información de geolocalización, lo cual
+                                te ayudará a encontrar de forma rápida los mejores tareadores cerca de ti.
+                            </li>
+                        </ul>
+                        <hr class="space-sm" />
+
+
+
+                        <div class="title font-size-20">
+                            <p>¿por qué es seguro usar Tareazos?</p>
+                        </div>
+                        <ul class="font-size-18 line-height-24">
+                            <li>
+                                Todos los Tareadores pasan por un proceso de
+                                aprobación, a través del cual validamos su identidad y los entrevistamos para
+                                asegurarnos que son las personas correctas para ayudarte. Para algunas categorías
+                                podemos solicitarles información complementaria para asegurarnos que cuentan con las
+                                habilidades necesarias para hacer un buen trabajo.
+                            </li>
+                            <br>
+                            <li>
+                                Puedes pagar a los Tareadores por sus servicios a través del app. Solo liberaremos los
+                                fondos a los tareadores una vez estes satisfecho con su trabajo.
+                            </li>
+                            <br>
+                            <li>
+                                Cuando contratas a algunos de nuestros Tareadores podrás utilizar nuestro sistema de
+                                reseñas y calificaciones que te permite verificar las cualidades y experiencias de tu
+                                Tareador.
+                                También puedes ayudar a los Tareadores y a otros usuarios, compartiendo reseñas de tus
+                                experiencias.
+                            </li>
+                        </ul>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="tareadores" class="section-base bg-white">
+            <div class="containerHome pt-48 pb-48">
+                <div class="row align-items-start" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12 text-center">
+                        <div class="title">
+                            <h2 class="font-weight-500 fg-primary">
+                                Para nuestros Tareadores:
+                            </h2>
+                        </div>
+                        <div>
+                            Todos tenemos habilidades increíbles con las que podemos generar ingresos
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <img src="/assets/images/sections/taskers.jpg" alt="" fxHide.gt-sm>
+                        <img src="/assets/images/sections/taskers.jpg" alt="" class="img-50" fxShow="true" fxHide.lt-md>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="column">
+                            <mat-icon class="taskerIcon fg-primary">person_add</mat-icon>
+                            <div class="title text-center">
+                                <span class="font-size-20 font-weight-600 fg-primary">Regístrate</span>
+                            </div>
+                            <p class="font-size-15 text-center fg-black">
+                                Regístrate como Tareador y selecciona tus habilidades
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="column">
+                            <mat-icon class="taskerIcon fg-primary">search</mat-icon>
+                            <div class="title text-center">
+                                <span class="font-size-20 font-weight-600 fg-primary">Busca tareas</span>
+                            </div>
+                            <p class="font-size-15 text-center fg-black">
+                                Busca tareas cercanas que coincidan con tus habilidades. Cuando encuentres la tarea
+                                correcta, haz una oferta!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="column">
+                            <mat-icon class="taskerIcon fg-primary">gavel</mat-icon>
+                            <div class="title text-center">
+                                <span class="font-size-20 font-weight-600 fg-primary">Haz una oferta</span>
+                            </div>
+                            <p class="font-size-15 text-center fg-black">
+                                Es importante que tu oferta tenga un precio justo, teniendo en cuenta cuánto tiempo
+                                puede tomar y qué habilidades se necesitan
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="column">
+                            <mat-icon class="taskerIcon fg-primary">attach_money</mat-icon>
+                            <div class="title text-center">
+                                <span class="font-size-20 font-weight-600 fg-primary">Haz bien tu tarea y recibe tu
+                                    recompensa</span>
+                            </div>
+                            <p class="font-size-15 text-center fg-black">
+                                Mantente en comunicación con tu cliente a través de nuestro chat. Cuando termines tu
+                                tarea, asegúrate de solicitar que se libere el pago y te dejen una crítica honesta!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <button [routerLink]="'/forms/signup'" mat-flat-button color="accent">
+                            Quiero registrarme como Tareador
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="section6" class="section-base section-overflow-top bg-pronto">
+            <div class="containerHome pb-0">
+                <div class="row" data-anima="fade-bottom" data-time="1000">
+                    <div class="col-lg-12 text-center" style="margin-top: 110px;">
+                        <img src="/assets/images/pronto-appnew.png" alt="" fxHide.gt-sm>
+                        <img src="/assets/images/pronto-appnew.png" alt="" class="img-50" fxShow="true" fxHide.lt-md>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <i class="scroll-top-btn scroll-top show fg-white"></i>
+    <footer class="light">
+        <div class="containerHome">
+            <div class="row">
+                <div class="col-lg-4">
+                    <h3>Tareazos</h3>
+                    <p>
+                        Atiende las cosas más importantes de tu vida.
+                    </p>
+                    <div class="icon-links icon-social icon-links-grid social-colors">
+                        <a class="facebook" href="https://www.facebook.com/tareazos" target="_blank"><i
+                                class="icon-facebook text-center"></i></a>
+                        <a class="twitter" href="https://twitter.com/tareazos" target="_blank"><i
+                                class="icon-twitter text-center"></i></a>
+                        <a class="instagram" href="https://www.instagram.com/tareazos/" target="_blank"><i
+                                class="icon-instagram text-center"></i></a>
+                        <!-- <a class="pinterest"><i class="icon-pinterest"></i></a> -->
+                        <a class="linkedin" href="https://www.linkedin.com/company/tareazos" target="_blank"><i
+                                class="icon-linkedin text-center"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <h3>Términos</h3>
+                    <ul class="icon-list1 icon-line">
+                        <li> <a class="fg-white" [routerLink]="'/aviso-legal'">Aviso legal</a></li>
+                        <li><a class="fg-white" [routerLink]="'/politicas'">Políticas de cookies y privacidad</a></li>
+                        <li><a class="fg-white" [routerLink]="'/terminos-condiciones'">Términos y condiciones</a></li>
+                        <li><a class="fg-white" [routerLink]="'/cargos-comisiones'">Cargos y Comisiones</a></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <ul class="text-list text-list-line">
+                        <li>
+                            <b>Dirección</b>
+                            <hr />
+                            <p>Costa del Este, Panamá</p>
+                        </li>
+                        <li>
+                            <b>Correo</b>
+                            <hr />
+                            <p>info@tareazos.com</p>
+                        </li>
+                        <li>
+                            <b>Teléfono</b>
+                            <hr />
+                            <p>+507 6832-9942</p>
+                        </li>
+                        <li>
+                            <b>Horario</b>
+                            <hr />
+                            <p>9am-6pm Lunes - Viernes</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bar">
+            <div class="containerHome">
+                <span>© 2020 Tareazos </span>
+                <span><a class="fg-white" href="mailto:info@tareazos.com">Contáctanos</a>
+                </span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<div id="about" fxLayout="row wrap" [style.visibility]="(about) ? 'visible': 'hidden'">
+
+    <div class="about-content" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="50">
+
+        <div class="profile-box info-box general" fxLayout="column">
+
+            <header class="fg-primary pt-20" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="font-size-24 fg-primary">description</mat-icon><span
+                    class="font-size-20 font-weight-400 pl-4"> Información general</span>
+            </header>
+
+            <div class="content pt-0">
+                <div fxLayout="row">
+                    <div class="info-line" fxFlex>
+                        <div class="">Nombre</div>
+                        <div class="info">{{about?.Generales?.FirstName}}</div>
+                    </div>
+
+                    <div class="info-line" fxFlex>
+                        <div class="">Apellido</div>
+                        <div class="info">{{about?.Generales?.LastName}}</div>
+                    </div>
+                </div>
+
+                <div fxLayout="row">
+                    <div class="info-line" fxFlex>
+                        <div class="">Provincia</div>
+                        <div class="info">{{about?.Generales?.Province}}</div>
+                    </div>
+                    <div class="info-line" fxFlex>
+                        <div class="">Address</div>
+                        <div class="info">{{about?.Generales?.Address}}</div>
+                    </div>
+
+                </div>
+
+                <div fxLayout="row">
+                    <div class="info-line" fxFlex>
+                        <div class="">Teléfono</div>
+                        <div class="info">{{about?.Generales?.Cellphone}}</div>
+                    </div>
+
+                    <div class="info-line" fxFlex>
+                        <div class="">Website</div>
+                        <div class="info"></div>
+                    </div>
+                </div>
+
+                <div class="info-line">
+                    <div class="">About Me</div>
+                    <div class="info"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="about-sidebar" fxLayout="column" fxFlex="100" fxFlex.gt-sm="50" fxFlex.gt-md="50">
+
+        <div class="profile-box info-box work" fxLayout="column">
+
+            <header class="fg-primary pt-20" fxLayout="row" fxLayoutAlign="space-between center">
+                <mat-icon class="font-size-24 fg-primary">engineering</mat-icon><span
+                    class="font-size-20 font-weight-400 pl-4"> Habilidades</span>
+
+                <div class="more secondary-text">
+                    <span class="font-size-14 font-weight-400 fg-primary">Añadir más </span>
+                </div>
+            </header>
+
+            <div class="content pt-0">
+
+                <div class="info-line">
+                   
+                    <div class="info" fxLayout="row" fxLayoutAlign="start start" *ngFor="let job of about?.Habilidades;let i=index;">
+                        <div fxFlex="60" [style.visibility]="(about?.Habilidades) ? 'visible': 'hidden'" >
+                            <div class="info font-weight-600">{{job.skill}} <span [style.visibility]="(job?.subcategory) ? 'visible': 'hidden'" > -
+                                    {{job.subcategory}}</span></div>
+
+                        </div>
+
+                        <div fxFlex="30" [style.visibility]="(about?.Habilidades) ? 'visible': 'hidden'" >
+                            <div class="info font-weight-600">
+                                {{job.rate | currency}}/{{job.priceType.replace('Precio por ', '').replace('Precio ', '').toLowerCase() }}
+                            </div>
+                        </div>
+                        <div fxFlex="10" [style.visibility]="(about?.Habilidades) ? 'visible': 'hidden'" >
+                            <div class="info font-weight-600">
+                                <button mat-button color="accent" (click)="deleteSkill(i)" aria-label="Example icon button with a home icon">
+                                    <mat-icon style="font-size: 18px;">delete</mat-icon>
+                                  </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="info">{{about.Generales.skills}}</div> -->
+                </div>
+
+            </div>
+        </div>
+
+        <div class="profile-box group" fxLayout="column">
+
+            <header class="fg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                <div fxLayout="row">
+                    <mat-icon class="font-size-24 fg-primary">security</mat-icon><span
+                        class="font-size-20 font-weight-400 pl-4"> Insignias</span>
+                </div>
+
+            </header>
+
+            <div class="content">
+
+                <!--    <div class="group" *ngFor="let group of about.Generales" fxLayout="row"
+                     fxLayoutAlign="space-between center">
+
+                    <div fxLayout="row" fxLayoutAlign="start center">
+
+                        <div class="logo">{{group.name.substring(0,1)}}</div>
+
+                        <div>
+                            <div class="name">{{group.name}}</div>
+                            <div class="category">{{group.category}}</div>
+                            <div class="members">{{group.members}} people</div>
+                        </div>
+                    </div>
+
+                    <button mat-icon-button aria-label="More">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </div> -->
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

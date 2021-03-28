@@ -1,0 +1,85 @@
+<div id="academy-courses" class="page-layout simple" (scroll)="divScroll($event)">
+
+    <!-- HEADER -->
+    <div class="header accent " fxLayout="column" fxLayoutAlign="center center">
+
+        <div class="hero-text" align="center">
+            <!-- <mat-icon class="hero-icon">build</mat-icon> -->
+            <h1 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                BIENVENIDO A TAREAZOS
+            </h1>
+            <h3 [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">
+                Encuentra el proveedor adecuado para realizar cualquier tipo de trabajo.
+            </h3>
+
+            <button class="mt-24" mat-raised-button color="primary"
+                [@animate]="{value:'*',params:{delay:'100ms', y:'25px'}}">¡Empieza ahora!</button>
+        </div>
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content m-24 mt-0">
+        <div fxLayout="column" fxLayoutAlign="center" *ngIf="(!showForms && !showRequestDetail)"
+            [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+
+            <div class="filters" fxLayout="column" fxLayoutAlign="center center" fxLayout.xl-xs="row"
+                fxLayoutAlign="space-between center">
+                <span class="font-size-32 mb-0 text-center font-weight-bold">¿Qué servicio estás buscando?</span>
+            </div>
+
+            <div class="courses" fxLayout="row wrap" fxLayoutAlign="center" [@animateStagger]="{value:'50'}">
+
+                <div class="course" *ngFor="let course of ServicesList | async" fxFlex="100" fxFlex.gt-xs="50" fxFlex.gt-sm="25"
+                    [ngClass]="course.category" [@animate]="{value:'*',params:{y:'100%'}}">
+
+                    <div class="course-content" fxLayout="column" fxFlex="1 1 auto">
+
+                        <!-- <div class="header" fxLayout="row" fxLayoutAlign="center center" [ngClass]="'firebase-bg'">
+
+                            <div class="category" fxFlex>
+                                {{course.description}}
+                            </div>
+
+                            <div class="length" fxLayout="row" fxLayoutAlign="center center">
+                                <mat-icon class="length-icon s-20">access_time</mat-icon>
+                                <div class="min">{{(ServicesList | async)?.length}} min</div>
+                            </div>
+
+                        </div> -->
+
+                        <div class="content p-0" fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                            <div class="font-size-16 font-weight-600 text-center">{{course.description}}</div>
+                            <div class="updated pt-20">
+                                <img src="/assets/images/painter.png" style="height: 100px;" />
+                            </div>
+                            <!-- <div class="font-size-22 font-weight-600 text-center">{{course.title}}</div> -->
+                        </div>
+
+                        <div class="footer" fxLayout="row" fxLayoutAlign="center center">
+                            <button mat-button color="accent" (click)="LoadForm(course.key)">
+                                INICIAR
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="no-courses" *ngIf="(ServicesList | async)?.length === 0">
+                   Todas la categorías se encuentran deshabilitadas
+                </div>
+
+            </div>
+
+        </div>
+        <button mat-flat-button *ngIf="showForms" (click)="Clean()" class="backButton">
+            <mat-icon class="secondary-text s-24">arrow_back</mat-icon>
+        </button>
+        <div *ngIf="showForms" fxLayout="column" fxLayoutAlign="center" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+            <new-form [Formid]="Formid" [Title]="Formid" (FormSubmissionEvent)="RecieveRequestForm($event)" [isColumn]="false"></new-form>
+        </div>
+    </div>
+    <!-- / CONTENT -->
+</div>

@@ -1,0 +1,44 @@
+<div *ngIf="requests.length === 0"
+    class="mh-0"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxFlexFill>
+    <span class="no-messages-text hint-text">{{
+        "MAIL.NO_MESSAGES" | translate }}
+    </span>
+</div>
+
+<div class="mail-list" [@animateStagger]="{ value: '50' }">
+        <mail-list-item
+            *ngFor="let request of requests"
+            class="border-bottom"
+            [ngClass]="{
+                'border-Open':request.data.status == 'Open',
+                'border-Assigned':request.data.status == 'Assigned',
+                'border-Completed':request.data.status == 'Completed',
+                'bg-menuPrimaryLight':request.id == currentMail.id
+            }"
+            [request]="request"
+            (click)="readMail(request.id)"
+            [@animate]="{ value: '*', params: { y: '100%' } }"
+        >
+        </mail-list-item>
+    <div class="pagination">
+        <button
+            mat-icon-button
+            color="primary"
+            (click)="prevPage()"
+            [disabled]="!prevKeys?.length"
+        >
+            <mat-icon>skip_previous</mat-icon>
+        </button>
+        <button
+            mat-icon-button
+            color="primary"
+            (click)="nextPage()"
+            [disabled]="!nextKey.docId"
+        >
+            <mat-icon>skip_next</mat-icon>
+        </button>
+    </div>
+</div>

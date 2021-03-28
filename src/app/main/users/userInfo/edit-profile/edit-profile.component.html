@@ -1,0 +1,34 @@
+<div id="client-forms" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+    <mat-toolbar class="mat-toolbar pl-0">
+        <div fxFlex fxLayout="column" fxLayoutAlign="start center">
+            Editar
+        </div>
+        <button mat-raised-button color="primary" *ngIf="form.valid" (click)="SubmitForm()" fxFlex>
+            Guardar
+        </button>
+    </mat-toolbar>
+
+    <div class="content pt-30">
+        <div class="center" fusePerfectScrollbar>
+            <div class="content">
+                <div fxLayout="column">
+                    <div fxLayout="column" class="ngx-dnd-container">
+                        <div *ngFor="
+            let question of formQuestions
+                | async
+        " fxFlex="100">
+                            <df-question fxFlex class="ngx-dnd-item" [question]="question" [form]="form"
+                                (ControlChange)="
+            GetDropdownChange($event)
+            " (GetDownloadUrl2)="
+                GetDownloadUrl($event)
+            ">
+                            </df-question>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>

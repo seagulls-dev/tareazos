@@ -1,0 +1,62 @@
+<div [formGroup]="form" style="padding:10px">
+    <div [ngSwitch]="question.controlType">
+        <mat-form-field *ngSwitchCase="'textbox'" class="w-100" appearance='fill'>
+            <mat-label>{{question.label}}</mat-label>
+            <input type="{{question.type}}" matInput placeholder="{{question.label}}"
+                formControlName="{{question.key}}" [id]="question.key"  (ngModelChange)="controlChange($event)" >
+                <mat-hint *ngIf="question.tooltip">{{question.tooltip}}</mat-hint>
+        </mat-form-field>
+        <mat-form-field *ngSwitchCase="'datepicker'" class="w-100" appearance='fill'>
+            <mat-label>{{question.label}}:</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="{{question.key}}">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+<div *ngSwitchCase="'dropdown'">
+        <mat-form-field  class="w-100" appearance='fill' *ngIf="!(question.noOptionsHidden && (options |async)?.length == 0)">
+            <mat-label>{{question.label}}</mat-label>
+            <mat-select [id]="question.key" 
+                (ngModelChange)="controlChange($event)" placeholder="{{question.label}}"
+                formControlName="{{question.key}}">
+                <mat-option *ngFor="let opt of options | async" [value]="opt.key">{{opt.description}}</mat-option>
+            </mat-select>
+            <mat-hint  *ngIf="question.tooltip">{{question.tooltip}}</mat-hint>
+        </mat-form-field>
+    </div>
+
+        <mat-form-field *ngSwitchCase="'multiple'" class="w-100" appearance='fill'>
+            <mat-label>{{question.label}}</mat-label>
+            <mat-select [id]="question.key"
+                (ngModelChange)="controlChange($event)" placeholder="{{question.label}}"
+                formControlName="{{question.key}}" multiple>
+                <mat-option *ngFor="let opt of options | async" [value]="opt.key">{{opt.description}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngSwitchCase="'textarea'" class="w-100" appearance='fill'>
+            <mat-label>{{question.label}}</mat-label>
+            <textarea matInput placeholder="{{question.label}}"
+                formControlName="{{question.key}}" [id]="question.key">{{question.value}}</textarea>
+        </mat-form-field>
+
+        <mat-slide-toggle *ngSwitchCase="'toggle'" formControlName="{{question.key}}">{{question.label}}</mat-slide-toggle>
+       
+        <div  class="w-100">
+            <uploader *ngSwitchCase="'file'" [label]="question.label" (GetDownloadUrl2)="GetDownloadUrl($event)" ></uploader>
+            <!-- <mat-form-field class="width80" appearance='fill'>
+                <mat-label>{{question.label}}</mat-label>
+                <input matInput [value]="filename" formControlName="{{question.key}}">
+            </mat-form-field>
+
+            <a mat-mini-fab color="default" (click)="FileInput.click()">
+                <mat-icon>attach_file</mat-icon>
+            </a>
+            
+            <input type="file" hidden #FileInput (change)="uploadFile($event,question.key)"
+                accept="application/pdf,image/jpeg">
+        </div> -->
+
+
+    </div>
+    <!--<div class="errorMessage" *ngIf="!isValid">{{question.label}} es requerido</div>-->
+</div>
